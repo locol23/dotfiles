@@ -6,6 +6,7 @@ mkdir -p ~/.nodebrew/src
 brew install nodebrew
 
 brew install tmux
+brew install reattach-to-user-namespace
 
 brew cask install visual-studio-code
 brew cask install slack
