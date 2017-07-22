@@ -8,6 +8,7 @@ nodebrew install-binary latest
 
 brew install tmux
 brew install reattach-to-user-namespace
+brew install tree
 
 brew cask install visual-studio-code
 brew cask install slack
