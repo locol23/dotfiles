@@ -1,3 +1,4 @@
+# TMUX
 function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
 function is_osx() { [[ $OSTYPE == darwin* ]]; }
 function is_screen_running() { [ ! -z "$STY" ]; }
@@ -59,6 +60,9 @@ function tmux_automatically_attach_session()
     fi
 }
 tmux_automatically_attach_session
+
+# Export
+export PATH=$PATH:/Users/locol/.nodebrew/current/bin
 
 # 補完機能
 autoload -U compinit

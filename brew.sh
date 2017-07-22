@@ -4,6 +4,7 @@ brew tap caskroom/versions
 
 mkdir -p ~/.nodebrew/src
 brew install nodebrew
+nodebrew install-binary latest
 
 brew install tmux
 brew install reattach-to-user-namespace
