@@ -61,10 +61,6 @@ function tmux_automatically_attach_session()
 }
 tmux_automatically_attach_session
 
-# Export
-export PATH=$PATH:/Users/locol/.nodebrew/current/bin
-export PATH=$PATH:/usr/local/Cellar/node/current/bin
-
 # 補完機能
 autoload -U compinit
 compinit

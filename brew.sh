@@ -2,13 +2,14 @@
 
 brew tap caskroom/versions
 
-mkdir -p ~/.nodebrew/src
-brew install nodebrew
-nodebrew install-binary latest
-
 brew install tmux
 brew install reattach-to-user-namespace
 brew install tree
+brew install node
+
+npm install -g n
+
+sudo n latest
 
 brew cask install visual-studio-code
 brew cask install slack
