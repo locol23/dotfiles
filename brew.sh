@@ -7,7 +7,7 @@ brew install reattach-to-user-namespace
 brew install tree
 brew install node
 
-npm install -g n
+sudo npm install -g n
 
 sudo n latest
 
