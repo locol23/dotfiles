@@ -17,6 +17,12 @@ brew cask install sourcetree
 brew cask install google-chrome-canary
 brew cask install ngrok
 
+# setup zsh
 chsh -s /bin/zsh
-
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# install nodebrew
+curl -L git.io/nodebrew | perl - setup
+echo "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> .zshrc
+source .zshrc
+
