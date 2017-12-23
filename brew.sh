@@ -11,6 +11,7 @@ brew cask install sourcetree
 brew cask install google-chrome-canary
 brew cask install ngrok
 brew cask install karabiner
+brew cask install skitch
 
 # install zsh
 chsh -s /bin/zsh
