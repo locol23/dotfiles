@@ -6,7 +6,7 @@ brew install reattach-to-user-namespace
 brew install tree
 
 brew cask install visual-studio-code
-brew cask install slack
+brew cask install franz
 brew cask install sourcetree
 brew cask install google-chrome-canary
 brew cask install ngrok
