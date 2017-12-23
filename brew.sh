@@ -10,8 +10,9 @@ brew cask install slack
 brew cask install sourcetree
 brew cask install google-chrome-canary
 brew cask install ngrok
+brew cask install karabiner
 
-# setup zsh
+# install zsh
 chsh -s /bin/zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
