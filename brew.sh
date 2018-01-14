@@ -2,7 +2,6 @@
 
 brew tap caskroom/versions
 
-brew install reattach-to-user-namespace
 brew install tree
 
 brew cask install visual-studio-code
@@ -22,4 +21,6 @@ curl -L git.io/nodebrew | perl - setup
 echo "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> .zshrc
 source .zshrc
 MAKE_OPTS="-j 2" nodebrew install-binary latest
+
+node i -g now
 
