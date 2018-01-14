@@ -3,6 +3,7 @@
 brew tap caskroom/versions
 
 brew install tree
+brew install tig
 
 brew cask install visual-studio-code
 brew cask install franz
