@@ -7,7 +7,6 @@ brew install tig
 
 brew cask install visual-studio-code
 brew cask install franz
-brew cask install sourcetree
 brew cask install google-chrome-canary
 brew cask install ngrok
 brew cask install karabiner
@@ -22,6 +21,6 @@ curl -L git.io/nodebrew | perl - setup
 echo "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> .zshrc
 source .zshrc
 MAKE_OPTS="-j 2" nodebrew install-binary latest
+nodebrew use latest
 
-node i -g now
-
+npm i -g now
