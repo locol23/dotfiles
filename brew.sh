@@ -11,6 +11,7 @@ brew cask install google-chrome-canary
 brew cask install ngrok
 brew cask install karabiner
 brew cask install skitch
+brew cask install postman
 
 # install zsh
 chsh -s /bin/zsh
