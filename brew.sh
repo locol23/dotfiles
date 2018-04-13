@@ -18,7 +18,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # install nodebrew
 curl -L git.io/nodebrew | perl - setup
-echo "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> .zshrc
+echo "export PATH=$HOME/.nodebrew/current/bin:$PATH" >> ~/.zshrc
 source .zshrc
 MAKE_OPTS="-j 2" nodebrew install-binary latest
 nodebrew use latest
