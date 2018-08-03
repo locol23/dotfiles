@@ -9,3 +9,5 @@
   ss = stash save
   sp = stash pop
   al = config --get-regexp alias.*
+  f = fetch -p
+  b = branch
