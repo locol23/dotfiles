@@ -26,6 +26,7 @@ brew cask install skitch
 brew cask install postman
 brew cask install hyper
 brew cask install cmd-eikana
+brew cask install bettertouchtool
 
 # install zsh
 chsh -s /bin/zsh
