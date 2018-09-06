@@ -21,7 +21,7 @@ brew cask install visual-studio-code
 brew cask install franz
 brew cask install google-chrome-canary
 brew cask install ngrok
-brew cask install karabiner
+brew cask install karabiner-elements
 brew cask install skitch
 brew cask install postman
 brew cask install hyper
