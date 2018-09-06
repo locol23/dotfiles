@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cat .gitconfig >> ~/.gitconfig
+cp -p .bttconfig.json ~/
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
