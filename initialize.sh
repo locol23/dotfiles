@@ -17,6 +17,7 @@ brew cask install karabiner
 brew cask install skitch
 brew cask install postman
 brew cask install hyper
+brew cask install cmd-eikana
 
 # install zsh
 chsh -s /bin/zsh
