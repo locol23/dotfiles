@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Dock settings
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock tilesize -int 55
+defaults write com.apple.dock magnification -bool true
+killall Dock
+
 cat .gitconfig >> ~/.gitconfig
 cp -p .bttconfig.json ~/
 
