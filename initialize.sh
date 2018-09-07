@@ -40,3 +40,4 @@ MAKE_OPTS="-j 2" nodebrew install-binary latest
 nodebrew use latest
 
 npm i -g now
+npm i -g lerna
