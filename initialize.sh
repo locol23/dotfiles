@@ -16,6 +16,7 @@ brew tap caskroom/versions
 
 brew install tree
 brew install tig
+brew install yarn --without-node
 
 brew cask install visual-studio-code
 brew cask install franz
