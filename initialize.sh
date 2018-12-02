@@ -35,7 +35,7 @@ brew cask install docker
 chsh -s /bin/zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "alias g='git'" >> ~/.zshenv
-echo "alias gbd=\"g b --merged master | grep -vE '^\*|master$|develop$' | xargs -I % g b -d %\"" >> ~/.zshenv
+echo "alias gbd=\"g b --merged master | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %\"" >> ~/.zshenv
 
 # install nodebrew
 curl -L git.io/nodebrew | perl - setup
