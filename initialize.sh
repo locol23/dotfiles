@@ -18,6 +18,7 @@ brew install tree
 brew install tig
 brew install yarn --without-node
 brew install direnv
+brew install yarn
 
 brew cask install visual-studio-code
 brew cask install rambox
