@@ -19,7 +19,7 @@ brew install tig
 brew install yarn --without-node
 
 brew cask install visual-studio-code
-brew cask install franz
+brew cask install rambox
 brew cask install google-chrome-canary
 brew cask install google-japanese-ime
 brew cask install ngrok
