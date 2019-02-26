@@ -33,11 +33,9 @@ brew cask install bettertouchtool
 brew cask install docker
 
 # install zsh
-chsh -s /bin/zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-echo "alias g='git'" >> ~/.zshrc
-echo "alias gbd=\"g b --merged | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %\"" >> ~/.zshrc
-echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+sh ./oh-my-zsh/tools/install.sh
+mkdir -p ~/.oh-my-zsh/custom/
+cp custom.zsh ~/.oh-my-zsh/custom/
 
 # install nodebrew
 curl -L git.io/nodebrew | perl - setup
