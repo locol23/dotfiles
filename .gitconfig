@@ -1,3 +1,5 @@
+[user]
+    name = Yoshitaka Terazawa
 [color]
     ui = auto
 [alias]
@@ -12,4 +14,6 @@
     sp = stash pop
     al = config --get-regexp alias.*
     f = fetch -p
-    b = branch -a
+    b = branch
+[pager]
+    branch = cat
