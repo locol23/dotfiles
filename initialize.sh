@@ -12,25 +12,7 @@ cp -p .bttconfig.json ~/
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew tap caskroom/versions
-
-brew install tree
-brew install tig
-brew install yarn --without-node
-brew install direnv
-
-brew cask install visual-studio-code
-brew cask install rambox
-brew cask install google-chrome-canary
-brew cask install google-japanese-ime
-brew cask install ngrok
-brew cask install karabiner-elements
-brew cask install skitch
-brew cask install postman
-brew cask install hyper
-brew cask install cmd-eikana
-brew cask install bettertouchtool
-brew cask install docker
+brew bundle
 
 # install zsh
 sh ./oh-my-zsh/tools/install.sh
