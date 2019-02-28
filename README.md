@@ -11,7 +11,7 @@ my dot files
 make install
 ```
 
-## Install dot file List
+## List of dot files
 
 ```bash
 make list
