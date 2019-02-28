@@ -32,14 +32,18 @@ init:
 	@echo 'Install zsh'
 	@echo ''
 	@sh zsh.sh
+	@yarn global add pure-prompt
 	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
-	@curl -L git.io/nodebrew | perl - setup
-	@MAKE_OPTS="-j 2" nodebrew install-binary latest
-	@nodebrew use latest
-	@yarn global add pure-prompt
 	@yarn global add n
+	@sudo mkdir -p /usr/local/n
+	@sudo chown -R $(whoami) /usr/local/n
+	@sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+	@n latest
+	@echo ''
+	@echo 'Install node modules globally'
+	@echo ''
 	@yarn global add now
 	@yarn global add lerna
 
