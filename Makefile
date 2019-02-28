@@ -14,16 +14,6 @@ update:
 	git submodule update
 	git submodule foreach git pull origin master
 
-deploy:
-	@echo ''
-	@echo 'Deploy files'
-	@echo ''
-	@cp -p .gitconfig ~/
-	@cp -p bttconfig.json ~/
-	@cp .zshrc ~/
-	@cp custom.zsh ~/.oh-my-zsh/custom/
-	@echo "export PATH=$$HOME/.nodebrew/current/bin:$$PATH" >> ~/.zshenv
-
 init:
 	@echo ''
 	@echo 'Install Mac Dock settings'
@@ -51,6 +41,16 @@ init:
 	@nodebrew use latest
 	@npm i -g now
 	@npm i -g lerna
+
+deploy:
+	@echo ''
+	@echo 'Deploy files'
+	@echo ''
+	@cp -p .gitconfig ~/
+	@cp -p bttconfig.json ~/
+	@cp .zshrc ~/
+	@cp custom.zsh ~/.oh-my-zsh/custom/
+	@echo "export PATH=$$HOME/.nodebrew/current/bin:$$PATH" >> ~/.zshenv
 
 install: update init deploy
 	@echo ''
