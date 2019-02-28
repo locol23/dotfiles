@@ -1,3 +1,10 @@
+EXCLUDE := .DS_Store .git .gitmodules
+FILES := $(wildcard .??*)
+TARGET := $(filter-out $(EXCLUDE), $(FILES))
+
+list:
+	@$(foreach val, $(TARGET), ls -dF $(val);)
+
 update:
 	@echo ''
 	@echo 'Update git repository'
