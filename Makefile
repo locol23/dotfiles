@@ -51,11 +51,9 @@ deploy:
 	@echo ''
 	@echo 'Deploy files'
 	@echo ''
-	@cp -p .gitconfig ~/
-	@cp -p bttconfig.json ~/
-	@cp .zshrc ~/
-	@cp custom.zsh ~/.oh-my-zsh/custom/
-	@echo "export PATH=$$HOME/.nodebrew/current/bin:$$PATH" >> ~/.zshenv
+	@$(foreach val, $(TARGET), cp -v $(val) ~/;)
+	@cp -v bttconfig.json ~/
+	@cp -v custom.zsh ~/.oh-my-zsh/custom/
 
 install: update init deploy
 	@echo ''
