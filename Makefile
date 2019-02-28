@@ -18,7 +18,7 @@ deploy:
 	@echo ''
 	@echo 'Deploy files'
 	@echo ''
-	# @cp -p .gitconfig ~/
+	@cp -p .gitconfig ~/
 	@cp -p bttconfig.json ~/
 	@cp .zshrc ~/
 	@cp custom.zsh ~/.oh-my-zsh/custom/
@@ -28,11 +28,11 @@ init:
 	@echo ''
 	@echo 'Install Mac Dock settings'
 	@echo ''
-	# @defaults write com.apple.dock autohide -bool true
-	# @defaults write com.apple.dock persistent-apps -array
-	# @defaults write com.apple.dock tilesize -int 55
-	# @defaults write com.apple.dock magnification -bool true
-	# @killall Dock
+	@defaults write com.apple.dock autohide -bool true
+	@defaults write com.apple.dock persistent-apps -array
+	@defaults write com.apple.dock tilesize -int 55
+	@defaults write com.apple.dock magnification -bool true
+	@killall Dock
 	@echo ''
 	@echo 'Install Homebrew and Formula'
 	@echo ''
@@ -46,11 +46,11 @@ init:
 	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
-	# @curl -L git.io/nodebrew | perl - setup
-	# @MAKE_OPTS="-j 2" nodebrew install-binary latest
-	# @nodebrew use latest
-	# @npm i -g now
-	# @npm i -g lerna
+	@curl -L git.io/nodebrew | perl - setup
+	@MAKE_OPTS="-j 2" nodebrew install-binary latest
+	@nodebrew use latest
+	@npm i -g now
+	@npm i -g lerna
 
 install: update init deploy
 	@echo ''
