@@ -63,7 +63,7 @@ install: update init deploy
 uninstall:
 	@echo ''
 	@echo 'Uninstall settings'
-	@rm -f ~/.gitconfig
+	@$(foreach val, $(TARGET), rm -f ~/$(val);)
 	@rm -f ~/bttconfig
 	@rm -f ~/.zsh*
 	@rm -rf ~/.oh-my-zsh/
