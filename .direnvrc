@@ -3,12 +3,12 @@ function set_node_ver() {
     local NODE_VER=$(head -1 .node-version)
     n $NODE_VER
     echo 'Current node version is '$NODE_VER
-  elif [ -e 'Dockerfile' ]; then
-    local DOCKER_PATH='./Dockerfile'
+  elif [ -n "$DOCKER_PATH" ]; then
     local NODE_VER=`get_docker_node_ver $DOCKER_PATH`
     n $NODE_VER
     echo 'Current node version is '$NODE_VER
-  elif [ -n "$DOCKER_PATH" ]; then
+  elif [ -e 'Dockerfile' ]; then
+    local DOCKER_PATH='./Dockerfile'
     local NODE_VER=`get_docker_node_ver $DOCKER_PATH`
     n $NODE_VER
     echo 'Current node version is '$NODE_VER
