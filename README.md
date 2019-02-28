@@ -10,3 +10,9 @@ my dot files
 ```bash
 make install
 ```
+
+## Install dot file List
+
+```bash
+make list
+```
