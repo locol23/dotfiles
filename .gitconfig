@@ -2,6 +2,8 @@
     name = Yoshitaka Terazawa
 [color]
     ui = auto
+[core]
+    excludesfile = ~/.gitignore_global
 [alias]
     st = status
     stt = status -uno
