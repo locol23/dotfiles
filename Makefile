@@ -33,6 +33,8 @@ init:
 	@echo ''
 	@sh zsh.sh
 	@yarn global add pure-prompt
+	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	@vim +PluginInstall +qall
 	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
@@ -54,6 +56,8 @@ deploy:
 	@$(foreach val, $(TARGET), cp -v $(val) ~/;)
 	@cp -v bttconfig.json ~/
 	@cp -v custom.zsh ~/.oh-my-zsh/custom/
+	@mkdir -p ~/.config/nvim/
+	@ln -snfv `pwd`/init.vim ~/.config/nvim/init.vim
 
 install: update init deploy
 	@echo ''
@@ -67,5 +71,6 @@ uninstall:
 	@rm -f ~/bttconfig
 	@rm -f ~/.zsh*
 	@rm -rf ~/.oh-my-zsh/
+	@rm -rf ~/.config/
 	@echo ''
 	@echo 'Uninstall Success'
