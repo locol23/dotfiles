@@ -11,7 +11,8 @@ alias g='git'
 alias gbd="g b --merged | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %"
 alias d=docker
 alias dc=docker-compose
-alias vi=vim
+alias vi=nvim
+alias vim=nvim
 
 # run tmux
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
