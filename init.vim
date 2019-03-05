@@ -18,7 +18,6 @@ set laststatus=2
 set autochdir
 set display=lastline
 set pumheight=15
-set showtabline=2
 set grepprg=git\ grep\ --no-index\ -I\ --line-number
 
 " Encode
@@ -49,8 +48,11 @@ nnoremap s :split<CR>
 nnoremap v :vsplit<CR>
 
 nnoremap c :tabnew<CR>
-nnoremap n gt
-nnoremap p gT
+
+" Buffer
+:set hidden
+nnoremap <silent> <C-n> :bprev<CR>
+nnoremap <silent> <C-p> :bnext<CR>
 
 if &compatible
   set nocompatible
@@ -73,6 +75,10 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'tpope/vim-surround'
 Plugin 'thinca/vim-quickrun'
+Plugin 'scrooloose/nerdtree'
+Plugin 'junegunn/fzf.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'hail2u/vim-css3-syntax'
 
 " coding
 Plugin 'jason0x43/vim-js-indent'
