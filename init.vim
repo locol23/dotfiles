@@ -44,10 +44,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap s :split<CR>
-nnoremap v :vsplit<CR>
+nnoremap ss :split<CR>
+nnoremap sv :vsplit<CR>
 
 nnoremap c :tabnew<CR>
+
+nnoremap sf :VimFiler<CR>
 
 " Buffer
 :set hidden
@@ -63,30 +65,44 @@ augroup locol23
   autocmd!
 augroup END
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+
+if &compatible
+  set nocompatible
+endif
+
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 " editor
-Plugin 'itchyny/lightline.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'tpope/vim-surround'
-Plugin 'thinca/vim-quickrun'
-Plugin 'scrooloose/nerdtree'
-Plugin 'junegunn/fzf.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'hail2u/vim-css3-syntax'
+  call dein#add('Shougo/vimfiler')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('itchyny/lightline.vim')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('bronson/vim-trailing-whitespace')
+  call dein#add('tpope/vim-surround')
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('junegunn/fzf.vim')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('hail2u/vim-css3-syntax')
 
 " coding
-Plugin 'jason0x43/vim-js-indent'
-Plugin 'w0rp/ale'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'sheerun/vim-polyglot'
+  call dein#add('jason0x43/vim-js-indent')
+  call dein#add('w0rp/ale')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('sheerun/vim-polyglot')
 
-call vundle#end()
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
 
 filetype plugin indent on
 

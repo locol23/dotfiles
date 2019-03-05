@@ -33,8 +33,9 @@ init:
 	@echo ''
 	@sh zsh.sh
 	@yarn global add pure-prompt
-	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	@vim +PluginInstall +qall
+	@curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+	@sh ./installer.sh ~/.cache/dein
+	@rm installer.sh
 	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
@@ -72,5 +73,6 @@ uninstall:
 	@rm -f ~/.zsh*
 	@rm -rf ~/.oh-my-zsh/
 	@rm -rf ~/.config/
+	@rm -rf ~/.cache/
 	@echo ''
 	@echo 'Uninstall Success'
