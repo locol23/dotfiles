@@ -7,6 +7,8 @@ brew "tig"
 brew "yarn", args: ["without-node"]
 brew "direnv"
 brew "fzf"
+brew "ripgrep"
+brew "ag"
 brew "tmux"
 brew "peco"
 brew "reattach-to-user-namespace"
