@@ -1,3 +1,7 @@
+" Leader
+let mapleader = ","
+let maplocalleader = ","
+
 " Indent
 set autoindent
 set expandtab
@@ -19,6 +23,7 @@ set autochdir
 set display=lastline
 set pumheight=15
 set grepprg=git\ grep\ --no-index\ -I\ --line-number
+set clipboard+=unnamed
 
 " Encode
 set encoding=utf-8
@@ -47,14 +52,11 @@ nnoremap <C-l> <C-w>l
 nnoremap ss :split<CR>
 nnoremap sv :vsplit<CR>
 
-nnoremap c :tabnew<CR>
-
-nnoremap sf :VimFiler<CR>
-
 " Buffer
 :set hidden
-nnoremap <silent> <C-n> :bprev<CR>
-nnoremap <silent> <C-p> :bnext<CR>
+nnoremap ; :Buffers<CR>
+nnoremap <silent> [b :bprev<CR>
+nnoremap <silent> ]b :bnext<CR>
 
 if &compatible
   set nocompatible
@@ -64,8 +66,6 @@ endif
 augroup locol23
   autocmd!
 augroup END
-
-
 
 if &compatible
   set nocompatible
@@ -78,9 +78,12 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-" editor
-  call dein#add('Shougo/vimfiler')
+  " editor
+  "call dein#add('Shougo/vimfiler')
+  "call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/unite.vim')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('tpope/vim-eunuch')
   call dein#add('itchyny/lightline.vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('bronson/vim-trailing-whitespace')
@@ -89,12 +92,19 @@ if dein#load_state('~/.cache/dein')
   call dein#add('junegunn/fzf.vim')
   call dein#add('mattn/emmet-vim')
   call dein#add('hail2u/vim-css3-syntax')
+  call dein#add('qpkorr/vim-bufkill')
+  call dein#add('mileszs/ack.vim')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('nathanaelkane/vim-indent-guides')
 
-" coding
+  " coding
   call dein#add('jason0x43/vim-js-indent')
   call dein#add('w0rp/ale')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('sheerun/vim-polyglot')
+
+  " others
+  call dein#add('vim-jp/vimdoc-ja')
 
   call dein#end()
   call dein#save_state()
@@ -105,6 +115,10 @@ if dein#check_install()
 endif
 
 filetype plugin indent on
+
+" ale
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
 
 " lightline
 let g:lightline = {
@@ -120,6 +134,50 @@ let g:lightline = {
   \}
   \ }
 
+" vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+
+" vim-bufkill
+nmap <Esc>w :BD<CR>
+nmap <M-w>  :BD<CR>
+nmap ∑      :BD<CR>
+
+" vimdoc-ja
+:set helplang=ja,en
+
+" fzf
+set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
+nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>a :Rg!<CR>
+nmap <Leader>c :Colors<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --files --follow -g "!{.git,node_modules}/*" 2>/dev/null'
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!{*.lock,*-lock.json}" '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:40%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" nerdtree
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMarkBookmarks = 0
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeStatusLine = -1
+highlight def link NERDTreeRO NERDTreeFile
+nmap <C-e> :NERDTree<CR>
+nmap <C-m> :NERDTreeFind<CR>
+
+" ack
+let g:ackprg = 'rg --vimgrep --no-heading'
+nmap <M-k>    mo:Ack! "\b<cword>\b" <CR>
+nmap <Esc>k   mo:Ack! "\b<cword>\b" <CR>
+nmap ˚        mo:Ack! "\b<cword>\b" <CR>
+nmap <M-S-k>  mo:Ggrep! "\b<cword>\b" <CR>
+nmap <Esc>K   mo:Ggrep! "\b<cword>\b" <CR>
+
 syntax enable
 set background=dark
 colorscheme solarized
+
