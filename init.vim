@@ -38,10 +38,6 @@ nnoremap gk k
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-inoremap { {}<LEFT>
-inoremap ( ()<LEFT>
 inoremap <C-e> <Esc><RIGHT>a
 
 nnoremap <C-h> <C-w>h
@@ -79,15 +75,18 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " editor
-  "call dein#add('Shougo/vimfiler')
-  "call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
   call dein#add('scrooloose/nerdtree')
-  call dein#add('tpope/vim-eunuch')
   call dein#add('itchyny/lightline.vim')
-  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('tomasr/molokai')
   call dein#add('bronson/vim-trailing-whitespace')
-  call dein#add('tpope/vim-surround')
   call dein#add('thinca/vim-quickrun')
   call dein#add('junegunn/fzf.vim')
   call dein#add('mattn/emmet-vim')
@@ -96,12 +95,16 @@ if dein#load_state('~/.cache/dein')
   call dein#add('mileszs/ack.vim')
   call dein#add('tpope/vim-fugitive')
   call dein#add('nathanaelkane/vim-indent-guides')
+  call dein#add('tpope/vim-eunuch')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-commentary')
 
   " coding
   call dein#add('jason0x43/vim-js-indent')
   call dein#add('w0rp/ale')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('sheerun/vim-polyglot')
+  call dein#add('Townk/vim-autoclose')
 
   " others
   call dein#add('vim-jp/vimdoc-ja')
@@ -116,9 +119,27 @@ endif
 
 filetype plugin indent on
 
+" vim-autoclose
+let g:on_i = 1
+
+" deoplete
+set completeopt+=noinsert
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_auto_select = 1
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+
 " ale
 let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+nmap ]w :ALENextWrap<CR>
+nmap [w :ALEPreviousWrap<CR>
+nmap <Leader>f <Plug>(ale_fix)
 
 " lightline
 let g:lightline = {
@@ -165,9 +186,9 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMarkBookmarks = 0
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeStatusLine = -1
+let NERDTreeShowHidden=1
 highlight def link NERDTreeRO NERDTreeFile
-nmap <C-e> :NERDTree<CR>
-nmap <C-m> :NERDTreeFind<CR>
+nmap sf :NERDTree<CR>
 
 " ack
 let g:ackprg = 'rg --vimgrep --no-heading'
@@ -179,5 +200,5 @@ nmap <Esc>K   mo:Ggrep! "\b<cword>\b" <CR>
 
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme molokai
 
