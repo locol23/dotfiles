@@ -23,6 +23,6 @@ function get_docker_node_ver() {
     UPPER_STR = toupper($0)
     if (UPPER_STR ~ /NODE/ && toupper($0) != "") print UPPER_STR
   }' |
-  awk 'gsub("FROM NODE:", "")' |
+  awk 'gsub("FROM.*NODE:", "")' |
   awk '{ split($0, arr, "-"); print arr[1] }')
 }
