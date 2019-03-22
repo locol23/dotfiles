@@ -39,11 +39,11 @@ init:
 	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
-	@yarn global add n
 	@sudo mkdir -p /usr/local/n
 	@sudo chown -R $(whoami) /usr/local/n
 	@sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
+	@brew install yarn --ignore-dependencies
 	@echo ''
 	@echo 'Install node modules globally'
 	@echo ''

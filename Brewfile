@@ -4,7 +4,7 @@ tap "homebrew/cask-versions"
 brew "zsh"
 brew "tree"
 brew "tig"
-brew "yarn", args: ["ignore-dependencies"]
+brew "n"
 brew "direnv"
 brew "fzf"
 brew "ripgrep"
