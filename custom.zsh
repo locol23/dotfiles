@@ -6,6 +6,9 @@ prompt pure
 export EDITOR=vim
 eval "$(direnv hook zsh)"
 
+# rust
+export PATH=$HOME/.cargo/bin:$PATH
+
 # alias
 alias g='git'
 alias gbd="g b --merged | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %"
