@@ -9,6 +9,9 @@ eval "$(direnv hook zsh)"
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
 
+# deno
+export PATH="/Users/terazawa-y/.deno/bin:$PATH"
+
 # alias
 alias g='git'
 alias gbd="g b --merged | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %"
