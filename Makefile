@@ -49,6 +49,10 @@ init:
 	@echo ''
 	@yarn global add now
 	@yarn global add lerna
+	@echo ''
+	@echo 'Install Minikube'
+	@echo ''
+	@curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.2.0/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 
 deploy:
 	@echo ''
