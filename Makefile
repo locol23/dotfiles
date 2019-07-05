@@ -48,7 +48,6 @@ init:
 	@echo 'Install node modules globally'
 	@echo ''
 	@yarn global add now
-	@yarn global add lerna
 	@echo ''
 	@echo 'Install Minikube'
 	@echo ''
