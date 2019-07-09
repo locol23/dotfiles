@@ -48,4 +48,4 @@ if _has ag; then
   alias ag='ag --color-path 1\;31 --color-match 1\;32 --color'
 fi
 
-. ~/custom.local.zsh
+. ~/.oh-my-zsh/custom/custom.local.zsh
