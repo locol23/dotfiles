@@ -31,125 +31,145 @@ set fileencodings=utf-8,sjis
 set fileformats=unix,mac
 
 " Map
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+map <leader>h :%s///<left><left>
+nmap <silent> <leader>/ :nohlsearch<CR>
 
-nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
-
-inoremap <C-e> <Esc><RIGHT>a
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-nnoremap ss :split<CR>
-nnoremap sv :vsplit<CR>
-
-" Buffer
-:set hidden
-nnoremap ; :Buffers<CR>
-nnoremap <silent> [b :bprev<CR>
-nnoremap <silent> ]b :bnext<CR>
-
-if &compatible
-  set nocompatible
-endif
-
-" reset augroup
-augroup locol23
-  autocmd!
-  au BufNewFile,BufRead *.ts setlocal filetype=typescript
-  au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-  autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
-  autocmd VimEnter * VimFilerExplorer
-augroup END
-
-if &compatible
-  set nocompatible
-endif
-
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
-  call dein#add('leafgarland/typescript-vim', {'for': ['typescript', 'typescript.tsx']})
-
-  " editor
-  call dein#add('Shougo/unite.vim')
-  " call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
+call plug#begin('~/.vim/plugged')
+  " defx
+  if has('nvim')
+    Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/defx.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
   endif
-  call dein#add('Shougo/vimfiler')
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('tomasr/molokai')
-  call dein#add('bronson/vim-trailing-whitespace')
-  call dein#add('thinca/vim-quickrun')
-  call dein#add('junegunn/fzf.vim')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('qpkorr/vim-bufkill')
-  call dein#add('mileszs/ack.vim')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('nathanaelkane/vim-indent-guides')
-  call dein#add('tpope/vim-eunuch')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tpope/vim-commentary')
+  Plug 'ress997/defx-icons'
+  Plug 'kristijanhusak/defx-git'
 
-  " coding
-  call dein#add('jason0x43/vim-js-indent')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('Townk/vim-autoclose')
+  " coc
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  nmap coci :CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css<CR>
 
-  " others
-  call dein#add('vim-jp/vimdoc-ja')
+  " fzf
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
 
-  call dein#end()
-  call dein#save_state()
-endif
+  " vim-repeat
+  Plug 'tpope/vim-repeat'
 
-if dein#check_install()
-  call dein#install()
-endif
+  " vim-surround
+  Plug 'tpope/vim-surround'
 
-filetype plugin indent on
+  " vim-easymotion
+  Plug 'Lokaltog/vim-easymotion'
 
-" vimfiler
-let g:vimfiler_as_default_explorer = 1
-noremap <C-X><C-T> :VimFiler -split -simple -winwidth=45 -no-quit<ENTER>
-nmap sf :VimFilerExplorer -split -winwidth=45 -no-quit<ENTER><CR>
+  " display git diff
+  Plug 'airblade/vim-gitgutter'
 
-" vim-autoclose
-let g:on_i = 1
+  " syntax, indent and more
+  Plug 'sheerun/vim-polyglot'
+
+  " auto close
+  Plug 'Townk/vim-autoclose'
+
+  " status line
+  Plug 'itchyny/lightline.vim'
+
+  " help in Japanese
+  Plug 'vim-jp/vimdoc-ja'
+
+  " color
+  Plug 'lifepillar/vim-solarized8'
+
+call plug#end()
+
+" defx setting
+nnoremap <silent> <C-h> :Defx -split=vertical -winwidth=30 -direction=topleft <CR>
+nnoremap <silent> sf :Defx -split=vertical -winwidth=30 -direction=topleft <CR>
+
+let g:defx_git#indicators = {
+  \ 'Modified'  : '✹',
+  \ 'Staged'    : '✚',
+  \ 'Untracked' : '✭',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '═',
+  \ 'Ignored'   : '☒',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ }
+call defx#custom#column('icon', {
+   \ 'directory_icon': '▸',
+   \ 'opened_icon': '▾',
+   \ 'root_icon': ' ',
+   \ })
+call defx#custom#column('filename', {
+    \ 'min_width': 40,
+    \ 'max_width': 40,
+    \ })
+call defx#custom#option('_', {
+    \ 'columns': 'indent:git:icon:filename:type:size:time',
+    \ })
+autocmd FileType defx call s:defx_my_settings()
+  function! s:defx_my_settings() abort
+   	nnoremap <silent><buffer><expr> ~ defx#async_action('cd')
+   	" nnoremap <silent><buffer><expr> h defx#async_action('cd', ['..'])
+   	nnoremap <silent><buffer><expr> h defx#async_action('close_tree')
+   	" nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+   	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+   	" nnoremap <silent><buffer><expr> l defx#async_action('drop')
+    nnoremap <silent><buffer><expr> l
+		\ defx#is_directory() ?
+		\ defx#do_action('open_tree') :
+		\ defx#do_action('multi', ['drop'])
+
+   	nnoremap <silent><buffer><expr> <C-l> '<C-w>l'
+   
+   	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+   	nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ? ':<C-u>wincmd w<CR>' : ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+   	nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+   	nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+   	nnoremap <silent><buffer><expr> q defx#do_action('quit')
+   
+   	nnoremap <silent><buffer><expr> o defx#async_action('open_or_close_tree')
+   	nnoremap <silent><buffer><expr> O defx#async_action('open_tree_recursive')
+   
+   	nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
+   	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+   	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+   	" nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
+   	nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
+   	nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
+   	nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
+   	nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+   	nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
+   	nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'Time')
+   	nnoremap <silent><buffer><expr> c defx#do_action('copy')
+   	nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
+   	nnoremap <silent><buffer><expr> m defx#do_action('move')
+   	nnoremap <silent><buffer><expr> p defx#do_action('paste')
+   	nnoremap <silent><buffer><expr> r defx#do_action('rename')
+   	nnoremap <silent><buffer><expr> se defx#do_action('save_session')
+   	nnoremap <silent><buffer><expr> sl defx#do_action('load_session')
+   	nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+   	nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+  endfunction
 
 " coc
+command! -nargs=0 Prettier :CocCommand ~/.prettierrc.js
 " if hidden is not set, TextEdit might fail.
 set hidden
-
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-
 " Better display for messages
 set cmdheight=2
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=200
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
 " always show signcolumns
 set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -157,50 +177,18 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
+nmap <silent> <leader>dd <Plug>(coc-definition)
+nmap <silent> <leader>dr <Plug>(coc-references)
+nmap <silent> <leader>dj <Plug>(coc-implementation)
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -208,42 +196,26 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" fzf
+set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
+nmap ; :Buffers<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>a :Rg!<CR>
+nmap <Leader>c :Colors<CR>
 
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+" vim-easymotion
+map <leader>f <Plug>(easymotion-bd-w)
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" vim-gitgutter
+set updatetime=250
 
 " lightline
 let g:lightline = {
@@ -257,41 +229,7 @@ let g:lightline = {
       \ },
       \ }
 
-" vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-
-" vim-bufkill
-nmap <Esc>w :BD<CR>
-nmap <M-w>  :BD<CR>
-nmap ∑      :BD<CR>
-
-" vimdoc-ja
-:set helplang=ja,en
-
-" fzf
-set rtp+=/usr/local/opt/fzf
-set rtp+=~/.fzf
-nmap <Leader>r :Tags<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>a :Rg!<CR>
-nmap <Leader>c :Colors<CR>
-let $FZF_DEFAULT_COMMAND = 'rg --files --follow -g "!{.git,node_modules}/*" 2>/dev/null'
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!{*.lock,*-lock.json}" '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:40%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" ack
-let g:ackprg = 'rg --vimgrep --no-heading'
-nmap <M-k>    mo:Ack! "\b<cword>\b" <CR>
-nmap <Esc>k   mo:Ack! "\b<cword>\b" <CR>
-nmap ˚        mo:Ack! "\b<cword>\b" <CR>
-nmap <M-S-k>  mo:Ggrep! "\b<cword>\b" <CR>
-nmap <Esc>K   mo:Ggrep! "\b<cword>\b" <CR>
-
-syntax enable
+" color
 set background=dark
-colorscheme molokai
+colorscheme solarized8
 
