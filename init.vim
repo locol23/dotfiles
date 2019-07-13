@@ -89,7 +89,6 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " defx setting
-nnoremap <silent> <C-h> :Defx -split=vertical -winwidth=30 -direction=topleft <CR>
 nnoremap <silent> sf :Defx -split=vertical -winwidth=30 -direction=topleft <CR>
 
 let g:defx_git#indicators = {
