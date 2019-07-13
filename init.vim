@@ -84,7 +84,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-jp/vimdoc-ja'
 
   " color
-  Plug 'lifepillar/vim-solarized8'
+  Plug 'w0ng/vim-hybrid'
 
 call plug#end()
 
@@ -235,5 +235,5 @@ let g:lightline = {
 
 " color
 set background=dark
-colorscheme solarized8
+colorscheme hybrid
 
