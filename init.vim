@@ -33,6 +33,10 @@ set fileformats=unix,mac
 " Map
 map <leader>h :%s///<left><left>
 nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <C-h> <C-W>h
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
 
 call plug#begin('~/.vim/plugged')
   " defx
