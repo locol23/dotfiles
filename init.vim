@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
 
   " auto close
-  Plug 'Townk/vim-autoclose'
+  Plug 'cohama/lexima.vim'
 
   " status line
   Plug 'itchyny/lightline.vim'
