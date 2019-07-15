@@ -118,7 +118,7 @@ autocmd FileType defx call s:defx_my_settings()
    	nnoremap <silent><buffer><expr> ~ defx#async_action('cd')
    	" nnoremap <silent><buffer><expr> h defx#async_action('cd', ['..'])
    	nnoremap <silent><buffer><expr> h defx#async_action('close_tree')
-   	" nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+   	nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
    	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
    	" nnoremap <silent><buffer><expr> l defx#async_action('drop')
     nnoremap <silent><buffer><expr> l
@@ -126,12 +126,16 @@ autocmd FileType defx call s:defx_my_settings()
 		\ defx#do_action('open_tree') :
 		\ defx#do_action('multi', ['drop'])
 
-   	nnoremap <silent><buffer><expr> <C-l> '<C-w>l'
+    nnoremap <silent><buffer><expr> <C-l> '<C-w>l'
 
    	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
    	nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ? ':<C-u>wincmd w<CR>' : ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
    	nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-   	nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+   	" nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+    nnoremap <silent><buffer><expr> <CR>
+		\ defx#is_directory() ?
+		\ defx#do_action('open_tree') :
+		\ defx#do_action('multi', ['drop'])
    	nnoremap <silent><buffer><expr> q defx#do_action('quit')
 
    	nnoremap <silent><buffer><expr> o defx#async_action('open_or_close_tree')
@@ -181,8 +185,6 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
