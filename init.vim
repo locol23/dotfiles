@@ -37,6 +37,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
+nnoremap <C-r> :QuickRun<CR>
 
 call plug#begin('~/.vim/plugged')
   " defx
@@ -79,6 +80,9 @@ call plug#begin('~/.vim/plugged')
 
   " status line
   Plug 'itchyny/lightline.vim'
+
+  " playground
+  Plug 'thinca/vim-quickrun'
 
   " help in Japanese
   Plug 'vim-jp/vimdoc-ja'
@@ -235,6 +239,16 @@ let g:lightline = {
       \   'cocstatus': 'coc#status'
       \ },
       \ }
+
+" vim-quickrun
+let g:quickrun_config = {}
+let g:quickrun_config['typescript'] = { 'type' : 'typescript/tsc' }
+let g:quickrun_config['typescript/tsc'] = {
+\   'command': './node_modules/typescript/bin/tsc',
+\   'exec': ['%c --target esnext --module commonjs %o %s', 'node %s:r.js'],
+\   'tempfile': '%{tempname()}.ts',
+\   'hook/sweep/files': ['%S:p:r.js'],
+\ }
 
 " color
 set background=dark
