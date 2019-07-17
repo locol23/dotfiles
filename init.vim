@@ -37,7 +37,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
-nnoremap <C-r> :QuickRun<CR>
+nnoremap \r :QuickRun<CR>
 
 call plug#begin('~/.vim/plugged')
   " defx
