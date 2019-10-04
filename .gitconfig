@@ -17,5 +17,7 @@
     al = config --get-regexp alias.*
     f = fetch -p
     b = branch
+    sw = switch
+    re = restore
 [pager]
     branch = cat
