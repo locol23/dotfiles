@@ -40,8 +40,7 @@ init:
 	@echo 'Install Node.js'
 	@echo ''
 	@sudo mkdir -p /usr/local/n
-	@sudo chown -R $(whoami) /usr/local/n
-	@sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+	@sudo chown -R $$(whoami) /usr/local/n /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
 	@brew install yarn --ignore-dependencies
 	@echo ''
