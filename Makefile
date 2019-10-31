@@ -26,7 +26,7 @@ init:
 	@echo ''
 	@echo 'Install Homebrew and Formula'
 	@echo ''
-	@/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	@/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	@brew bundle
 	@echo ''
 	@echo 'Install zsh'
