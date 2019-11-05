@@ -29,14 +29,6 @@ init:
 	@/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	@brew bundle
 	@echo ''
-	@echo 'Install zsh'
-	@echo ''
-	@sh zsh.sh
-	@yarn global add pure-prompt
-	@curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-	@sh ./installer.sh ~/.cache/dein
-	@rm installer.sh
-	@echo ''
 	@echo 'Install Node.js'
 	@echo ''
 	@sudo mkdir -p /usr/local/n
@@ -51,6 +43,14 @@ init:
 	@echo 'Install Minikube'
 	@echo ''
 	@curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.2.0/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+	@echo ''
+	@echo 'Install zsh'
+	@echo ''
+	@sh zsh.sh
+	@yarn global add pure-prompt
+	@curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+	@sh ./installer.sh ~/.cache/dein
+	@rm installer.sh
 
 deploy:
 	@echo ''
