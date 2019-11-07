@@ -48,9 +48,13 @@ init:
 	@echo ''
 	@sh zsh.sh
 	@yarn global add pure-prompt
-	@curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-	@sh ./installer.sh ~/.cache/dein
-	@rm installer.sh
+	@sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
+	@chsh -s '/usr/local/bin/zsh'
+	@echo ''
+	@echo 'Install Vim'
+	@echo ''
+	@curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	@pip3 install --user pynvim
 
 deploy:
 	@echo ''
