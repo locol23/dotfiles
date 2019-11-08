@@ -65,6 +65,7 @@ deploy:
 	@cp -v custom.zsh ~/.oh-my-zsh/custom/
 	@mkdir -p ~/.config/nvim/
 	@ln -snfv `pwd`/init.vim ~/.config/nvim/init.vim
+	@ln -snfv `pwd`/coc-settings.json ~/.config/nvim/coc-settings.json
 
 install: update init deploy
 	@echo ''
