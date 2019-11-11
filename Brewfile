@@ -28,3 +28,4 @@ cask "cmd-eikana"
 cask "bettertouchtool"
 cask "docker"
 cask "virtualbox"
+mas "LINE", id: 539883307
