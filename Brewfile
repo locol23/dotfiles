@@ -28,5 +28,6 @@ cask "cmd-eikana"
 cask "bettertouchtool"
 cask "docker"
 cask "virtualbox"
+cask "firefox"
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
