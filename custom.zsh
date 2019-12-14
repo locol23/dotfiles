@@ -19,6 +19,7 @@ alias d=docker
 alias dc=docker-compose
 alias vi=nvim
 alias vim=nvim
+alias kc=kubectl
 
 # my function
 _has() {
