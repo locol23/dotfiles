@@ -20,10 +20,19 @@ alias dc=docker-compose
 alias vi=nvim
 alias vim=nvim
 alias kc=kubectl
+alias kccc="kc config current-context"
 
 # my function
 _has() {
   return $( whence $1 >/dev/null )
+}
+
+function kcsw {
+  kc config use-context $(kc config get-contexts -o name | peco)
+}
+
+function gsw {
+  g sw $(g b -a --sort=-authordate | cut -b 3- | peco | sed -e "s%remotes/origin/%%")
 }
 
 # fzf
