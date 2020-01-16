@@ -1,3 +1,6 @@
+# vi mode for terminal
+set -o vi
+
 # zsh theme
 autoload -U promptinit; promptinit
 prompt pure
