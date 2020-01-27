@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
+tap "homebrew/cask-fonts"
 brew "zsh"
 brew "tree"
 brew "tig"
@@ -31,5 +32,6 @@ cask "bettertouchtool"
 cask "docker"
 cask "virtualbox"
 cask "firefox"
+cask "font-noto-nerd-font-mono"
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
