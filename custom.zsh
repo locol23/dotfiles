@@ -38,6 +38,12 @@ function gsw {
   g sw $(g b -a --sort=-authordate | cut -b 3- | peco | sed -e "s%remotes/origin/%%")
 }
 
+function ide {
+  tmux split-window -v -p 30
+  tmux split-window -h -p 66
+  tmux split-window -h -p 50
+}
+
 # fzf
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
 source /usr/local/opt/fzf/shell/key-bindings.zsh
