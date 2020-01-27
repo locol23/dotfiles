@@ -1,25 +1,25 @@
 [user]
-    name = Yoshitaka Terazawa
+  name = Yoshitaka Terazawa
 [color]
-    ui = auto
+  ui = auto
 [core]
-    excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [alias]
-    st = status
-    stt = status -uno
-    cm = commit
-    difff = diff --name-only
-    co = checkout
-    logg = log --graph --decorate
-    g = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h%Creset %cd %Cblue%cn%Creset %s%Cred%d%Creset'
-    ss = stash save
-    sp = stash pop
-    al = config --get-regexp alias.*
-    f = fetch -p
-    b = branch
-    sw = switch
-    re = restore
+  st = status
+  stt = status -uno
+  cm = commit
+  difff = diff --name-only
+  co = checkout
+  logg = log --graph --decorate
+  g = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h%Creset %cd %Cblue%cn%Creset %s%Cred%d%Creset'
+  ss = stash save
+  sp = stash pop
+  al = config --get-regexp alias.*
+  f = fetch -p
+  b = branch
+  sw = switch
+  re = restore
 [pager]
-    branch = cat
+  branch = cat
 [include]
-    path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
