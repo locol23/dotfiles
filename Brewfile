@@ -34,5 +34,6 @@ cask "docker"
 cask "virtualbox"
 cask "firefox"
 cask "font-noto-nerd-font-mono"
+cask "sketch"
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
