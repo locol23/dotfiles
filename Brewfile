@@ -19,6 +19,11 @@ brew "reattach-to-user-namespace"
 brew "watch"
 brew "go"
 brew "stern"
+
+# eksctl
+tap "weaveworks/tap"
+brew "weaveworks/tap/eksctl"
+
 cask "android-studio"
 cask "visual-studio-code"
 cask "rambox"
