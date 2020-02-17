@@ -1,3 +1,8 @@
+# android
+export ANDROID_HOME=~/Library/Android/sdk/
+export PATH=$PATH:~/android-sdks/platform/
+export PATH=$PATH:~/android-sdks/tools/
+
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
 
