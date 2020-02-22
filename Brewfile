@@ -3,6 +3,7 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 
 brew "zsh"
+brew "git"
 brew "tree"
 brew "tig"
 brew "n"
