@@ -39,3 +39,7 @@ bindkey '^[[B' history-substring-search-down
 zinit light jonmosco/kube-ps1
 PROMPT='$(kube_ps1) '$PROMPT
 
+zinit light mollifier/cd-gitroot
+autoload -Uz cd-gitroot
+alias cdg="cd-gitroot"
+
