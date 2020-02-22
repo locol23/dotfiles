@@ -13,6 +13,10 @@ autoload -Uz _zinit
 # plugins
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
+autoload -U promptinit; promptinit
+PURE_CMD_MAX_EXEC_TIME=10
+zstyle :prompt:pure:git:stash show yes
+prompt pure
 
 zinit ice wait'!0' atinit"zpcompinit; zpcdreplay"
 zinit light zdharma/fast-syntax-highlighting
@@ -29,7 +33,6 @@ zinit light direnv/direnv
 zinit light zsh-users/zsh-history-substring-search
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=''
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
-
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
