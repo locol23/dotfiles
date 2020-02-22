@@ -5,15 +5,6 @@ TARGET := $(filter-out $(EXCLUDE), $(FILES))
 list:
 	@$(foreach val, $(TARGET), ls -dF $(val);)
 
-update:
-	@echo ''
-	@echo 'Update git repository'
-	@echo ''
-	git pull origin master
-	git submodule init
-	git submodule update
-	git submodule foreach git pull origin master
-
 init:
 	@echo ''
 	@echo 'Install Mac Dock settings'
@@ -42,8 +33,6 @@ init:
 	@echo ''
 	@echo 'Install zsh'
 	@echo ''
-	@sh zsh.sh
-	@yarn global add pure-prompt
 	@sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
 	@chsh -s '/usr/local/bin/zsh'
 	@echo ''
@@ -56,14 +45,13 @@ deploy:
 	@echo ''
 	@echo 'Deploy files'
 	@echo ''
-	@$(foreach val, $(TARGET), cp -v $(val) ~/;)
+	@$(foreach val, $(TARGET), cp -rv $(val) ~/;)
 	@cp -v bttconfig.json ~/
-	@cp -v custom.zsh ~/.oh-my-zsh/custom/
 	@mkdir -p ~/.config/nvim/
 	@ln -snfv `pwd`/init.vim ~/.config/nvim/init.vim
 	@ln -snfv `pwd`/coc-settings.json ~/.config/nvim/coc-settings.json
 
-install: update init deploy
+install: init deploy
 	@echo ''
 	@echo 'Install Success'
 	@exec $$SHELL -l

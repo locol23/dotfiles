@@ -1,3 +1,6 @@
+# direnv
+export EDITOR=vim
+
 # android
 export ANDROID_HOME=~/Library/Android/sdk/
 export PATH=$PATH:~/android-sdks/platform/
