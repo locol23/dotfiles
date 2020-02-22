@@ -45,3 +45,5 @@ cask "font-noto-nerd-font-mono"
 
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
+mas "Todoist", id: 585829637
+
