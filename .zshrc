@@ -2,6 +2,12 @@
 set -o vi
 bindkey -e
 
+# start tmux
+if [[ -z "$TMUX" ]]; then
+  tmux new-session
+  exit
+fi
+
 # alias
 [ ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 
