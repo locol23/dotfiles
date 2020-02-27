@@ -10,13 +10,13 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# plugins
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
-autoload -U promptinit; promptinit
-PURE_CMD_MAX_EXEC_TIME=10
-zstyle :prompt:pure:git:stash show yes
-prompt pure
+# powerlevel10k
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+[[ ! -f ~/.zsh/.p10k.zsh ]] || source ~/.zsh/.p10k.zsh
 
 zinit ice wait'!0' atinit"zpcompinit; zpcdreplay"
 zinit light zdharma/fast-syntax-highlighting
@@ -35,9 +35,6 @@ typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=''
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-
-zinit light jonmosco/kube-ps1
-PROMPT='$(kube_ps1) '$PROMPT
 
 zinit light mollifier/cd-gitroot
 autoload -Uz cd-gitroot
