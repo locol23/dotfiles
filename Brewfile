@@ -23,6 +23,7 @@ brew "stern"
 tap "weaveworks/tap"
 brew "weaveworks/tap/eksctl"
 
+cask "amazon-music"
 cask "android-studio"
 cask "visual-studio-code"
 cask "rambox"
