@@ -40,6 +40,11 @@ init:
 	@echo ''
 	@curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	@pip3 install --user pynvim
+	@echo 
+	@echo 'Install AtCoder commands'
+	@echo 
+	@yarn global add atcoder-cli
+	@pip3 install --user online-judge-tools
 
 deploy:
 	@echo ''
