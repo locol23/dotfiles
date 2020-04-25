@@ -25,6 +25,7 @@ brew "weaveworks/tap/eksctl"
 
 cask "amazon-music"
 cask "android-studio"
+cask "clipy"
 cask "visual-studio-code"
 cask "rambox"
 cask "google-chrome-canary"
