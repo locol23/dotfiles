@@ -30,6 +30,7 @@ init:
 	@echo 'Install node modules globally'
 	@echo ''
 	@yarn global add now
+	@yarn global add graphqurl
 	@echo ''
 	@echo 'Install zsh'
 	@echo ''
