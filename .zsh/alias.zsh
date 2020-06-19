@@ -6,5 +6,7 @@ alias vi=nvim
 alias vim=nvim
 alias kc=kubectl
 alias kccc="kc config current-context"
+alias s=skaffold
 alias l="ls -la"
 alias ll="ls -l"
+
