@@ -25,6 +25,7 @@ brew "stern"
 tap "weaveworks/tap"
 brew "weaveworks/tap/eksctl"
 
+cask "alfred"
 cask "amazon-music"
 cask "android-studio"
 cask "visual-studio-code"
