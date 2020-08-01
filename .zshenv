@@ -12,3 +12,8 @@ export PATH=$HOME/.cargo/bin:$PATH
 # deno
 export PATH="/Users/terazawa-y/.deno/bin:$PATH"
 
+# golang
+export GOPATH="$HOME/go"
+export GOROOT="/usr/local/go"
+export PATH="$HOME/go/bin:$PATH"
+
