@@ -25,7 +25,8 @@ init:
 	@sudo mkdir -p /usr/local/n
 	@sudo chown -R $$(whoami) /usr/local/n /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
-	@brew install yarn --ignore-dependencies
+	@brew install yarn
+	@brew uninstall node --ignore-dependencies
 	@echo ''
 	@echo 'Install node modules globally'
 	@echo ''
