@@ -17,7 +17,7 @@ init:
 	@echo ''
 	@echo 'Install Homebrew and Formula'
 	@echo ''
-	@/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	@brew bundle
 	@echo ''
 	@echo 'Install Node.js'
