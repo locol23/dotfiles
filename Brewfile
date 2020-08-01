@@ -19,7 +19,6 @@ brew "kubernetes-cli"
 brew "minikube"
 brew "reattach-to-user-namespace"
 brew "watch"
-brew "go"
 brew "stern"
 # eksctl
 tap "weaveworks/tap"
