@@ -1,6 +1,5 @@
 # vi mode for terminal
-set -o vi
-bindkey -e
+bindkey -M viins '^]' vi-cmd-mode
 
 # start tmux
 if [[ -z "$TMUX" ]]; then
