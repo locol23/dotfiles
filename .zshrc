@@ -1,6 +1,10 @@
 # vi mode for terminal
 bindkey -M viins '^]' vi-cmd-mode
 
+# enable ctrl + a and ctrl + e
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
 # start tmux
 if [[ -z "$TMUX" ]]; then
   tmux new-session
