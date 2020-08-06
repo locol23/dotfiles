@@ -21,5 +21,8 @@
   re = restore
 [pager]
   branch = cat
+[pull]
+  rebase = false
 [include]
   path = ~/.gitconfig.local
+
