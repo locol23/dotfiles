@@ -60,8 +60,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
-  Plug 'ress997/defx-icons'
   Plug 'kristijanhusak/defx-git'
+  Plug 'kristijanhusak/defx-icons'
 
   " coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -105,7 +105,9 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " defx setting
-nnoremap <silent> sf :Defx -split=vertical -winwidth=30 -direction=topleft -search=`expand('%:p')` -ignored-files=.git <CR>
+nnoremap <silent> sf :Defx -ignored-files=.git <CR>
+autocmd BufWritePost * call defx#redraw()
+autocmd BufEnter * call defx#redraw()
 
 let g:defx_git#indicators = {
   \ 'Modified'  : '✹',
@@ -126,56 +128,76 @@ call defx#custom#column('filename', {
     \ 'min_width': 40,
     \ 'max_width': 40,
     \ })
+call defx#custom#column('mark', {
+    \ 'readonly_icon': '✗',
+    \ 'selected_icon': '✓',
+    \ })
 call defx#custom#option('_', {
-    \ 'columns': 'indent:git:icon:filename:type:size:time',
+    \ 'resume': 1,
+    \ 'columns': 'indent:git:icons:filename:type:size:time',
     \ })
 autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort
-   	nnoremap <silent><buffer><expr> ~ defx#async_action('cd')
-   	" nnoremap <silent><buffer><expr> h defx#async_action('cd', ['..'])
-   	nnoremap <silent><buffer><expr> h defx#async_action('close_tree')
-   	nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-   	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-   	" nnoremap <silent><buffer><expr> l defx#async_action('drop')
-    nnoremap <silent><buffer><expr> l
-		\ defx#is_directory() ?
-		\ defx#do_action('open_tree') :
-		\ defx#do_action('multi', ['drop'])
-
-    nnoremap <silent><buffer><expr> <C-l> '<C-w>l'
-
-   	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-   	nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ? ':<C-u>wincmd w<CR>' : ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
-   	nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-   	" nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-    nnoremap <silent><buffer><expr> <CR>
-		\ defx#is_directory() ?
-		\ defx#do_action('open_tree') :
-		\ defx#do_action('multi', ['drop'])
-   	nnoremap <silent><buffer><expr> q defx#do_action('quit')
-
-   	nnoremap <silent><buffer><expr> o defx#async_action('open_or_close_tree')
-   	nnoremap <silent><buffer><expr> O defx#async_action('open_tree_recursive')
-
-   	nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
-   	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
-   	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-   	" nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
-   	nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
-   	nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
-   	nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-   	nnoremap <silent><buffer><expr> N defx#do_action('new_file')
-   	nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
-   	nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'Time')
-   	nnoremap <silent><buffer><expr> c defx#do_action('copy')
-   	nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
-   	nnoremap <silent><buffer><expr> m defx#do_action('move')
-   	nnoremap <silent><buffer><expr> p defx#do_action('paste')
-   	nnoremap <silent><buffer><expr> r defx#do_action('rename')
-   	nnoremap <silent><buffer><expr> se defx#do_action('save_session')
-   	nnoremap <silent><buffer><expr> sl defx#do_action('load_session')
-   	nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
-   	nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+	  " Define mappings
+	  nnoremap <silent><buffer><expr> <CR>
+	  \ defx#do_action('open')
+	  nnoremap <silent><buffer><expr> c
+	  \ defx#do_action('copy')
+	  nnoremap <silent><buffer><expr> m
+	  \ defx#do_action('move')
+	  nnoremap <silent><buffer><expr> p
+	  \ defx#do_action('paste')
+	  nnoremap <silent><buffer><expr> l
+	  \ defx#do_action('open')
+	  nnoremap <silent><buffer><expr> E
+	  \ defx#do_action('open', 'vsplit')
+	  nnoremap <silent><buffer><expr> P
+	  \ defx#do_action('preview')
+	  nnoremap <silent><buffer><expr> o
+	  \ defx#do_action('open_tree', 'toggle')
+	  nnoremap <silent><buffer><expr> K
+	  \ defx#do_action('new_directory')
+	  nnoremap <silent><buffer><expr> N
+	  \ defx#do_action('new_file')
+	  nnoremap <silent><buffer><expr> M
+	  \ defx#do_action('new_multiple_files')
+	  nnoremap <silent><buffer><expr> C
+	  \ defx#do_action('toggle_columns',
+	  \ 'mark:indent:git:icons:filename:type:size:time')
+	  nnoremap <silent><buffer><expr> S
+	  \ defx#do_action('toggle_sort', 'time')
+	  nnoremap <silent><buffer><expr> d
+	  \ defx#do_action('remove')
+	  nnoremap <silent><buffer><expr> r
+	  \ defx#do_action('rename')
+	  nnoremap <silent><buffer><expr> !
+	  \ defx#do_action('execute_command')
+	  nnoremap <silent><buffer><expr> x
+	  \ defx#do_action('execute_system')
+	  nnoremap <silent><buffer><expr> yy
+	  \ defx#do_action('yank_path')
+	  nnoremap <silent><buffer><expr> .
+	  \ defx#do_action('toggle_ignored_files')
+	  nnoremap <silent><buffer><expr> ;
+	  \ defx#do_action('repeat')
+	  nnoremap <silent><buffer><expr> h
+	  \ defx#do_action('cd', ['..'])
+	  nnoremap <silent><buffer><expr> ~
+	  \ defx#do_action('cd')
+	  nnoremap <silent><buffer><expr> q
+	  \ defx#do_action('quit')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ defx#do_action('toggle_select') . 'j'
+	  nnoremap <silent><buffer><expr> *
+	  \ defx#do_action('toggle_select_all')
+	  nnoremap <silent><buffer><expr> j
+	  \ line('.') == line('$') ? 'gg' : 'j'
+	  nnoremap <silent><buffer><expr> k
+	  \ line('.') == 1 ? 'G' : 'k'
+	  nnoremap <silent><buffer><expr> <C-g>
+	  \ defx#do_action('print')
+	  nnoremap <silent><buffer><expr> cd
+	  \ defx#do_action('change_vim_cwd')
   endfunction
 
 " coc
