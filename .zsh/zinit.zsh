@@ -27,9 +27,6 @@ zinit snippet OMZ::lib/completion.zsh
 zinit ice wait'!0' pick"history.zsh" lucid
 zinit snippet OMZ::lib/history.zsh
 
-zinit ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src"zhook.zsh"
-zinit light direnv/direnv
-
 zinit light zsh-users/zsh-history-substring-search
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=''
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
