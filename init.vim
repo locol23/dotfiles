@@ -52,6 +52,15 @@ function! AccNext()
 endfunction
 
 call plug#begin('~/.vim/plugged')
+  " denite
+  if has('nvim')
+    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/denite.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+
   " defx
   if has('nvim')
     Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -198,6 +207,7 @@ autocmd FileType defx call s:defx_my_settings()
 	  \ defx#do_action('print')
 	  nnoremap <silent><buffer><expr> cd
 	  \ defx#do_action('change_vim_cwd')
+    nnoremap <silent> <Leader>gr :<C-u>Denite -buffer-name=search -no-empty grep<CR>
   endfunction
 
 " coc
