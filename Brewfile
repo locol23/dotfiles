@@ -43,7 +43,7 @@ cask "firefox"
 cask "sketch"
 # font
 tap "homebrew/cask-fonts"
-cask "font-noto-nerd-font-mono"
+cask "font-noto-nerd-font"
 
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
