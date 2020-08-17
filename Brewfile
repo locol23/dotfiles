@@ -46,6 +46,7 @@ cask "sketch"
 # font
 tap "homebrew/cask-fonts"
 cask "font-noto-nerd-font"
+cask "kobo"
 
 mas "LINE", id: 539883307
 mas "Xcode", id: 497799835
