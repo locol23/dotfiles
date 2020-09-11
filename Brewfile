@@ -20,6 +20,7 @@ brew "kubernetes-cli"
 brew "kustomize"
 brew "minikube"
 brew "reattach-to-user-namespace"
+brew "rust"
 brew "watch"
 brew "stern"
 # eksctl
