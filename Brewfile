@@ -27,6 +27,7 @@ brew "stern"
 tap "weaveworks/tap"
 brew "weaveworks/tap/eksctl"
 
+cask "alacritty"
 cask "alfred"
 cask "amazon-music"
 cask "android-studio"
@@ -38,7 +39,6 @@ cask "ngrok"
 cask "karabiner-elements"
 cask "skitch"
 cask "postman"
-cask "hyper"
 cask "bettertouchtool"
 cask "docker"
 cask "virtualbox"
@@ -49,6 +49,6 @@ tap "homebrew/cask-fonts"
 cask "font-noto-nerd-font"
 cask "kobo"
 
-mas "LINE", id: 539883307
-mas "Xcode", id: 497799835
+# mas "LINE", id: 539883307
+# mas "Xcode", id: 497799835
 
