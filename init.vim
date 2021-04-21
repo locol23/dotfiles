@@ -27,7 +27,7 @@ set clipboard+=unnamed
 
 " Encode
 set encoding=utf-8
-set fileencodings=utf-8,sjis
+set fileencodings=utf-8,sjis,euc-jp
 set fileformats=unix,mac
 
 " Map
