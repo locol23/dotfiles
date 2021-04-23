@@ -5,16 +5,16 @@
         "revision": "9ee0d9912401eca4f21310bd19876a8cbac63f6d"
       },
       "homebrew/cask": {
-        "revision": "93a54d1c28eb3dbd6d51d00a117d8cc4d507a100"
+        "revision": "2779f56821e0f3a6544376682148f12323a44148"
       },
       "homebrew/cask-versions": {
-        "revision": "397dae35f839dcaa689925743eaa3fec9a1509a7"
+        "revision": "4d5d95679da78f106d3eded0945db7f42077872f"
       },
       "weaveworks/tap": {
         "revision": "d6f5358921c6d17cc7d1242d59cd26622b89a231"
       },
       "homebrew/cask-fonts": {
-        "revision": "f1252dc6342c2020015d87a317eec8df2e72ff72"
+        "revision": "ea3b3f82daaa37aa6cf8d6c6bd170263cf2b093a"
       }
     },
     "brew": {
@@ -707,7 +707,7 @@
         }
       },
       "google-chrome-canary": {
-        "version": "92.0.4483.0",
+        "version": "92.0.4484.7",
         "options": {
           "full_name": "google-chrome-canary"
         }
@@ -801,6 +801,12 @@
         "options": {
           "full_name": "alacritty"
         }
+      },
+      "microsoft-teams": {
+        "version": "1.4.00.7175",
+        "options": {
+          "full_name": "microsoft-teams"
+        }
       }
     },
     "mas": {
@@ -831,7 +837,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.1.3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "46c35aaff756a76f1240557fee4ef6b4bca0649f",
+        "Homebrew/homebrew-core": "0f71ff9bf59eea842db3f9033d31561d2417190f",
         "CLT": "12.4.0.0.1.1610135815",
         "Xcode": "12.0",
         "macOS": "11.2.3"
