@@ -5,7 +5,7 @@
         "revision": "9ee0d9912401eca4f21310bd19876a8cbac63f6d"
       },
       "homebrew/cask": {
-        "revision": "2779f56821e0f3a6544376682148f12323a44148"
+        "revision": "9c8b834bfc759675b2d97773323c17e049021733"
       },
       "homebrew/cask-versions": {
         "revision": "4d5d95679da78f106d3eded0945db7f42077872f"
@@ -807,6 +807,18 @@
         "options": {
           "full_name": "microsoft-teams"
         }
+      },
+      "microsoft-outlook": {
+        "version": "16.48.21041102",
+        "options": {
+          "full_name": "microsoft-outlook"
+        }
+      },
+      "viber": {
+        "version": "15.0.0,1500",
+        "options": {
+          "full_name": "viber"
+        }
       }
     },
     "mas": {
@@ -837,7 +849,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.1.3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "0f71ff9bf59eea842db3f9033d31561d2417190f",
+        "Homebrew/homebrew-core": "b72e6fcf2a35e855278130516f01d4376d01e408",
         "CLT": "12.4.0.0.1.1610135815",
         "Xcode": "12.0",
         "macOS": "11.2.3"
