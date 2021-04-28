@@ -11,6 +11,9 @@ if [[ -z "$TMUX" ]]; then
   exit
 fi
 
+# enable direnv
+eval "$(direnv hook zsh)"
+
 # alias
 [ ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 
