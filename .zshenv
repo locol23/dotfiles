@@ -2,9 +2,10 @@
 export EDITOR=vim
 
 # android
-export ANDROID_HOME=~/Library/Android/sdk/
-export PATH=$PATH:~/android-sdks/platform/
-export PATH=$PATH:~/android-sdks/tools/
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$PATH:~/Library/Android/sdk/platform
+export PATH=$PATH:~/Library/Android/sdk/tools
+export PATH=$PATH:~/Library/Android/sdk/platform-tools
 
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
