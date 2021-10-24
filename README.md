@@ -3,7 +3,8 @@
 my dot files
 
 ## Prerequisites
-- [Command Line Tools for Xcode](https://developer.apple.com/download/more/)
+
+Log in App Store on your macOS with your Apple ID
 
 ## Run
 
