@@ -6,14 +6,22 @@ my dot files
 
 Log in App Store on your macOS with your Apple ID
 
-## Run
+## Getting Started
+
+```bash
+git clone --depth 1 git@github.com:locol23/dotfiles.git
+cd dotfiles
+```
+
+### install
 
 ```bash
 make install
 ```
 
-## List of dot files
+### List of dot files
 
 ```bash
 make list
 ```
+
