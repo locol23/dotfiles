@@ -26,12 +26,11 @@ init:
 	@sudo mkdir -p /usr/local/n
 	@sudo chown -R $$(whoami) /usr/local/n /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
-	@brew install yarn
-	@brew uninstall node --ignore-dependencies
+	@npm install --global yarn
 	@echo ''
 	@echo 'Install node modules globally'
 	@echo ''
-	@yarn global add now
+	@yarn global add vercel
 	@yarn global add graphqurl
 	@echo ''
 	@echo 'Install zsh'
