@@ -5,7 +5,7 @@
         "revision": "e11704f58688da7e9d0192d08ff2b31c252a2f6b"
       },
       "homebrew/cask": {
-        "revision": "b3e676fb923579b9c30f76c133c3192aa31e7e9a"
+        "revision": "b2834de544399810f0949f53898f17b2dc6aea99"
       },
       "homebrew/cask-versions": {
         "revision": "7231185ab7559e273bb3bd92795488b185a83df9"
@@ -1084,6 +1084,12 @@
         "options": {
           "full_name": "viber"
         }
+      },
+      "bartender": {
+        "version": "4.1.14,41014",
+        "options": {
+          "full_name": "bartender"
+        }
       }
     },
     "mas": {
@@ -1114,7 +1120,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.3.2",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "d6096d15dbb08e9e8c332527fc67a621b8b9f5ad",
+        "Homebrew/homebrew-core": "f141a8f3b646dbd7c90896b72b2acc32ef2ea7c9",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.1",
         "macOS": "11.6"
