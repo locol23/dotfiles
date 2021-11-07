@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
   " coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  nmap coci :CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-jest<CR>
+  nmap coci :CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-jest coc-styled-components<CR>
 
   " fzf
   Plug '/usr/local/opt/fzf'
