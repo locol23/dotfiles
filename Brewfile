@@ -32,6 +32,7 @@ cask "amazon-music"
 cask "android-studio"
 cask "bartender"
 cask "bettertouchtool"
+cask "choosy"
 cask "docker"
 cask "firefox"
 tap "homebrew/cask-fonts" # font

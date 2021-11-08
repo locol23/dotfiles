@@ -1090,6 +1090,12 @@
         "options": {
           "full_name": "bartender"
         }
+      },
+      "choosy": {
+        "version": "2.2.1",
+        "options": {
+          "full_name": "choosy"
+        }
       }
     },
     "mas": {
