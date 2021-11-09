@@ -5,16 +5,16 @@
         "revision": "e11704f58688da7e9d0192d08ff2b31c252a2f6b"
       },
       "homebrew/cask": {
-        "revision": "b2834de544399810f0949f53898f17b2dc6aea99"
+        "revision": "56eb40ffdc0dc4a846d9fb0ce0408860d6791393"
       },
       "homebrew/cask-versions": {
-        "revision": "7231185ab7559e273bb3bd92795488b185a83df9"
+        "revision": "52173afff4caf04f1ea7e4ab9ec7831f207d74ae"
       },
       "weaveworks/tap": {
         "revision": "e8120d59f1de3fe33ef42571a2014cfa9bef66d0"
       },
       "homebrew/cask-fonts": {
-        "revision": "ed806ed70c0c5d6add8b54fb3e668fd0f7f1ee98"
+        "revision": "8eeffd8dd5f174813f3bae7f47c81af778c4f842"
       }
     },
     "brew": {
@@ -944,6 +944,45 @@
             }
           }
         }
+      },
+      "awscli": {
+        "version": "2.3.4",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:f28477562bf421b6a79a8bced184a7751cdfd12030e73b917ceec4830577e92e",
+              "sha256": "f28477562bf421b6a79a8bced184a7751cdfd12030e73b917ceec4830577e92e"
+            },
+            "arm64_big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:7fa5c3fb7f3fe128f1f95421d6faf098e5068afe3d8cf781090534f625daeb7c",
+              "sha256": "7fa5c3fb7f3fe128f1f95421d6faf098e5068afe3d8cf781090534f625daeb7c"
+            },
+            "monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:a1a9b60751c7edf2fa97d8c83ceb18259e0d66c5354b010ae6c7129c9c62d3d5",
+              "sha256": "a1a9b60751c7edf2fa97d8c83ceb18259e0d66c5354b010ae6c7129c9c62d3d5"
+            },
+            "big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:434ba8a1eb3ca15f27eccb6568d82d35381ed1fe5de77c5b17777ad57fc953df",
+              "sha256": "434ba8a1eb3ca15f27eccb6568d82d35381ed1fe5de77c5b17777ad57fc953df"
+            },
+            "catalina": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:ad7034910b71ea68190fd1d1f0f90c8afd8780448cd5d50924f9ecbc32a70252",
+              "sha256": "ad7034910b71ea68190fd1d1f0f90c8afd8780448cd5d50924f9ecbc32a70252"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/awscli/blobs/sha256:3dc0a0e67b09680e2aa9531fbaa1700c69d4ee31738b3bab871196447bdf183a",
+              "sha256": "3dc0a0e67b09680e2aa9531fbaa1700c69d4ee31738b3bab871196447bdf183a"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -972,7 +1011,7 @@
         }
       },
       "google-chrome-canary": {
-        "version": "98.0.4693.2",
+        "version": "98.0.4694.0",
         "options": {
           "full_name": "google-chrome-canary"
         }
@@ -1080,7 +1119,7 @@
         }
       },
       "viber": {
-        "version": "16.4.0,1647",
+        "version": "16.4.5,1643",
         "options": {
           "full_name": "viber"
         }
@@ -1126,7 +1165,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.3.2",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "f141a8f3b646dbd7c90896b72b2acc32ef2ea7c9",
+        "Homebrew/homebrew-core": "209c7d601d130a3872151eb9c0bd92cdbb1c9082",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.1",
         "macOS": "11.6"
