@@ -1,5 +1,5 @@
 alias g='git'
-alias gbd="g b --merged | grep -vE '^\*|master$|develop$' | xargs -I % git b -d %"
+alias gbd="g b --merged | grep -vE '^\*|main$|develop$' | xargs -I % git b -d %"
 alias d=docker
 alias dc=docker-compose
 alias vi=nvim
