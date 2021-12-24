@@ -29,6 +29,7 @@ brew "zsh"
 
 cask "alacritty"
 cask "alfred"
+cask "adobe-creative-cloud"
 cask "amazon-music"
 cask "android-studio"
 cask "bartender"
