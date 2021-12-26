@@ -4,6 +4,7 @@ tap "homebrew/cask-versions"
 
 brew "ag"
 brew "awscli"
+brew "bazel"
 brew "direnv"
 tap "weaveworks/tap" # eksctl
 brew "weaveworks/tap/eksctl" # eksctl
