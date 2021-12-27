@@ -5,16 +5,16 @@
         "revision": "0ecf67d01e219fa53fffdca35642d556e0d6d80a"
       },
       "homebrew/cask": {
-        "revision": "844b94c8a691ba9ba1b522fda3ad7577f20b3db7"
+        "revision": "a0c788c0618409d76db9e13560034752e2e606f5"
       },
       "homebrew/cask-versions": {
-        "revision": "5b64171190c3ef08b581fdfb9add46ac6ff1f9b2"
+        "revision": "82edc28a95407ebc5896e0d41539d0be25dcdc0d"
       },
       "weaveworks/tap": {
         "revision": "94b7979341007c3b14581583b0854f396b308072"
       },
       "homebrew/cask-fonts": {
-        "revision": "bb3120706b5f1fb245c9bd48a1afee609594d421"
+        "revision": "5c964785b19b5c25d823fa990eb79791f962bca3"
       }
     },
     "brew": {
@@ -972,6 +972,8 @@
             }
           }
         }
+      },
+      "slack": {
       }
     },
     "cask": {
@@ -1000,7 +1002,7 @@
         }
       },
       "google-chrome-canary": {
-        "version": "99.0.4783.0",
+        "version": "99.0.4789.0",
         "options": {
           "full_name": "google-chrome-canary"
         }
@@ -1030,13 +1032,13 @@
         }
       },
       "postman": {
-        "version": "9.6.1",
+        "version": "9.6.2",
         "options": {
           "full_name": "postman"
         }
       },
       "bettertouchtool": {
-        "version": "3.678,1812",
+        "version": "3.680,1815",
         "options": {
           "full_name": "bettertouchtool"
         }
@@ -1130,6 +1132,12 @@
         "options": {
           "full_name": "adobe-creative-cloud"
         }
+      },
+      "slack": {
+        "version": "4.23.0",
+        "options": {
+          "full_name": "slack"
+        }
       }
     },
     "mas": {
@@ -1160,7 +1168,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.3.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "17ff31bb6146e91fc62f48a6f2c3deb32ff1328d",
+        "Homebrew/homebrew-core": "74f1e3fe56ade0bb66b583752b62840e81329dc4",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.2.1",
         "macOS": "11.6"
