@@ -56,6 +56,3 @@ cask "viber"
 cask "virtualbox"
 cask "visual-studio-code"
 
-mas "LINE", id: 539883307
-mas "Xcode", id: 497799835
-
