@@ -10,6 +10,7 @@ brew "deno"
 brew "direnv"
 tap "weaveworks/tap" # eksctl
 brew "weaveworks/tap/eksctl" # eksctl
+brew "fd"
 brew "fzf"
 brew "git"
 brew "kubernetes-cli"
