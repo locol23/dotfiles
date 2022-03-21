@@ -4,6 +4,7 @@ tap "homebrew/cask-versions"
 
 brew "ag"
 brew "awscli"
+brew "bat"
 brew "bazel"
 brew "deno"
 brew "direnv"
