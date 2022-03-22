@@ -5,7 +5,7 @@
         "revision": "36e0f7a5df44761ccf1901877aaf4ed3a2ff8c06"
       },
       "homebrew/cask": {
-        "revision": "3800c380e1e9c231331894399312e9828e34fea2"
+        "revision": "5fe368796fbcdc0c0f67c223feefa3653e2c8493"
       },
       "homebrew/cask-versions": {
         "revision": "32db21d23f9273387135bd65051dc9068391cb46"
@@ -1284,6 +1284,12 @@
         "options": {
           "full_name": "slack"
         }
+      },
+      "discord": {
+        "version": "0.0.266",
+        "options": {
+          "full_name": "discord"
+        }
       }
     },
     "mas": {
@@ -1312,9 +1318,9 @@
         "macOS": "10.15.7"
       },
       "big_sur": {
-        "HOMEBREW_VERSION": "3.4.2",
+        "HOMEBREW_VERSION": "3.4.3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "e01990939f93c94c2220a0886df03784f6178189",
+        "Homebrew/homebrew-core": "2c2593b049f8ec80242d88e16c62671553deba17",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.2.1",
         "macOS": "11.6"

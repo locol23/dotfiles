@@ -40,6 +40,7 @@ cask "android-studio"
 cask "bartender"
 cask "bettertouchtool"
 cask "choosy"
+cask "discord"
 cask "docker"
 cask "firefox"
 tap "homebrew/cask-fonts" # font
