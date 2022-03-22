@@ -26,6 +26,8 @@ brew "ripgrep"
 brew "rust"
 brew "skaffold"
 brew "stern"
+tap "hashicorp/tap" # terraform
+brew "hashicorp/tap/terraform" # terraform
 brew "tig"
 brew "tmux"
 brew "tree"

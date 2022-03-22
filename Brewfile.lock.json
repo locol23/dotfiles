@@ -2,19 +2,22 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "36e0f7a5df44761ccf1901877aaf4ed3a2ff8c06"
+        "revision": "7f7a2b8e3fc4b119dac3f0379ae0f96fa3b56bae"
       },
       "homebrew/cask": {
-        "revision": "5fe368796fbcdc0c0f67c223feefa3653e2c8493"
+        "revision": "a6e45190788086248c320fb359ae3f1f08ae4ce4"
       },
       "homebrew/cask-versions": {
-        "revision": "32db21d23f9273387135bd65051dc9068391cb46"
+        "revision": "d855b43044efa91c8914bc6b20d08710b31e4232"
       },
       "weaveworks/tap": {
         "revision": "e6502a5318244e6192303d403d0a454d92836432"
       },
       "homebrew/cask-fonts": {
         "revision": "8a4081241faa95481f158132756ba452702c2e47"
+      },
+      "hashicorp/tap": {
+        "revision": "a0bb15182717574518017ae5893b7feed5c2a090"
       }
     },
     "brew": {
@@ -1120,6 +1123,10 @@
             }
           }
         }
+      },
+      "hashicorp/tap/terraform": {
+        "version": "1.1.7",
+        "bottle": false
       }
     },
     "cask": {
@@ -1320,7 +1327,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.4.3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "2c2593b049f8ec80242d88e16c62671553deba17",
+        "Homebrew/homebrew-core": "68bfee0df661c3eba98451b7d69ef3a725ca21f6",
         "CLT": "13.0.0.0.1.1630607135",
         "Xcode": "13.2.1",
         "macOS": "11.6"
