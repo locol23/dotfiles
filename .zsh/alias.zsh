@@ -9,4 +9,5 @@ alias kccc="kc config current-context"
 alias s=skaffold
 alias l="ls -la"
 alias ll="ls -l"
+alias tf=terraform
 
