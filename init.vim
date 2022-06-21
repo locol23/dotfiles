@@ -39,16 +39,22 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap \r :QuickRun<CR>
 nnoremap run :call RunCpp()<CR>
-nnoremap accn :call AccNext()<CR>
+nnoremap an :call AccNext()<CR>
+nnoremap as :call AccSubmit()<CR>
 
 function! RunCpp()
-    let result = system('g++ ' . bufname("") . '&& ./a.out && oj t -d ./tests')
+    let result = system('g++ ' . bufname("") . '&& oj t -d ./tests')
     echo result
 endfunction
 
 function! AccNext()
     let result = system('acc add -c next')
     echo result
+endfunction
+
+function! AccSubmit()
+  let result = system('acc submit main.cpp -- -y')
+  echo result
 endfunction
 
 call plug#begin('~/.vim/plugged')
