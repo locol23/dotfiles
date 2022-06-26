@@ -13,6 +13,7 @@ brew "weaveworks/tap/eksctl" # eksctl
 brew "fastly/tap/fastly"
 brew "fd"
 brew "fzf"
+brew "gcc"
 brew "git"
 brew "kubernetes-cli"
 brew "kustomize"
