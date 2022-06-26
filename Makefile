@@ -47,6 +47,8 @@ init:
 	@echo 
 	@yarn global add atcoder-cli
 	@pip3 install --user online-judge-tools
+	@ln -fs `ls /usr/local/bin | grep -E "^gcc-[0-9]{2}"` /usr/local/bin/gcc
+	@ln -fs `ls /usr/local/bin | grep -E "^g\+\+-[0-9]{2}"` /usr/local/bin/g++
 
 deploy:
 	@echo ''
