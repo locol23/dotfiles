@@ -27,7 +27,6 @@ brew "procs"
 brew "python3"
 brew "reattach-to-user-namespace"
 brew "ripgrep"
-brew "rust"
 brew "skaffold"
 brew "stern"
 tap "hashicorp/tap" # terraform
