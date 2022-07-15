@@ -49,6 +49,11 @@ init:
 	@pip3 install --user online-judge-tools
 	@ln -fs `ls /usr/local/bin | grep -E "^gcc-[0-9]{2}"` /usr/local/bin/gcc
 	@ln -fs `ls /usr/local/bin | grep -E "^g\+\+-[0-9]{2}"` /usr/local/bin/g++
+	@echo 
+	@echo 'Install Rust'
+	@echo 
+	@curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	@rustup component add rls rust-analysis rust-src
 
 deploy:
 	@echo ''
@@ -74,5 +79,6 @@ uninstall:
 	@rm -rf ~/.oh-my-zsh/
 	@rm -rf ~/.config/
 	@rm -rf ~/.cache/
+	@rustup self uninstall
 	@echo ''
 	@echo 'Uninstall Success'

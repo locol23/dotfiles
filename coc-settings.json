@@ -2,7 +2,7 @@
   "suggest.noselect":false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.maxCompleteItemCount": 20,
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "go"],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "go", "rust"],
   "eslint.autoFixOnSave": true,
   "eslint.probe": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "diagnostic.errorSign": "•",
