@@ -11,4 +11,5 @@ alias l="ls -la"
 alias ll="ls -l"
 alias tf=terraform
 alias tg=terragrunt
+alias p=pnpm
 
