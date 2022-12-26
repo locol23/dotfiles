@@ -30,28 +30,28 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 brew bundle --file $DOTFILES_HOME/Brewfile
 
 # Alacritty
-ln -sf .alacritty.yml ~/
+ln -sf $DOTFILES_HOME/.alacritty.yml ~/
 
 # Git
-ln -sf .gitconfig ~/
-ln -sf .gitignore_global ~/
+ln -sf $DOTFILES_HOME/.gitconfig ~/
+ln -sf $DOTFILES_HOME/.gitignore_global ~/
 
 # Node.js
 n latest
-ln -sf .npmrc ~/
+ln -sf $DOTFILES_HOME/.npmrc ~/
 
 # Zsh
 sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
 chsh -s '/usr/local/bin/zsh'
-ln -sf .zsh/ ~/
-ln -sf .zshenv ~/
-ln -sf .zshrc ~/
+ln -sf $DOTFILES_HOME/.zsh/ ~/
+ln -sf $DOTFILES_HOME/.zshenv ~/
+ln -sf $DOTFILES_HOME/.zshrc ~/
 
 # Vim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 pip3 install --user pynvim
-ln -sf init.vim ~/.config/nvim/init.vim
-ln -sf coc-settings.json ~/.config/nvim/coc-settings.json
+ln -sf $DOTFILES_HOME/init.vim ~/.config/nvim/init.vim
+ln -sf $DOTFILES_HOME/coc-settings.json ~/.config/nvim/coc-settings.json
 
 # AtCoder
 pip3 install --user online-judge-tools
@@ -61,19 +61,19 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 rustup component add rls rust-analysis rust-src
 
 # Direnv
-ln -sf .direnvrc ~/
+ln -sf $DOTFILES_HOME/.direnvrc ~/
 
 # Prettier
-ln -sf .prettierrc.js ~/
+ln -sf $DOTFILES_HOME/.prettierrc.js ~/
 
 # Tig
-ln -sf .tigrc ~/
+ln -sf $DOTFILES_HOME/.tigrc ~/
 
 # Tmux
-ln -sf .tmux.conf ~/
+ln -sf $DOTFILES_HOME/.tmux.conf ~/
 
 # BTT
-ln -sf bttconfig.json ~/
+ln -sf $DOTFILES_HOME/bttconfig.json ~/
 
 exec $$SHELL -l
 
