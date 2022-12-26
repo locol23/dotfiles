@@ -6,40 +6,40 @@ list:
 	@$(foreach val, $(TARGET), ls -dF $(val);)
 
 init:
-	@echo ''
+	@echo
 	@echo 'Install Mac Dock settings'
-	@echo ''
+	@echo
 	@defaults write com.apple.dock autohide -bool true
 	@defaults write com.apple.dock persistent-apps -array
 	@defaults write com.apple.dock tilesize -int 55
 	@defaults write com.apple.dock magnification -bool true
 	@killall Dock
-	@echo ''
+	@echo
 	@echo 'Install Homebrew and Formula'
-	@echo ''
+	@echo
 	@sudo chown -R $$(whoami) /usr/local/share/zsh /usr/local/share/zsh/site-functions
 	@/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	@brew bundle
-	@echo ''
+	@echo
 	@echo 'Install Node.js'
-	@echo ''
+	@echo
 	@sudo mkdir -p /usr/local/n
 	@sudo chown -R $$(whoami) /usr/local/n /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
 	@npm install --global yarn
-	@echo ''
+	@echo
 	@echo 'Install node modules globally'
-	@echo ''
+	@echo
 	@yarn global add vercel
 	@yarn global add graphqurl
-	@echo ''
+	@echo
 	@echo 'Install zsh'
-	@echo ''
+	@echo
 	@sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
 	@chsh -s '/usr/local/bin/zsh'
-	@echo ''
+	@echo
 	@echo 'Install Vim'
-	@echo ''
+	@echo
 	@curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	@pip3 install --user pynvim
 	@echo 
@@ -56,9 +56,9 @@ init:
 	@rustup component add rls rust-analysis rust-src
 
 deploy:
-	@echo ''
+	@echo
 	@echo 'Deploy files'
-	@echo ''
+	@echo
 	@$(foreach val, $(TARGET), cp -rv $(val) ~/;)
 	@cp -v bttconfig.json ~/
 	@mkdir -p ~/.config/nvim/
@@ -66,12 +66,12 @@ deploy:
 	@ln -snfv `pwd`/coc-settings.json ~/.config/nvim/coc-settings.json
 
 install: init deploy
-	@echo ''
+	@echo
 	@echo 'Install Success'
 	@exec $$SHELL -l
 
 uninstall:
-	@echo ''
+	@echo
 	@echo 'Uninstall settings'
 	@$(foreach val, $(TARGET), rm -f ~/$(val);)
 	@rm -f ~/bttconfig
@@ -80,5 +80,5 @@ uninstall:
 	@rm -rf ~/.config/
 	@rm -rf ~/.cache/
 	@rustup self uninstall
-	@echo ''
+	@echo
 	@echo 'Uninstall Success'
