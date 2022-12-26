@@ -43,7 +43,7 @@ nnoremap an :call AccNext()<CR>
 nnoremap as :call AccSubmit()<CR>
 
 function! RunCpp()
-    let result = system('g++ ' . bufname("") . '&& oj t -d ./tests')
+    let result = system('g++ ' . bufname("") . ' -std=c++14 && oj t -d ./tests')
     echo result
 endfunction
 

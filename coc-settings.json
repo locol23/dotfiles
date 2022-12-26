@@ -7,6 +7,13 @@
   "eslint.probe": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "diagnostic.errorSign": "•",
   "diagnostic.warningSign": "•",
-  "diagnostic.infoSign": "•"
+  "diagnostic.infoSign": "•",
+  "languageserver": {
+   "clangd": {
+     "command": "clangd",
+     "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+     "filetypes": ["c", "cpp", "objc", "objcpp"]
+   }
+ }
 }
 

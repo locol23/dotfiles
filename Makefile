@@ -52,7 +52,7 @@ init:
 	@echo 
 	@echo 'Install Rust'
 	@echo 
-	@curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	@$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 	@rustup component add rls rust-analysis rust-src
 
 deploy:
