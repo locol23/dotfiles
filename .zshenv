@@ -18,3 +18,6 @@ export GOPATH="$HOME/go"
 export GOROOT="/usr/local/go"
 export PATH="$HOME/go/bin:$PATH"
 
+# cpp
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+
