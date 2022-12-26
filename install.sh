@@ -26,7 +26,7 @@ defaults write -g com.apple.trackpad.scaling 3
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # Homebrew and Formula
-/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew bundle --file $DOTFILES_HOME/Brewfile
 
 # Alacritty
