@@ -23,10 +23,7 @@ init:
 	@echo
 	@echo 'Install Node.js'
 	@echo
-	@sudo mkdir -p /usr/local/n
-	@sudo chown -R $$(whoami) /usr/local/n /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
 	@n latest
-	@npm install --global yarn
 	@echo
 	@echo 'Install node modules globally'
 	@echo
