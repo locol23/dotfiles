@@ -2,7 +2,7 @@
 
 export DOTFILES_HOME=~/.dotfiles
 
-git clone git@github.com:locol23/dotfiles.git $DOTFILES_HOME
+git clone https://github.com/locol23/dotfiles.git $DOTFILES_HOME
 
 # Mac
 # Dock
