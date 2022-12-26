@@ -10,6 +10,7 @@ defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock tilesize -int 55
 defaults write com.apple.dock magnification -bool true
 killall Dock
+defaults write -g InitialKeyRepeat -int 15
 defaults write -g KeyRepeat -int 1
 
 # Homebrew and Formula
@@ -20,8 +21,8 @@ brew bundle --file $DOTFILES_HOME/Brewfile
 ln -sf .alacritty.yml ~/
 
 # Git
-.gitconfig
-.gitignore_global
+ln -sf .gitconfig ~/
+ln -sf .gitignore_global ~/
 
 # Node.js
 n latest
@@ -60,7 +61,7 @@ ln -sf .tigrc ~/
 ln -sf .tmux.conf ~/
 
 # BTT
-cp -v bttconfig.json ~/
+ln -sf bttconfig.json ~/
 
 exec $$SHELL -l
 
