@@ -25,11 +25,6 @@ init:
 	@echo
 	@n latest
 	@echo
-	@echo 'Install node modules globally'
-	@echo
-	@yarn global add vercel
-	@yarn global add graphqurl
-	@echo
 	@echo 'Install zsh'
 	@echo
 	@sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
