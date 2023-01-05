@@ -58,29 +58,26 @@ function! AccSubmit()
 endfunction
 
 call plug#begin('~/.vim/plugged')
-  " denite
-  if has('nvim')
-    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/denite.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+  " denops
+  Plug 'vim-denops/denops.vim'
 
-  " defx
-  if has('nvim')
-    Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/defx.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-  Plug 'kristijanhusak/defx-git'
-  Plug 'kristijanhusak/defx-icons'
+  " ddu
+  Plug 'Shougo/ddu.vim'
+
+  " ddu-ui-filer
+  Plug 'Shougo/ddu-ui-filer'
+
+  " ddu-source-file
+  Plug 'Shougo/ddu-source-file'
+
+  " ddu-kind-file
+  Plug 'Shougo/ddu-kind-file'
+
+  " ddu-column-icon_filename
+  Plug 'ryota2357/ddu-column-icon_filename'
 
   " coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   nmap coci :CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-jest coc-styled-components coc-go coc-rls \| CocCommand go.install.gopls<CR>
 
   " fzf
@@ -119,141 +116,119 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
-" denite settings
-call denite#custom#var('grep', {
-  \ 'command': ['ag'],
-  \ 'default_opts': ['-i', '--vimgrep'],
-  \ 'recursive_opts': [],
-  \ 'pattern_opt': [],
-  \ 'separator': ['--'],
-  \ 'final_opts': [],
-  \ })
+" ddu-ui-filer
+call ddu#custom#patch_local('filer', {
+\   'ui': 'filer',
+\   'sources': [
+\     {
+\       'name': 'file',
+\       'params': {},
+\     },
+\   ],
+\   'sourceOptions': {
+\     '_': {
+\       'columns': ['icon_filename'],
+\     },
+\   },
+\   'kindOptions': {
+\     'file': {
+\       'defaultAction': 'open',
+\     },
+\   },
+\   'uiParams': {
+\     'filer': {
+\       'winWidth': 40,
+\       'split': 'vertical',
+\       'splitDirection': 'topleft',
+\     }
+\   },
+\   'actionOptions': {
+\     'narrow': {
+\       'quit': v:false 
+\     }
+\   }
+\ })
 
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
+autocmd TabEnter,CursorHold,FocusGained <buffer>
+	\ call ddu#ui#filer#do_action('checkItems')
+
+autocmd FileType ddu-filer call s:ddu_my_settings()
+function! s:ddu_my_settings() abort
+
+  nnoremap <buffer><silent><expr> <CR>
+    \ ddu#ui#filer#is_tree() ?
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>"
+
+  nnoremap <buffer><silent><expr> <Space>
+    \ ddu#ui#filer#is_tree() ?
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>"
+
+  nnoremap <buffer><silent> <Esc>
+    \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+
+  nnoremap <buffer><silent> q
+    \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+
+  nnoremap <buffer><silent><expr> l
+    \ ddu#ui#filer#is_tree() ?
+    \ "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>" :
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+
+  nnoremap <buffer><silent> h
+    \ <Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>
+
+  nnoremap <buffer><silent> c
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'copy'})<CR>
+
+  nnoremap <buffer><silent> p
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'paste'})<CR>
+
+  nnoremap <buffer><silent> d
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+
+  nnoremap <buffer><silent> r
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'rename'})<CR>
+
+  nnoremap <buffer><silent> mv
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'move'})<CR>
+
+  nnoremap <buffer><silent> n
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
+
+  nnoremap <buffer><silent> mk
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
+
+  nnoremap <buffer><silent> y
+    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'yank'})<CR>
+
+ 	nnoremap <buffer> >
+    \ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
+    \   'sourceOptions': {
+    \     '_': {
+    \       'matchers': ToggleHidden(),
+    \     },
+    \   },
+    \ })<CR>
+
+  nnoremap <buffer> o
+    \ <Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>
+
 endfunction
 
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+function! ToggleHidden()
+  let current = ddu#custom#get_current(b:ddu_ui_name)
+  let source_options = get(current, 'sourceOptions', {})
+  let source_options_all = get(source_options, '_', {})
+  let matchers = get(source_options_all, 'matchers', [])
+  return empty(matchers) ? ['matcher_hidden'] : []
 endfunction
 
-" defx setting
-nnoremap <silent> sf :Defx -ignored-files=.git <CR>
-autocmd BufWritePost * call defx#redraw()
-autocmd BufEnter * call defx#redraw()
-
-let g:defx_git#indicators = {
-  \ 'Modified'  : '✹',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '✭',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : '═',
-  \ 'Ignored'   : '☒',
-  \ 'Deleted'   : '✖',
-  \ 'Unknown'   : '?'
-  \ }
-call defx#custom#column('icon', {
-   \ 'directory_icon': '▸',
-   \ 'opened_icon': '▾',
-   \ 'root_icon': ' ',
-   \ })
-call defx#custom#column('filename', {
-    \ 'min_width': 40,
-    \ 'max_width': 40,
-    \ })
-call defx#custom#column('mark', {
-    \ 'readonly_icon': '✗',
-    \ 'selected_icon': '✓',
-    \ })
-call defx#custom#option('_', {
-    \ 'resume': 1,
-    \ 'columns': 'indent:git:icons:filename:type:size:time',
-    \ })
-
-function! DefxDeniteGrepInteractive(context) abort
-  let dirpath = fnamemodify(a:context.targets[0], ':p:h')
-  exec 'Denite -buffer-name=grap-buffer-denite grep:::! -path=' . dirpath ' -start-filter'
-endfunction
-
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o
-  \ defx#do_action('open_tree', 'toggle')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-  \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-  \ defx#do_action('toggle_columns',
-  \ 'mark:indent:git:icons:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-  \ defx#do_action('change_vim_cwd')
-  " nnoremap <silent><Leader>gr :<C-u>Denite -buffer-name=search -no-empty grep<CR>
-  nnoremap <silent><buffer><expr> gr
-  \ defx#do_action('call', 'DefxDeniteGrepInteractive')
-endfunction
+nmap <silent> sf <Cmd>call ddu#start({
+\   'name': 'filer',
+\   'uiParams': {'filer': {'search': expand('%:p')}},
+\ })<CR>
 
 " coc
 " TextEdit might fail if hidden is not set.

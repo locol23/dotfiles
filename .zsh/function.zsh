@@ -12,7 +12,8 @@ function gp {
     g config --local user.email "$1"
   fi
 
-  local URL=$(g config --list | grep github.com: | grep -v github.com.private | sed -e "s/github.com/github.com.private/g" | sed -e "s/remote.origin.url=//g")
+  local URL=$(g config --list | grep github.com | grep -v github.com.private | sed -e "s/github.com/github.com.private/g" \
+    | sed -e "s/remote.origin.url=//g" | sed -e "s/https:\/\/github.com.private\//git@github.com.private:/g")
 
   if [ "$URL" != "" ]; then
     g remote set-url origin $URL
