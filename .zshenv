@@ -8,7 +8,7 @@ export PATH=$PATH:~/Library/Android/sdk/tools
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
 
 # rust
-export PATH=$HOME/.cargo/bin:$PATH
+. "$HOME/.cargo/env"
 
 # deno
 export PATH="/Users/terazawa-y/.deno/bin:$PATH"
