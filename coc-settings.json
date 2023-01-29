@@ -24,7 +24,7 @@
    ],
    "filenames": [],
    "patternMatches": [
-     "^\\.git"
+     "^\\.git$"
    ]
  },
  "explorer.keyMappings.global": {
