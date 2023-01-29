@@ -64,21 +64,9 @@ call plug#begin('~/.vim/plugged')
   " ddu
   Plug 'Shougo/ddu.vim'
 
-  " ddu-ui-filer
-  Plug 'Shougo/ddu-ui-filer'
-
-  " ddu-source-file
-  Plug 'Shougo/ddu-source-file'
-
-  " ddu-kind-file
-  Plug 'Shougo/ddu-kind-file'
-
-  " ddu-column-icon_filename
-  Plug 'ryota2357/ddu-column-icon_filename'
-
   " coc
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  nmap coci :CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-jest coc-styled-components coc-go coc-rls \| CocCommand go.install.gopls<CR>
+  nmap coci :CocInstall coc-explorer coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-jest coc-styled-components coc-go coc-rls \| CocCommand go.install.gopls<CR>
 
   " fzf
   Plug '/usr/local/opt/fzf'
@@ -116,119 +104,15 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
-" ddu-ui-filer
-call ddu#custom#patch_local('filer', {
-\   'ui': 'filer',
-\   'sources': [
-\     {
-\       'name': 'file',
-\       'params': {},
-\     },
-\   ],
-\   'sourceOptions': {
-\     '_': {
-\       'columns': ['icon_filename'],
-\     },
-\   },
-\   'kindOptions': {
-\     'file': {
-\       'defaultAction': 'open',
-\     },
-\   },
-\   'uiParams': {
-\     'filer': {
-\       'winWidth': 40,
-\       'split': 'vertical',
-\       'splitDirection': 'topleft',
-\     }
-\   },
-\   'actionOptions': {
-\     'narrow': {
-\       'quit': v:false 
-\     }
-\   }
-\ })
-
-autocmd TabEnter,CursorHold,FocusGained <buffer>
-	\ call ddu#ui#filer#do_action('checkItems')
-
-autocmd FileType ddu-filer call s:ddu_my_settings()
-function! s:ddu_my_settings() abort
-
-  nnoremap <buffer><silent><expr> <CR>
-    \ ddu#ui#filer#is_tree() ?
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>"
-
-  nnoremap <buffer><silent><expr> <Space>
-    \ ddu#ui#filer#is_tree() ?
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>"
-
-  nnoremap <buffer><silent> <Esc>
-    \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
-
-  nnoremap <buffer><silent> q
-    \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
-
-  nnoremap <buffer><silent><expr> l
-    \ ddu#ui#filer#is_tree() ?
-    \ "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>" :
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
-
-  nnoremap <buffer><silent> h
-    \ <Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>
-
-  nnoremap <buffer><silent> c
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'copy'})<CR>
-
-  nnoremap <buffer><silent> p
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'paste'})<CR>
-
-  nnoremap <buffer><silent> d
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
-
-  nnoremap <buffer><silent> r
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'rename'})<CR>
-
-  nnoremap <buffer><silent> mv
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'move'})<CR>
-
-  nnoremap <buffer><silent> n
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
-
-  nnoremap <buffer><silent> mk
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
-
-  nnoremap <buffer><silent> y
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'yank'})<CR>
-
- 	nnoremap <buffer> >
-    \ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
-    \   'sourceOptions': {
-    \     '_': {
-    \       'matchers': ToggleHidden(),
-    \     },
+" coc explorer
+  let g:coc_explorer_global_presets = {
+    \   'default': {
+    \     'quit-on-open': v:true,
+    \     'root-strategies': 'keep'
     \   },
-    \ })<CR>
+    \ }
 
-  nnoremap <buffer> o
-    \ <Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>
-
-endfunction
-
-function! ToggleHidden()
-  let current = ddu#custom#get_current(b:ddu_ui_name)
-  let source_options = get(current, 'sourceOptions', {})
-  let source_options_all = get(source_options, '_', {})
-  let matchers = get(source_options_all, 'matchers', [])
-  return empty(matchers) ? ['matcher_hidden'] : []
-endfunction
-
-nmap <silent> sf <Cmd>call ddu#start({
-\   'name': 'filer',
-\   'uiParams': {'filer': {'search': expand('%:p')}},
-\ })<CR>
+  nmap sf <Cmd>CocCommand explorer --preset default<CR>
 
 " coc
 " TextEdit might fail if hidden is not set.
