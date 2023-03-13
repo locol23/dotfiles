@@ -69,4 +69,5 @@ cask "sketch"
 cask "viber"
 cask "virtualbox"
 cask "visual-studio-code"
+cask "zoom"
 
