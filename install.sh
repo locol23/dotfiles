@@ -53,12 +53,12 @@ ln -sf $DOTFILES_HOME/.gitconfig ~/
 ln -sf $DOTFILES_HOME/.gitignore_global ~/
 
 # Node.js
-if exist n; then
+if exist node; then
   echo
   echo "Install Node.js"
   echo
-  sudo mkdir -p /usr/local/n /usr/local/include/
-  sudo chown -R $(whoami) /usr/local/n /usr/local/share 
+  sudo mkdir -p /usr/local/n /usr/local/include /usr/local/lib
+  sudo chown -R $(whoami) /usr/local/n /usr/local/include /usr/local/lib /usr/local/share /usr/local/bin
   n latest
   ln -sf $DOTFILES_HOME/.npmrc ~/
 fi
