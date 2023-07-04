@@ -8,13 +8,13 @@
         "revision": "1c6d9e7ff30a5472a9b8c245c8ab4fd4e0044f43"
       },
       "homebrew/cask-versions": {
-        "revision": "9f45e2c63fb01a2cbb40d5e90a4143774dcfb21b"
+        "revision": "1a2c9fbfac71dce2599c358be25c06aa73364015"
       },
       "weaveworks/tap": {
-        "revision": "26e8ca3577de4716ba0f48abc402f44b5b7b6e4f"
+        "revision": "704dccd3accbe5e85127f9b47d3014c0ef749557"
       },
       "homebrew/cask-fonts": {
-        "revision": "7913f2a48e99ffd73e167f7223db67f9cd77ec42"
+        "revision": "9a59103b6d10035e320b98480396ed583596fec5"
       },
       "hashicorp/tap": {
         "revision": "2a00c8938e1bce1fe1c7e3a4cbc84f882b0bf77d"
@@ -1609,7 +1609,7 @@
         }
       },
       "google-chrome-canary": {
-        "version": "117.0.5866.0",
+        "version": "117.0.5870.0",
         "options": {
           "full_name": "google-chrome-canary"
         }
