@@ -1,3 +1,6 @@
+# homebrew
+export PATH=$PATH:/opt/homebrew/bin
+
 # direnv
 export EDITOR=vim
 
@@ -17,8 +20,8 @@ export PATH="/Users/terazawa-y/.deno/bin:$PATH"
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN:/usr/local/bin
-export GOVERSION=`ls -l /usr/local/Cellar/go/ | tail -n 1 | awk '{print $9}'`
-export GOROOT="/usr/local/Cellar/go/$GOVERSION/libexec"
+export GOVERSION=`ls -l /opt/homebrew/Cellar/go | tail -n 1 | awk '{print $9}'`
+export GOROOT="/opt/homebrew/Cellar/go/$GOVERSION/libexec"
 
 # cpp
 export PATH="/usr/local/opt/llvm/bin:$PATH"
