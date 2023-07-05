@@ -1799,6 +1799,12 @@
         "options": {
           "full_name": "asana"
         }
+      },
+      "microsoft-remote-desktop": {
+        "version": "10.8.4",
+        "options": {
+          "full_name": "microsoft-remote-desktop"
+        }
       }
     },
     "mas": {
