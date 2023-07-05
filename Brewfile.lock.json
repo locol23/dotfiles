@@ -1849,6 +1849,12 @@
         "options": {
           "full_name": "microsoft-remote-desktop"
         }
+      },
+      "altair-graphql-client": {
+        "version": "5.0.28",
+        "options": {
+          "full_name": "altair-graphql-client"
+        }
       }
     },
     "mas": {

@@ -41,6 +41,7 @@ brew "watch"
 brew "zsh"
 
 cask "alacritty"
+cask "altair-graphql-client"
 cask "alfred"
 cask "amazon-chime"
 cask "adobe-creative-cloud"
