@@ -26,3 +26,6 @@ eval "$(direnv hook zsh)"
 # plugins
 [ ~/.zsh/zinit.zsh ] && source ~/.zsh/zinit.zsh
 
+# ruby
+eval "$(rbenv init - zsh)"
+
