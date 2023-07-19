@@ -1,7 +1,12 @@
-# vi mode for terminal
+# enable vi mode on terminal
 bindkey -M viins '^]' vi-cmd-mode
 
-# enable ctrl + a and ctrl + e
+# enable ctrl + r on terminal
+bindkey -v
+bindkey '\e[3~' delete-char
+bindkey '^R' history-incremental-search-backward
+
+# enable ctrl + a and ctrl + e on terminal
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
