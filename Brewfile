@@ -9,6 +9,7 @@ brew "bazel"
 brew "chezmoi"
 brew "deno"
 brew "direnv"
+brew "docker"
 brew "docker-completion"
 tap "weaveworks/tap" # eksctl
 brew "weaveworks/tap/eksctl" # eksctl
