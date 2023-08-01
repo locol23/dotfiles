@@ -9,7 +9,6 @@ brew "bazel"
 brew "chezmoi"
 brew "deno"
 brew "direnv"
-brew "docker"
 brew "docker-completion"
 tap "weaveworks/tap" # eksctl
 brew "weaveworks/tap/eksctl" # eksctl
@@ -55,6 +54,7 @@ cask "bartender"
 cask "bettertouchtool"
 cask "choosy"
 cask "discord"
+cask "docker"
 cask "firefox"
 tap "homebrew/cask-fonts" # font
 cask "font-noto-nerd-font" # font
