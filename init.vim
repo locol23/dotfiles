@@ -99,6 +99,9 @@ call plug#begin('~/.vim/plugged')
   " help in Japanese
   Plug 'vim-jp/vimdoc-ja'
 
+  " GitHub Copilot
+  Plug 'github/copilot.vim'
+
   " color
   Plug 'w0ng/vim-hybrid'
 
@@ -181,6 +184,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Show types in TypeScript
+" autocmd CursorHold * silent
+nnoremap <silent> gh :call CocActionAsync('doHover')<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
