@@ -77,7 +77,7 @@ if [ ! -d ~/.zsh ]; then
   cp $DOTFILES_HOME/.zshrc.local ~/
 fi
 
-# # Vim
+# Vim
 if [ ! -d ~/.config/nvim ]; then
   echo
   echo "Install Vim"
@@ -88,6 +88,10 @@ if [ ! -d ~/.config/nvim ]; then
   ln -sf $DOTFILES_HOME/init.vim ~/.config/nvim/init.vim
   ln -sf $DOTFILES_HOME/coc-settings.json ~/.config/nvim/coc-settings.json
 fi
+
+# VS Code
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 # AtCoder
 if exist oj; then
@@ -102,6 +106,12 @@ if exist rustup; then
   exec $SHELL -l
 fi
 rustup component add rls rust-analysis rust-src
+
+# Golang
+go install github.com/bufbuild/buf/cmd/buf@latest
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
 
 # Direnv
 ln -sf $DOTFILES_HOME/.direnvrc ~/
