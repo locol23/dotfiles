@@ -73,6 +73,7 @@ if [ ! -d ~/.zsh ]; then
   ln -sf $DOTFILES_HOME/.zsh/ ~/
   ln -sf $DOTFILES_HOME/.zshenv ~/
   ln -sf $DOTFILES_HOME/.zshrc ~/
+  cp $DOTFILES_HOME/.zshrc.local ~/
   ln -sf $DOTFILES_HOME/.zprofile ~/
   cp $DOTFILES_HOME/.zshrc.local ~/
 fi
