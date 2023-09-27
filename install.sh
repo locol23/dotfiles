@@ -12,6 +12,10 @@ export DOTFILES_HOME=~/.dotfiles
 
 if [ ! -d "$DOTFILES_HOME" ]; then
   git clone https://github.com/locol23/dotfiles.git $DOTFILES_HOME
+  CURRENT_DIRECTORY=$(pwd)
+  cd $DOTFILES_HOME
+  git remote set-url origin git@github.com:locol23/dotfiles.git
+  cd $CURRENT_DIRECTORY
   
   # Mac
   # Dock
