@@ -20,6 +20,8 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   # Mac
   # Dock
   defaults write com.apple.dock autohide -bool true
+  defaults write com.apple.dock autohide-delay -float 0
+  defaults write com.apple.dock autohide-time-modifier -float 0.7
   defaults write com.apple.dock magnification -bool true
   defaults write com.apple.dock mineffect -string "scale"
   defaults write com.apple.dock mru-spaces -bool "false"
@@ -37,6 +39,18 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   defaults write -g com.apple.trackpad.scaling 3
   # Battery
   defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+  # Finder
+  defaults write com.apple.finder DisableAllAnimations -bool true
+  defaults write com.apple.finder AppleShowAllFiles -bool true
+  defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+  defaults write com.apple.finder ShowStatusBar -bool true
+  defaults write com.apple.finder ShowPathbar -bool true
+  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+  # Terminal
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+  defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
   # Create dotfiles command for updating tools
   sudo ln -sf $DOTFILES_HOME/install.sh /usr/local/bin/dotfiles
