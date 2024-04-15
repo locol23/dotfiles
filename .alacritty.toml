@@ -1,0 +1,19 @@
+live_config_reload = true
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "NotoMono Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "NotoMono Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "NotoMono Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "NotoMono Nerd Font Mono"
