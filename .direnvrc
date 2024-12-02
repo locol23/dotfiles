@@ -1,3 +1,7 @@
+function set_up() {
+  mise install
+}
+
 function set_node_ver() {
   if [ -e '.node-version' ]; then
     local NODE_VER=$(head -1 .node-version)

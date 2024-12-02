@@ -37,6 +37,11 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool "true"
   defaults -currentHost write -g com.apple.mouse.tapBehavior -bool "true"
   defaults write -g com.apple.trackpad.scaling 3
+  defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
+  defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 0
+  defaults write com.apple.dock showMissionControlGestureEnabled -boolean true
+  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2
+  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 0
   # Battery
   defaults write com.apple.menuextra.battery ShowPercent -string "YES"
   # Finder
@@ -70,15 +75,14 @@ ln -sf $DOTFILES_HOME/.alacritty.yml ~/
 ln -sf $DOTFILES_HOME/.gitconfig ~/
 ln -sf $DOTFILES_HOME/.gitignore_global ~/
 
-# Node.js
-if exist node; then
+# Mise
+if [ ! -d ~/.config/mise ]; then
   echo
-  echo "Install Node.js"
+  echo "Install Mise"
   echo
-  sudo mkdir -p /usr/local/n /usr/local/include /usr/local/lib
-  sudo chown -R $(whoami) /usr/local/n /usr/local/include /usr/local/lib /usr/local/share /usr/local/bin
-  n latest
-  ln -sf $DOTFILES_HOME/.npmrc ~/
+  mkdir -p ~/.config/mise
+  ln -sf $DOTFILES_HOME/config.toml ~/.config/mise/config.toml
+  mise install
 fi
 
 # Zsh
@@ -114,23 +118,21 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 # AtCoder
 if exist oj; then
-  pip3 install online-judge-tools
-else
-  pip3 install online-judge-tools --upgrade
+  pipx install online-judge-tools --force
 fi
-
-# Rust
-if exist rustup; then
-  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-  exec $SHELL -l
-fi
-rustup component add rls rust-analysis rust-src
 
 # Golang
-go install github.com/bufbuild/buf/cmd/buf@latest
-go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
-go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+if exist go; then
+  echo
+  echo "Install Node.js"
+  echo
+
+  go install github.com/bufbuild/buf/cmd/buf@latest
+  go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+  go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+fi
+
 
 # Direnv
 ln -sf $DOTFILES_HOME/.direnvrc ~/
@@ -148,8 +150,10 @@ ln -sf $DOTFILES_HOME/.tmux.conf ~/
 ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 
 # Karabiner-Elements
-mkdir -p ~/.config/karabiner
-ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
+if [ ! -d ~/.config/karabiner ]; then
+  mkdir -p ~/.config/karabiner
+  ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
+fi
 
 # SSH
 mkdir -p ~/.ssh
