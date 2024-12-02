@@ -1,6 +1,6 @@
 " Leader
 let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
+let maplocalleader = ";"
 
 " Indent
 set autoindent
@@ -19,7 +19,6 @@ set showmatch
 set wrap
 set cursorline
 set laststatus=2
-set autochdir
 set display=lastline
 set pumheight=15
 set grepprg=git\ grep\ --no-index\ -I\ --line-number
@@ -105,7 +104,18 @@ call plug#begin('~/.vim/plugged')
   " color
   Plug 'w0ng/vim-hybrid'
 
+  " telescope
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+  Plug 'nvim-telescope/telescope-live-grep-args.nvim'
+
 call plug#end()
+
+" telescope
+nnoremap <localleader>ff <cmd>Telescope find_files<cr>
+nnoremap <localleader>fg <cmd>:lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>
+nnoremap <localleader>fb <cmd>Telescope buffers<cr>
+nnoremap <localleader>fh <cmd>Telescope help_tags<cr>
 
 " coc explorer
   let g:coc_explorer_global_presets = {
@@ -279,7 +289,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " fzf
 set rtp+=/usr/local/opt/fzf
 set rtp+=~/.fzf
-nmap ; :Buffers<CR>
 nmap <Leader>r :Tags<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>a :Rg!<CR>

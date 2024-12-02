@@ -19,6 +19,9 @@ fi
 # enable direnv
 eval "$(direnv hook zsh)"
 
+# enable mise
+eval "$(/opt/homebrew/bin/mise activate zsh)"
+
 # alias
 [ ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 

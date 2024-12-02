@@ -1,0 +1,5 @@
+[tools]
+node = "latest"
+"npm:pnpm" = "latest"
+rust = "latest"
+go = "latest"
