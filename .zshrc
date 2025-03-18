@@ -22,6 +22,9 @@ eval "$(direnv hook zsh)"
 # enable mise
 eval "$(/opt/homebrew/bin/mise activate zsh)"
 
+# mysql
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+
 # alias
 [ ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 
@@ -37,3 +40,5 @@ eval "$(/opt/homebrew/bin/mise activate zsh)"
 # ruby
 eval "$(rbenv init - zsh)"
 
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"

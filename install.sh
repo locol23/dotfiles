@@ -68,22 +68,24 @@ if exist brew; then
 fi
 brew bundle --file $DOTFILES_HOME/Brewfile
 
-# Alacritty
-ln -sf $DOTFILES_HOME/.alacritty.yml ~/
+# Ghostty
+echo
+echo "Install Ghostty"
+echo
+mkdir -p ~/.config/ghostty
+ln -sf $DOTFILES_HOME/ghostty.config ~/.config/ghostty/config
 
 # Git
 ln -sf $DOTFILES_HOME/.gitconfig ~/
 ln -sf $DOTFILES_HOME/.gitignore_global ~/
 
 # Mise
-if [ ! -d ~/.config/mise ]; then
-  echo
-  echo "Install Mise"
-  echo
-  mkdir -p ~/.config/mise
-  ln -sf $DOTFILES_HOME/config.toml ~/.config/mise/config.toml
-  mise install
-fi
+echo
+echo "Install Mise"
+echo
+mkdir -p ~/.config/mise
+ln -sf $DOTFILES_HOME/mise.config ~/.config/mise/config.toml
+mise install
 
 # Zsh
 if [ ! -d ~/.zsh ]; then
@@ -100,17 +102,12 @@ if [ ! -d ~/.zsh ]; then
   cp $DOTFILES_HOME/.zshrc.local ~/
 fi
 
-# Vim
-if [ ! -d ~/.config/nvim ]; then
-  echo
-  echo "Install Vim"
-  echo
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  mkdir -p ~/.config/nvim
-  ln -sf $DOTFILES_HOME/init.vim ~/.config/nvim/init.vim
-  ln -sf $DOTFILES_HOME/coc-settings.json ~/.config/nvim/coc-settings.json
-fi
+# Neovim
+echo
+echo "Install Vim"
+echo
+mkdir -p ~/.config
+ln -sf $DOTFILES_HOME/nvim ~/.config/nvim
 
 # VS Code
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
@@ -124,7 +121,7 @@ fi
 # Golang
 if exist go; then
   echo
-  echo "Install Node.js"
+  echo "Install golang tools"
   echo
 
   go install github.com/bufbuild/buf/cmd/buf@latest
