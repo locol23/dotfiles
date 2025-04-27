@@ -1,3 +1,8 @@
 {
-  "mcpServers": {}
+  "mcpServers": {
+    "github.com/zcaceres/fetch-mcp": {
+      "command": "node",
+      "args": ["~/.mcphub/servers/fetch-mcp/dist/index.js"]
+    }
+  }
 }

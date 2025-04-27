@@ -2,24 +2,6 @@ function set_up() {
   mise install
 }
 
-function set_node_ver() {
-  if [ -e '.node-version' ]; then
-    local NODE_VER=$(head -1 .node-version)
-    resolve_installation $NODE_VER
-  elif [ -n "$NODE_VERSION" ]; then
-    resolve_installation $NODE_VERSION
-  elif [ -n "$DOCKER_PATH" ]; then
-    local NODE_VER=`get_docker_node_ver $DOCKER_PATH`
-    resolve_installation $NODE_VER
-  elif [ -e 'Dockerfile' ]; then
-    local DOCKER_PATH='./Dockerfile'
-    local NODE_VER=`get_docker_node_ver $DOCKER_PATH`
-    resolve_installation $NODE_VER
-  else
-    echo 'No target file.'
-  fi
-}
-
 function get_docker_node_ver() {
   echo $(head -1 $(expand_path $1) |
   awk '{
@@ -28,16 +10,4 @@ function get_docker_node_ver() {
   }' |
   awk 'gsub("FROM.*NODE:", "")' |
   awk '{ split($0, arr, "-"); print arr[1] }')
-}
-
-function resolve_installation() {
-  local NODE_VER=$(echo $1 | sed -e 's/v//g')
-
-  if [ -e /usr/local/n/versions/node/$NODE_VER ]; then
-    export PATH=$(dirname $(n which $NODE_VER)):$PATH
-  else
-    n $NODE_VER
-  fi
-
-  echo 'Current node version is '$NODE_VER
 }
