@@ -87,5 +87,6 @@ cask "rectangle"
 cask "sequel-ace"
 cask "spotify"
 cask "visual-studio-code"
+cask "zen-browser"
 cask "zoom"
 

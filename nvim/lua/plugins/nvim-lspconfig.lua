@@ -15,19 +15,18 @@ return {
           end
         end
         local lsp_servers = {
-          "pyright",
-          "ruff",
           "bashls",
           "lua_ls",
           "yamlls",
           "jsonls",
-          "taplo",
           "rust_analyzer",
           "ts_ls",
           "html",
           "cssls",
           "eslint",
           "tailwindcss",
+          "gopls",
+          "graphql"
         }
         mason_lspconfig.setup({
           ensure_installed = lsp_servers,

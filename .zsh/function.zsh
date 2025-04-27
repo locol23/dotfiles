@@ -26,7 +26,7 @@ function gsw {
 
 # tmux
 function ide {
-  tmux splitw -l 25
+  tmux splitw -p 25
   tmux splitw -h
 }
 
@@ -36,4 +36,8 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/completion.zsh
 fi
 
-
+# Docker
+function dra {
+ docker stop $(docker ps -aq)
+ docker rm $(docker ps -aq)
+}
