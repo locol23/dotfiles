@@ -1,15 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "alwaysThinkingEnabled": true,
   "includeCoAuthoredBy": false,
   "permissions": {
-    "defaultMode": "plan",
     "allow": [
       "Bash(cat:*)",
       "Bash(cd:*)",
       "Bash(diff:*)",
       "Bash(echo:*)",
       "Bash(find:*)",
+      "Bash(gh:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Bash(tail:*)",
@@ -18,10 +17,19 @@
       "Bash(pnpm:*)",
       "Bash(mkdir:*)",
       "Bash(touch:*)",
+      "Bash(curl:*)",
       "Read(/**)",
       "Edit(/**)",
-      "WebSearch"
+      "WebFetch(domain:*)",
+      "WebSearch",
+      "mcp__chrome-devtools",
+      "mcp__context7",
+      "mcp__gopls",
+      "mcp__playwright",
+      "mcp__serena"
     ],
-    "deny": []
-  }
+    "deny": [],
+    "defaultMode": "plan"
+  },
+  "alwaysThinkingEnabled": false
 }
