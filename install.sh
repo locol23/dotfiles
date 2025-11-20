@@ -16,7 +16,7 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   cd $DOTFILES_HOME
   git remote set-url origin git@github.com:locol23/dotfiles.git
   cd $CURRENT_DIRECTORY
-  
+
   # Mac
   # Dock
   defaults write com.apple.dock autohide -bool true
@@ -62,7 +62,7 @@ if [ ! -d "$DOTFILES_HOME" ]; then
 fi
 
 # Homebrew and Formula
-if exist brew; then 
+if exist brew; then
   export PATH=$PATH:/opt/homebrew/bin
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -148,7 +148,8 @@ ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 
 # Claude Code
 mkdir -p ~/.claude
-ln -sf $DOTFILES_HOME/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf $DOTFILES_HOME/.claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf $DOTFILES_HOME/.claude/settings.json ~/.claude/settings.json
 
 # Karabiner-Elements
 if [ ! -d ~/.config/karabiner ]; then
@@ -166,4 +167,3 @@ ln -sf $DOTFILES_HOME/espanso/*.yml ~/Library/Application\ Support/espanso/match
 espanso daemon &
 
 exec $SHELL -l
-
