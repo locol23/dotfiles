@@ -67,6 +67,7 @@ if exist brew; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 brew bundle --file $DOTFILES_HOME/Brewfile
+brew services start ollama
 
 # Ghostty
 echo
@@ -130,7 +131,6 @@ if exist go; then
   go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
 fi
 
-
 # Direnv
 ln -sf $DOTFILES_HOME/.direnvrc ~/
 
@@ -146,6 +146,10 @@ ln -sf $DOTFILES_HOME/.tmux.conf ~/
 # BTT
 ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 
+# Claude Code
+mkdir -p ~/.claude
+ln -sf $DOTFILES_HOME/CLAUDE.md ~/.claude/CLAUDE.md
+
 # Karabiner-Elements
 if [ ! -d ~/.config/karabiner ]; then
   mkdir -p ~/.config/karabiner
@@ -155,6 +159,11 @@ fi
 # SSH
 mkdir -p ~/.ssh
 ln -sf $DOTFILES_HOME/.ssh/config ~/.ssh/
+
+# espanso
+mkdir -p ~/Library/Application\ Support/espanso/match
+ln -sf $DOTFILES_HOME/espanso/*.yml ~/Library/Application\ Support/espanso/match/
+espanso daemon &
 
 exec $SHELL -l
 
