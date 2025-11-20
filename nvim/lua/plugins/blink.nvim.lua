@@ -29,7 +29,6 @@ return {
   opts = {
     chartoggle = { enabled = true },
     delimiters = { enabled = true },
-    indent = { enabled = true },
     tree = { enabled = true }
   }
 }

@@ -1,0 +1,19 @@
+matches:
+  - trigger: ";ptal"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: |
+            url=$(pbpaste)
+            if echo "$url" | grep -q "github.com/.*/pull/"; then
+              title=$(/opt/homebrew/bin/gh pr view "$url" --json title -q .title 2>/dev/null)
+              if [ -n "$title" ] && [ "$title" != "null" ]; then
+                echo ":ptal: [$title]($url)"
+              else
+                echo ":ptal: [PR]($url)"
+              fi
+            else
+              echo ":ptal: [Link]($url)"
+            fi
