@@ -5,7 +5,6 @@ return {
 
 		local non_lsp_ensure_installed = {
 			-- Linters (used by nvim-lint)
-			"eslint_d",
 			"shellcheck",
 			"sqlfluff",
 			"markdownlint",

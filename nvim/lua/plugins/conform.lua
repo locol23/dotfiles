@@ -27,6 +27,7 @@ return {
 				sql = { "sql-formatter" },
 				sh = { "shfmt" },
 			},
+			formatters = {},
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,

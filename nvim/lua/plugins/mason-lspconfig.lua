@@ -71,27 +71,27 @@ return {
 			},
 		})
 
-		-- Configure eslint with auto-fix on save
+		-- Configure eslint (formatting handled by conform.nvim)
 		vim.lsp.config("eslint", {
 			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
 		})
 
 		-- Enable other servers with default config
 		for _, server in ipairs(servers) do
-			if server ~= "gopls" and server ~= "eslint" then
+			if server ~= "gopls" and server ~= "eslint" and server ~= "copilot" then
 				vim.lsp.config(server, {
 					capabilities = capabilities,
 				})
 			end
 		end
 
-		-- Enable all servers
-		vim.lsp.enable(servers)
+		-- Enable all configured servers (excluding copilot which is handled by copilot.lua plugin)
+		local servers_to_enable = {}
+		for _, server in ipairs(servers) do
+			if server ~= "copilot" then
+				table.insert(servers_to_enable, server)
+			end
+		end
+		vim.lsp.enable(servers_to_enable)
 	end,
 }

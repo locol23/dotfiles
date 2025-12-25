@@ -6,11 +6,13 @@ vim.wo.number = true
 vim.opt.clipboard:append{'unnamedplus'}
 
 -- indent
-vim.o.expandtab = true vim.o.tabstop = 2
+vim.o.expandtab = true
+vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
 -- file auto-reload
 vim.o.autoread = true
+vim.o.updatetime = 1000
 
 -- colorscheme
 vim.cmd.colorscheme("hybrid")
