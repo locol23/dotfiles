@@ -15,7 +15,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
     group = augroup("auto_reload"),
     pattern = "*",
-    command = "checktime",
+    command = "if mode() != 'c' | checktime | endif",
+})
+
+-- Notify when file is reloaded from disk
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    group = augroup("auto_reload_notify"),
+    pattern = "*",
+    callback = function()
+        vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.WARN)
+    end,
 })
 
 -- Auto expand all folds when opening Markdown files
