@@ -11,7 +11,6 @@
   stt = status -uno
   cm = commit
   difff = diff --name-only
-  co = checkout
   logg = log --graph --decorate
   g = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h%Creset %cd %Cblue%cn%Creset %s%Cred%d%Creset'
   ss = stash save
@@ -19,8 +18,9 @@
   al = config --get-regexp alias.*
   f = fetch -p
   b = branch
-  sw = switch
+  pf = push --force-with-lease
   re = restore
+  sw = switch
 [pager]
   branch = cat
 [pull]
