@@ -21,6 +21,22 @@
   - Repeated code increases volume, takes more time to modify, and makes the
     codebase harder to understand
   - Extract common logic into functions to maintain clean, organized code
+- Early Return
+  - Return early from functions when conditions are not met
+  - Reduces nesting and improves code readability
+  - Handle edge cases and errors at the beginning of functions
+- Fail Fast
+  - Fail immediately when something goes wrong
+  - Validate preconditions at the start of functions
+  - Makes debugging easier by catching issues early
+- Composition over Inheritance
+  - Prefer composing objects over class inheritance
+  - More flexible and easier to change
+  - Especially important in Go which has no class inheritance
+- Naming
+  - Use names that reveal intent
+  - Avoid abbreviations and single-letter names (except loop counters)
+  - Be consistent with naming conventions in the codebase
 - SOLID Principles
   - Single Responsibility Principle (SRP)
     - A class or module should have only one reason to change
@@ -48,17 +64,62 @@
       abstractions
     - Use dependency injection to achieve loose coupling
 
-## MCP Servers
+## Testing Guidelines
 
-- Use Context7 MCP
-- Use Sequential Thinking MCP Server
-- Use Serena MCP Server
+- Testing Trophy (Kent C. Dodds)
+  - "Write tests. Not too many. Mostly integration."
+  - Static Analysis: Catch typos and type errors with TypeScript/ESLint
+  - Unit Tests: Test individual functions in isolation, fast and focused
+  - Integration Tests: Test how components work together, highest priority
+  - E2E Tests: Test complete user flows, use sparingly due to high cost
+- Focus on testing behavior, not implementation details
+- Tests should give confidence that the code works for users
+- Prefer sociable tests over solitary tests
+  - Use real dependencies instead of excessive mocking
+  - Mocking implementation details makes tests brittle
+  - Tests should resemble how users interact with the code
 
 ## Git and Pull Request Workflow
 
 - Please use .github/PULL_REQUEST_TEMPLATE.md if it exists
 - Please follow the existing codes
 - Please use the gh command if you need to access GitHub
+
+## TypeScript Guidelines
+
+- Use type inference where possible
+  - Only add explicit type annotations where necessary
+- Never use `any`
+  - Use `unknown` or appropriate types instead
+- Use Union Types / Discriminated Unions
+  - Leverage for state representation
+- Avoid `as` type casting
+  - Use Type Guards instead
+- Use Nullish Coalescing / Optional Chaining
+  - Leverage `??` and `?.` operators
+- Use Readonly / Immutability
+  - Leverage `readonly` and `as const`
+- Use Result type pattern
+  - Handle errors explicitly with Result types instead of exceptions
+
+## Golang Guidelines
+
+- Accept interfaces, return structs
+  - Accept interfaces as parameters, return concrete structs
+- Treat errors as values
+  - Use `if err != nil` pattern, never ignore errors
+- Use Error Wrapping
+  - Add context with `fmt.Errorf("context: %w", err)`
+- Keep interfaces small
+  - Prefer interfaces with 1-2 methods
+- Package design
+  - Avoid circular dependencies, keep package names short
+- Goroutine management
+  - Use `context.Context` for proper cancellation
+- Leverage Zero Values
+  - Design structs so zero values are useful
+- Use Table Driven Tests
+  - Organize tests with table-driven patterns
 
 ## React Guidelines
 
