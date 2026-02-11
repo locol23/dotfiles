@@ -1,26 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
   },
   "permissions": {
     "allow": [
-      "Bash(cat:*)",
-      "Bash(cd:*)",
-      "Bash(diff:*)",
-      "Bash(echo:*)",
-      "Bash(find:*)",
-      "Bash(gh:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(tail:*)",
-      "Bash(pwd:*)",
-      "Bash(go:*)",
-      "Bash(pnpm:*)",
-      "Bash(mkdir:*)",
-      "Bash(touch:*)",
-      "Bash(curl:*)",
+      "Bash",
       "Read(/**)",
       "Edit(/**)",
       "WebFetch(domain:*)",
@@ -32,12 +21,17 @@
       "mcp__serena"
     ],
     "deny": [],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ],
     "defaultMode": "plan"
   },
   "model": "opus",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "figma@claude-plugins-official": true
+    "figma@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true
 }

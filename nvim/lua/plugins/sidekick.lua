@@ -1,32 +1,42 @@
 return {
 	"folke/sidekick.nvim",
 	event = "VeryLazy",
+	dependencies = {
+		"folke/snacks.nvim",
+	},
 	opts = {
 		cli = {
 			mux = {
-				backend = "tmux",
-				enabled = true,
+				enabled = false,
+			},
+			win = {
+				layout = "float",
+				float = {
+					width = 0.9,
+					height = 0.9,
+					border = "rounded",
+				},
 			},
 		},
 	},
 	keys = {
 		{
-			"<tab>",
+			"<CR>",
 			function()
 				-- if there is a next edit, jump to it, otherwise apply it if any
 				if not require("sidekick").nes_jump_or_apply() then
-					return "<Tab>" -- fallback to normal tab
+					return "<CR>" -- fallback to normal CR
 				end
 			end,
 			expr = true,
-			desc = "Goto/Apply Next Edit Suggestion",
+			desc = "➡️ Goto/Apply Next Edit Suggestion",
 		},
 		{
-			"<c-.>",
+			"<leader>.",
 			function()
 				require("sidekick.cli").toggle()
 			end,
-			desc = "Sidekick Toggle",
+			desc = "🔄 Sidekick Toggle",
 			mode = { "n", "t", "i", "x" },
 		},
 		{

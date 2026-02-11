@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("$HOME/.zsh/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # enable vi mode on terminal
 bindkey -M viins '^]' vi-cmd-mode
 
@@ -6,9 +13,14 @@ bindkey -v
 bindkey '\e[3~' delete-char
 bindkey '^R' history-incremental-search-backward
 
-# enable ctrl + a and ctrl + e on terminal
+# enable ctrl + a on terminal
 bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
+
+# edit command
+export EDITOR='nvim'
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^e" edit-command-line
 
 # start tmux
 if [[ -z "$TMUX" ]]; then

@@ -12,6 +12,7 @@ return {
 			"golangci-lint",
 
 			-- Formatters (used by conform.nvim)
+			"eslint_d",
 			"prettierd",
 			"shfmt",
 			"sql-formatter",
