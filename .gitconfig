@@ -1,7 +1,5 @@
 [init]
   defaultBranch = main
-[user]
-  name = Yoshitaka Terazawa
 [color]
   ui = auto
 [core]

@@ -79,6 +79,7 @@ ln -sf $DOTFILES_HOME/ghostty.config ~/.config/ghostty/config
 # Git
 ln -sf $DOTFILES_HOME/.gitconfig ~/
 ln -sf $DOTFILES_HOME/.gitignore_global ~/
+cp $DOTFILES_HOME/.gitconfig.local ~/
 
 # Mise
 echo

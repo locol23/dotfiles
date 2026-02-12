@@ -20,7 +20,7 @@ export PATH=$PATH:~/Library/Android/sdk/platform-tools
 . "$HOME/.cargo/env"
 
 # deno
-export PATH="/Users/terazawa-y/.deno/bin:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
 
 # cpp
 export PATH="/usr/local/opt/llvm/bin:$PATH"
