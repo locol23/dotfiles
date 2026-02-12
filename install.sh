@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exist() {
+not_installed() {
   if type $1 >/dev/null 2>&1; then
     return 1
   fi
@@ -62,7 +62,7 @@ if [ ! -d "$DOTFILES_HOME" ]; then
 fi
 
 # Homebrew and Formula
-if exist brew; then
+if not_installed brew; then
   export PATH=$PATH:/opt/homebrew/bin
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -79,7 +79,7 @@ ln -sf $DOTFILES_HOME/ghostty.config ~/.config/ghostty/config
 # Git
 ln -sf $DOTFILES_HOME/.gitconfig ~/
 ln -sf $DOTFILES_HOME/.gitignore_global ~/
-cp $DOTFILES_HOME/.gitconfig.local ~/
+[ ! -f ~/.gitconfig.local ] && cp $DOTFILES_HOME/.gitconfig.local ~/
 
 # Mise
 echo
@@ -90,19 +90,18 @@ ln -sf $DOTFILES_HOME/mise.config ~/.config/mise/config.toml
 mise install
 
 # Zsh
-if [ ! -d ~/.zsh ]; then
+if ! grep -q '/opt/homebrew/bin/zsh' /etc/shells 2>/dev/null; then
   echo
   echo "Install Zsh"
   echo
   sudo sh -c "echo '/opt/homebrew/bin/zsh' >> /etc/shells"
   chsh -s '/opt/homebrew/bin/zsh'
-  ln -sf $DOTFILES_HOME/.zsh/ ~/
-  ln -sf $DOTFILES_HOME/.zshenv ~/
-  ln -sf $DOTFILES_HOME/.zshrc ~/
-  cp $DOTFILES_HOME/.zshrc.local ~/
-  ln -sf $DOTFILES_HOME/.zprofile ~/
-  cp $DOTFILES_HOME/.zshrc.local ~/
 fi
+ln -sf $DOTFILES_HOME/.zsh/ ~/
+ln -sf $DOTFILES_HOME/.zshenv ~/
+ln -sf $DOTFILES_HOME/.zshrc ~/
+ln -sf $DOTFILES_HOME/.zprofile ~/
+[ ! -f ~/.zshrc.local ] && cp $DOTFILES_HOME/.zshrc.local ~/
 
 # Neovim
 echo
@@ -116,12 +115,12 @@ defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 # AtCoder
-if exist oj; then
+if not_installed oj; then
   pipx install online-judge-tools --force
 fi
 
 # Golang
-if exist go; then
+if ! not_installed go; then
   echo
   echo "Install golang tools"
   echo
@@ -153,14 +152,13 @@ ln -sf $DOTFILES_HOME/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf $DOTFILES_HOME/.claude/settings.json ~/.claude/settings.json
 
 # Karabiner-Elements
-if [ ! -d ~/.config/karabiner ]; then
-  mkdir -p ~/.config/karabiner
-  ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
-fi
+mkdir -p ~/.config/karabiner
+ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
 
 # SSH
 mkdir -p ~/.ssh
 ln -sf $DOTFILES_HOME/.ssh/config ~/.ssh/
+[ ! -f ~/.ssh/config.local ] && cp $DOTFILES_HOME/.ssh/config.local ~/.ssh/
 
 # espanso
 mkdir -p ~/Library/Application\ Support/espanso/match
