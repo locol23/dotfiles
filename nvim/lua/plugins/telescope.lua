@@ -137,42 +137,42 @@ return {
 			},
 		})
 		local builtin = require("telescope.builtin")
-		vim.keymap.set("n", "<localleader>fc", builtin.colorscheme, {
+		vim.keymap.set("n", "<leader>fc", builtin.colorscheme, {
 			desc = "Change colorscheme",
 		})
-		vim.keymap.set("n", "<localleader>ff", function()
+		vim.keymap.set("n", "<leader>ff", function()
 			builtin.find_files({ hidden = true })
 		end, {
 			desc = "Find files including hidden",
 		})
-		vim.keymap.set("n", "<localleader>fF", builtin.current_buffer_fuzzy_find, {
+		vim.keymap.set("n", "<leader>fF", builtin.current_buffer_fuzzy_find, {
 			desc = "Find in current buffer",
 		})
-		vim.keymap.set("n", "<localleader>fg", builtin.live_grep, {
+		vim.keymap.set("n", "<leader>fg", builtin.live_grep, {
 			desc = "Live grep",
 		})
-		vim.keymap.set("n", "<localleader>fb", builtin.buffers, {
+		vim.keymap.set("n", "<leader>fb", builtin.buffers, {
 			desc = "Buffers",
 		})
-		-- vim.keymap.set("n", "<localleader>fg", builtin.grep_string, {
+		-- vim.keymap.set("n", "<leader>fg", builtin.grep_string, {
 		--   desc = "Grep string",
 		-- })
-		vim.keymap.set("n", "<localleader>fo", builtin.oldfiles, {
+		vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {
 			desc = "Old files",
 		})
-		vim.keymap.set("n", "<localleader>fp", builtin.registers, {
+		vim.keymap.set("n", "<leader>fp", builtin.registers, {
 			desc = "Registers",
 		})
-		vim.keymap.set("n", "<localleader>ft", builtin.treesitter, {
+		vim.keymap.set("n", "<leader>ft", builtin.treesitter, {
 			desc = "Treesitter",
 		})
-		vim.keymap.set("n", "<localleader>fd", builtin.diagnostics, {
+		vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {
 			desc = "Diagnostics",
 		})
-		vim.keymap.set("n", "<localleader>fm", builtin.marks, {
+		vim.keymap.set("n", "<leader>fm", builtin.marks, {
 			desc = "Marks",
 		})
-		vim.keymap.set("n", "<localleader>fn", require("telescope").extensions.notify.notify, {
+		vim.keymap.set("n", "<leader>fn", require("telescope").extensions.notify.notify, {
 			desc = "Notify",
 		})
 		--  vim.keymap.set("n", "gr", builtin.lsp_references, {
@@ -181,10 +181,10 @@ return {
 		vim.keymap.set("n", "gi", builtin.lsp_implementations, {
 			desc = "LSP implementations",
 		})
-		vim.keymap.set("n", "<localleader>fw", require("telescope").extensions.windows.list, {
+		vim.keymap.set("n", "<leader>fw", require("telescope").extensions.windows.list, {
 			desc = "Windows",
 		})
-		vim.keymap.set("n", "<localleader>fh", require("telescope").extensions.git_file_history.git_file_history, {
+		vim.keymap.set("n", "<leader>fh", require("telescope").extensions.git_file_history.git_file_history, {
 			desc = "Git file history",
 		})
 

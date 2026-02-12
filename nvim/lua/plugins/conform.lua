@@ -24,7 +24,7 @@ return {
 				lua = { "stylua" },
 				go = { "goimports" },
 				rust = { "rustfmt" },
-				sql = { "sql-formatter" },
+				sql = { "sql_formatter" },
 				sh = { "shfmt" },
 			},
 			formatters = {},
