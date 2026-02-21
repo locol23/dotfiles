@@ -18,7 +18,7 @@ fi
 [[ ! -f ~/.zsh/.p10k.zsh ]] || source ~/.zsh/.p10k.zsh
 
 zinit ice wait'!0' atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait'!0' lucid
 zinit snippet OMZ::lib/completion.zsh

@@ -1,21 +1,29 @@
 #!/bin/bash
+set -e
 
 not_installed() {
-  if type $1 >/dev/null 2>&1; then
+  if type "$1" >/dev/null 2>&1; then
     return 1
   fi
 
   return 0
 }
 
+if ! xcode-select -p &>/dev/null; then
+  echo "Installing Xcode Command Line Tools..."
+  xcode-select --install
+  echo "CLT のインストール完了後、再度このスクリプトを実行してください"
+  exit 1
+fi
+
 export DOTFILES_HOME=~/.dotfiles
 
 if [ ! -d "$DOTFILES_HOME" ]; then
-  git clone https://github.com/locol23/dotfiles.git $DOTFILES_HOME
+  git clone https://github.com/locol23/dotfiles.git "$DOTFILES_HOME"
   CURRENT_DIRECTORY=$(pwd)
-  cd $DOTFILES_HOME
+  cd "$DOTFILES_HOME"
   git remote set-url origin git@github.com:locol23/dotfiles.git
-  cd $CURRENT_DIRECTORY
+  cd "$CURRENT_DIRECTORY"
 
   # Mac
   # Dock
@@ -51,14 +59,14 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   defaults write com.apple.finder ShowStatusBar -bool true
   defaults write com.apple.finder ShowPathbar -bool true
   defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
   # Terminal
   defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
   defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
   # Create dotfiles command for updating tools
-  sudo ln -sf $DOTFILES_HOME/install.sh /usr/local/bin/dotfiles
+  sudo mkdir -p /usr/local/bin
+  sudo ln -sf "$DOTFILES_HOME/install.sh" /usr/local/bin/dotfiles
 fi
 
 # Homebrew and Formula
@@ -95,7 +103,7 @@ if ! grep -q '/opt/homebrew/bin/zsh' /etc/shells 2>/dev/null; then
   echo "Install Zsh"
   echo
   sudo sh -c "echo '/opt/homebrew/bin/zsh' >> /etc/shells"
-  chsh -s '/opt/homebrew/bin/zsh'
+  sudo chsh -s '/opt/homebrew/bin/zsh' "$USER"
 fi
 ln -sf $DOTFILES_HOME/.zsh/ ~/
 ln -sf $DOTFILES_HOME/.zshenv ~/
@@ -120,6 +128,7 @@ if not_installed oj; then
 fi
 
 # Golang
+eval "$(/opt/homebrew/bin/mise activate bash)"
 if ! not_installed go; then
   echo
   echo "Install golang tools"
@@ -162,7 +171,8 @@ ln -sf $DOTFILES_HOME/.ssh/config ~/.ssh/
 
 # espanso
 mkdir -p ~/Library/Application\ Support/espanso/match
-ln -sf $DOTFILES_HOME/espanso/*.yml ~/Library/Application\ Support/espanso/match/
-espanso daemon &
+ln -sf "$DOTFILES_HOME"/espanso/*.yml ~/Library/Application\ Support/espanso/match/
+echo
+echo "espanso: Accessibility 権限を手動で付与してから 'espanso daemon' を実行してください"
 
-exec $SHELL -l
+exec /opt/homebrew/bin/zsh -l
