@@ -8,7 +8,7 @@ export JAVA_HOME=/opt/homebrew/opt/openjdk
 export PATH=$PATH:/opt/homebrew/bin
 
 # direnv
-export EDITOR=vim
+export EDITOR=nvim
 
 # android
 export ANDROID_HOME=~/Library/Android/sdk
@@ -17,17 +17,17 @@ export PATH=$PATH:~/Library/Android/sdk/tools
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
 
 # rust
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # deno
 export PATH="$HOME/.deno/bin:$PATH"
 
 # cpp
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # pipx
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
