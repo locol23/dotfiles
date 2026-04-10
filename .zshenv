@@ -31,3 +31,6 @@ export PATH="$PNPM_HOME:$PATH"
 
 # pipx
 export PATH="$HOME/.local/bin:$PATH"
+
+# GitHub
+export GITHUB_PERSONAL_ACCESS_TOKEN=$(gh auth token)

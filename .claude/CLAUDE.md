@@ -97,8 +97,6 @@
   - Use Type Guards instead
 - Use Nullish Coalescing / Optional Chaining
   - Leverage `??` and `?.` operators
-- Use Readonly / Immutability
-  - Leverage `readonly` and `as const`
 - Use Result type pattern
   - Handle errors explicitly with Result types instead of exceptions
 

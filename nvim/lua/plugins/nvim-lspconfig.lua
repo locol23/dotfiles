@@ -25,34 +25,28 @@ return {
 				set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", { buffer = true })
 				set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { buffer = true })
 				set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { buffer = true })
-				set("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", { buffer = true })
+				set("n", "<space>dl", "<cmd>lua vim.diagnostic.setloclist()<CR>", { buffer = true })
 			end,
 		})
 
 		vim.diagnostic.config({
-			virtual_text = {
-				spacing = 4,
-				source = "if_many",
-				prefix = "●",
-				format = function(diagnostic)
-					if diagnostic.source and diagnostic.code then
-						return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
-					else
-						return diagnostic.message
-					end
-				end,
-			},
-			signs = {
-				text = {
-					[vim.diagnostic.severity.ERROR] = "✘",
-					[vim.diagnostic.severity.WARN] = "▲",
-					[vim.diagnostic.severity.HINT] = "⚑",
-					[vim.diagnostic.severity.INFO] = "»",
-				},
-			},
-			underline = true,
-			update_in_insert = false,
 			severity_sort = true,
+			underline = true,
+
+			virtual_text = {
+				current_line = true,
+				severity = { min = vim.diagnostic.severity.INFO, max = vim.diagnostic.severity.WARN },
+			},
+
+			virtual_lines = {
+				current_line = true,
+				severity = { min = vim.diagnostic.severity.ERROR },
+			},
+
+			float = {
+				focusable = true,
+				source = "if_many",
+			},
 		})
 	end,
 }
