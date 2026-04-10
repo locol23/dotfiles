@@ -159,6 +159,19 @@ ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 mkdir -p ~/.claude
 ln -sf $DOTFILES_HOME/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf $DOTFILES_HOME/.claude/settings.json ~/.claude/settings.json
+ln -sf $DOTFILES_HOME/.claude/agents ~/.claude/agents
+ln -sf $DOTFILES_HOME/.claude/commands ~/.claude/commands
+ln -sf $DOTFILES_HOME/.claude/skills ~/.claude/skills
+ln -sf $DOTFILES_HOME/.claude/rules ~/.claude/rules
+ln -sf $DOTFILES_HOME/.claude/statusline.sh ~/.claude/statusline.sh
+
+# Everything Claude Code rules (update dotfiles rules with latest ECC)
+ECC_TMPDIR=$(mktemp -d)
+git clone --depth 1 https://github.com/affaan-m/everything-claude-code.git "$ECC_TMPDIR"
+cp -pr "$ECC_TMPDIR/rules/common/"* "$DOTFILES_HOME/.claude/rules/"
+cp -r "$ECC_TMPDIR/rules/typescript/"* "$DOTFILES_HOME/.claude/rules/"
+cp -r "$ECC_TMPDIR/rules/golang/"* "$DOTFILES_HOME/.claude/rules/"
+rm -rf "$ECC_TMPDIR"
 
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
