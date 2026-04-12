@@ -48,7 +48,4 @@ export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 # plugins
 [ -f ~/.zsh/zinit.zsh ] && source ~/.zsh/zinit.zsh
 
-# ruby
-eval "$(rbenv init - zsh)"
-
 export PATH="$HOME/go/bin:$PATH"
