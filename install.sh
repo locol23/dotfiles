@@ -105,7 +105,7 @@ if ! grep -q '/opt/homebrew/bin/zsh' /etc/shells 2>/dev/null; then
   sudo sh -c "echo '/opt/homebrew/bin/zsh' >> /etc/shells"
   sudo chsh -s '/opt/homebrew/bin/zsh' "$USER"
 fi
-ln -sf $DOTFILES_HOME/.zsh/ ~/
+ln -sfn $DOTFILES_HOME/.zsh/ ~/
 ln -sf $DOTFILES_HOME/.zshenv ~/
 ln -sf $DOTFILES_HOME/.zshrc ~/
 ln -sf $DOTFILES_HOME/.zprofile ~/
@@ -116,7 +116,7 @@ echo
 echo "Install Vim"
 echo
 mkdir -p ~/.config
-ln -sf $DOTFILES_HOME/nvim ~/.config/nvim
+ln -sfn $DOTFILES_HOME/nvim ~/.config/nvim
 
 # VS Code
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
@@ -159,10 +159,10 @@ ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 mkdir -p ~/.claude
 ln -sf $DOTFILES_HOME/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf $DOTFILES_HOME/.claude/settings.json ~/.claude/settings.json
-ln -sf $DOTFILES_HOME/.claude/agents ~/.claude/agents
-ln -sf $DOTFILES_HOME/.claude/commands ~/.claude/commands
-ln -sf $DOTFILES_HOME/.claude/skills ~/.claude/skills
-ln -sf $DOTFILES_HOME/.claude/rules ~/.claude/rules
+ln -sfn $DOTFILES_HOME/.claude/agents ~/.claude/agents
+ln -sfn $DOTFILES_HOME/.claude/commands ~/.claude/commands
+ln -sfn $DOTFILES_HOME/.claude/skills ~/.claude/skills
+ln -sfn $DOTFILES_HOME/.claude/rules ~/.claude/rules
 ln -sf $DOTFILES_HOME/.claude/statusline.sh ~/.claude/statusline.sh
 
 # Everything Claude Code rules (update dotfiles rules with latest ECC)
