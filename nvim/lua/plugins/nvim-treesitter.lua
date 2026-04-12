@@ -1,20 +1,22 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" },
+  lazy = false,
+  build = ":TSUpdate",
   config = function()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "python", "go", "gomod", "python" },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      matchup = {
-        enavble = true,
-      }
+    require("nvim-treesitter").install({
+      "c", "lua", "vim", "vimdoc", "query", "python", "go", "gomod",
     })
 
-    vim.g.markdown_folding = 1
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        local lang = vim.treesitter.language.get_lang(args.match) or args.match
+        if pcall(vim.treesitter.language.inspect, lang) then
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+
     vim.treesitter.language.register("markdown", "octo")
   end,
 }
