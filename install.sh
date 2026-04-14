@@ -25,56 +25,66 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   git remote set-url origin git@github.com:locol23/dotfiles.git
   cd "$CURRENT_DIRECTORY"
 
-  # Mac
-  # Dock
-  defaults write com.apple.dock autohide -bool true
-  defaults write com.apple.dock autohide-delay -float 0
-  defaults write com.apple.dock autohide-time-modifier -float 0.7
-  defaults write com.apple.dock magnification -bool true
-  defaults write com.apple.dock mineffect -string "scale"
-  defaults write com.apple.dock mru-spaces -bool "false"
   defaults write com.apple.dock persistent-apps -array
-  defaults write com.apple.dock show-recents -bool "false"
-  defaults write com.apple.dock tilesize -int 55
-  killall Dock
-  # Keyboad
-  defaults write -g InitialKeyRepeat -int 15
-  defaults write -g KeyRepeat -int 1
-  # Trackpad
-  defaults write com.apple.AppleMultitouchTrackpad Clicking -bool "true"
-  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool "true"
-  defaults -currentHost write -g com.apple.mouse.tapBehavior -bool "true"
-  defaults write -g com.apple.trackpad.scaling 3
-  defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
-  defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 0
-  defaults write com.apple.dock showMissionControlGestureEnabled -boolean true
-  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2
-  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 0
-  # Battery
-  defaults write com.apple.menuextra.battery ShowPercent -string "YES"
-  # Finder
-  defaults write com.apple.finder DisableAllAnimations -bool true
-  defaults write com.apple.finder AppleShowAllFiles -bool true
-  defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-  defaults write com.apple.finder ShowStatusBar -bool true
-  defaults write com.apple.finder ShowPathbar -bool true
-  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-  # Terminal
-  defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-  defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
   # Create dotfiles command for updating tools
   sudo mkdir -p /usr/local/bin
   sudo ln -sf "$DOTFILES_HOME/install.sh" /usr/local/bin/dotfiles
 fi
 
+# Mac
+# Language
+defaults write NSGlobalDomain AppleLanguages -array "en-US" "ja-JP"
+# Appearance
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+# Dock
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.7
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock mineffect -string "scale"
+defaults write com.apple.dock mru-spaces -bool "false"
+defaults write com.apple.dock show-recents -bool "false"
+defaults write com.apple.dock tilesize -int 55
+killall Dock
+# Keyboard
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g KeyRepeat -int 1
+# Spotlight (disable Cmd+Space to use Raycast instead)
+/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+# Raycast
+defaults write com.raycast.macos raycastGlobalHotkey "Command-49"
+# Trackpad
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool "true"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool "true"
+defaults -currentHost write -g com.apple.mouse.tapBehavior -bool "true"
+defaults write -g com.apple.trackpad.scaling 3
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 0
+defaults write com.apple.dock showMissionControlGestureEnabled -boolean true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 0
+# Battery
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+# Finder
+defaults write com.apple.finder DisableAllAnimations -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# Terminal
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
 # Homebrew and Formula
 if not_installed brew; then
   export PATH=$PATH:/opt/homebrew/bin
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-brew bundle --file $DOTFILES_HOME/Brewfile
+brew bundle --file $DOTFILES_HOME/Brewfile --verbose
 brew services start ollama
 
 # Ghostty
@@ -185,7 +195,8 @@ ln -sf $DOTFILES_HOME/.ssh/config ~/.ssh/
 # espanso
 mkdir -p ~/Library/Application\ Support/espanso/match
 ln -sf "$DOTFILES_HOME"/espanso/*.yml ~/Library/Application\ Support/espanso/match/
+espanso service register 2>/dev/null
 echo
-echo "espanso: Accessibility 権限を手動で付与してから 'espanso daemon' を実行してください"
+echo "espanso: Accessibility 権限を手動で付与してから 'espanso service start' を実行してください"
 
 exec /opt/homebrew/bin/zsh -l
