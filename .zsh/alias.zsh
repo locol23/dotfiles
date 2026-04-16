@@ -20,4 +20,4 @@ alias ll="ls -l"
 alias tf=terraform
 alias tg=terragrunt
 alias p=pnpm
-alias c=claude
+alias c='claude --enable-auto-mode'
