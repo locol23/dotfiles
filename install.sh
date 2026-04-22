@@ -12,7 +12,7 @@ not_installed() {
 if ! xcode-select -p &>/dev/null; then
   echo "Installing Xcode Command Line Tools..."
   xcode-select --install
-  echo "CLT のインストール完了後、再度このスクリプトを実行してください"
+  echo "After installing CLT, please rerun this script."
   exit 1
 fi
 
@@ -197,6 +197,6 @@ mkdir -p ~/Library/Application\ Support/espanso/match
 ln -sf "$DOTFILES_HOME"/espanso/*.yml ~/Library/Application\ Support/espanso/match/
 espanso service register 2>/dev/null
 echo
-echo "espanso: Accessibility 権限を手動で付与してから 'espanso service start' を実行してください"
+echo "espanso: Grant Accessibility permissions in System Settings, then run 'espanso service start'."
 
 exec /opt/homebrew/bin/zsh -l
