@@ -1,7 +1,5 @@
 # Coding Style
 
-> Influences: t_wada (TDD), Kent C. Dodds (testing philosophy), Martin Fowler (refactoring & design).
-
 ## Immutability (CRITICAL)
 
 ALWAYS create new objects, NEVER mutate existing ones:
@@ -33,20 +31,6 @@ Rationale: Immutable data prevents hidden side effects, makes debugging easier, 
 - Do not build features or abstractions before they are needed
 - Avoid speculative generality
 - Start simple, then refactor when the pressure is real
-
-### Composition over Inheritance
-
-- Prefer composing behavior from small focused units over class inheritance hierarchies
-- Easier to change, easier to test, avoids fragile base class problems
-- In languages without inheritance (e.g. Go) this is the default; in OO languages, choose composition unless inheritance is clearly the right tool
-
-### SOLID Principles
-
-- **SRP (Single Responsibility):** a module/class should have one reason to change
-- **OCP (Open/Closed):** open for extension, closed for modification — add behavior via new code, not by editing battle-tested code
-- **LSP (Liskov Substitution):** subtypes must be usable wherever the base type is expected without surprising behavior
-- **ISP (Interface Segregation):** prefer many small focused interfaces over one large general-purpose one
-- **DIP (Dependency Inversion):** depend on abstractions, not concrete implementations; inject dependencies rather than construct them inline
 
 ## File Organization
 

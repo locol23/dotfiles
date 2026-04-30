@@ -1,15 +1,11 @@
 # Testing Requirements
 
-> Testing philosophy: Kent C. Dodds' Testing Trophy — "write tests, not too many, mostly integration." Focus on behavior, not implementation details. Prefer sociable tests (using real collaborators) over solitary tests (heavy mocking) so refactors do not invalidate the suite.
-
 ## Minimum Test Coverage: 80%
 
 Test Types (ALL required):
-1. **Unit Tests** - Individual functions, utilities, components — fast and focused
-2. **Integration Tests** - How components and modules work together — **highest priority** per Testing Trophy
-3. **E2E Tests** - Critical user flows — use sparingly due to cost (framework chosen per language)
-
-Static analysis (TypeScript/ESLint, mypy, gopls, etc.) is the implicit "0th" tier and should always be on.
+1. **Unit Tests** - Individual functions, utilities, components
+2. **Integration Tests** - API endpoints, database operations
+3. **E2E Tests** - Critical user flows (framework chosen per language)
 
 ## Test-Driven Development
 

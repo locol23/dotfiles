@@ -180,13 +180,35 @@ ln -sfn $DOTFILES_HOME/.claude/skills ~/.claude/skills
 ln -sfn $DOTFILES_HOME/.claude/rules ~/.claude/rules
 ln -sf $DOTFILES_HOME/.claude/statusline.sh ~/.claude/statusline.sh
 
-# Everything Claude Code rules (update dotfiles rules with latest ECC)
+# Everything Claude Code rules — sync canonical subdir layout from ECC main.
+# IMPORTANT: copy entire subdirectories, never flatten — ECC's common/ and
+# language/ trees contain files with the same name (coding-style.md etc.).
+# Local overlays in *each* rules/<lang>/local.md are not present in ECC and
+# therefore survive the sync; do NOT add custom edits to ECC-managed files
+# (e.g. golang/coding-style.md), as they will be overwritten on next run.
 ECC_TMPDIR=$(mktemp -d)
+trap 'rm -rf "$ECC_TMPDIR"' EXIT
 git clone --depth 1 https://github.com/affaan-m/everything-claude-code.git "$ECC_TMPDIR"
-cp -pr "$ECC_TMPDIR/rules/common/"* "$DOTFILES_HOME/.claude/rules/"
-cp -r "$ECC_TMPDIR/rules/typescript/"* "$DOTFILES_HOME/.claude/rules/"
-cp -r "$ECC_TMPDIR/rules/golang/"* "$DOTFILES_HOME/.claude/rules/"
+ECC_SHA=$(git -C "$ECC_TMPDIR" rev-parse HEAD)
+
+for ECC_DIR in common golang typescript web; do
+  if [ -d "$ECC_TMPDIR/rules/$ECC_DIR" ]; then
+    mkdir -p "$DOTFILES_HOME/.claude/rules/$ECC_DIR"
+    cp -R "$ECC_TMPDIR/rules/$ECC_DIR/." "$DOTFILES_HOME/.claude/rules/$ECC_DIR/"
+  fi
+done
+
+# Refresh provenance pin in .SOURCE.md
+SOURCE_FILE="$DOTFILES_HOME/.claude/rules/.SOURCE.md"
+if [ -f "$SOURCE_FILE" ]; then
+  TODAY=$(date +%Y-%m-%d)
+  sed -i.bak -e "s/^- Commit: \`[^\`]*\`$/- Commit: \`$ECC_SHA\`/" \
+             -e "s/^- Imported on: .*/- Imported on: $TODAY/" \
+             "$SOURCE_FILE"
+  rm -f "$SOURCE_FILE.bak"
+fi
 rm -rf "$ECC_TMPDIR"
+trap - EXIT
 
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
