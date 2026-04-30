@@ -69,8 +69,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeF
 defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool true
 defaults -currentHost write com.apple.controlcenter BatteryShowPercentage -bool true
 # Clock (show seconds)
-defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
-defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
+defaults write com.apple.menuextra.clock ShowSeconds -bool true
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 killall SystemUIServer 2>/dev/null || true
 # Finder
