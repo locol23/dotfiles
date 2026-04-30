@@ -17,10 +17,7 @@
       "mcp__sequential-thinking__sequentialthinking"
     ],
     "deny": [],
-    "ask": [
-      "Bash(git commit:*)",
-      "Bash(git push:*)"
-    ],
+    "ask": [],
     "defaultMode": "plan"
   },
   "model": "opus[1m]",
@@ -61,6 +58,5 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "alwaysThinkingEnabled": true
 }
