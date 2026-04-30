@@ -19,13 +19,28 @@ paths:
 
 ## Error Handling
 
-Always wrap errors with context:
+Treat errors as values — always check `if err != nil`, never ignore them. Wrap with context using `%w`:
 
 ```go
 if err != nil {
     return fmt.Errorf("failed to create user: %w", err)
 }
 ```
+
+## Zero Values
+
+Design structs so the zero value is useful. Avoid mandatory constructors when a `var x T` is sufficient.
+
+## Concurrency
+
+- Pass `context.Context` as the first parameter for any function that may block, do I/O, or spawn goroutines
+- Use `ctx.Done()` for cancellation — never rely on goroutines exiting on their own
+- Every goroutine must have a documented exit condition (cancellation, channel close, or completion)
+
+## Package Design
+
+- Avoid circular dependencies; reorganize types or extract interfaces if cycles appear
+- Keep package names short, lowercase, single-word — the name is part of every identifier inside it
 
 ## Reference
 
