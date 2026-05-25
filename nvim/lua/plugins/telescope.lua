@@ -1,6 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.4",
 	dependencies = {
 		{
 			"isak102/telescope-git-file-history.nvim",
@@ -93,6 +92,9 @@ return {
 			},
 			defaults = {
 				hidden = true,
+				preview = {
+					treesitter = false,
+				},
 				mappings = {
 					i = {
 						["<C-k>"] = require("telescope.actions").move_selection_previous,
