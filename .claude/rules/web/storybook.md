@@ -33,7 +33,7 @@ Use the latest CSF — the **CSF Next factory format**: `definePreview()` in `pr
 
 - **Co-locate** the story file with the component (`Button.tsx` next to `Button.stories.tsx`).
 - One component per story file.
-- Do **not** set `title` manually — let CSF4 derive it from the file path. Writing it by hand creates a double source of truth with the path.
+- Do **not** set `title` manually — let CSF Next derive it from the file path. Writing it by hand creates a double source of truth with the path.
 
 ## Args / ArgTypes / Controls
 
@@ -66,8 +66,8 @@ Cover the meaningful states as separate stories where applicable:
 **Avoid mocks as much as possible.** Follow the project-wide "Sociable over Solitary" principle (see [common/local.md](../common/local.md)): use real implementations or dependency injection via decorators wherever possible.
 
 - **API calls must be stubbed via MSW** (`msw-storybook-addon`) by declaring `parameters.msw.handlers`. Do not hand-write `fetch` / `axios` / SDK stubs. **Exception:** see "RSC / Server Action exception" below.
-- **Do not use `vi.mock` / `jest.mock` or any form of module replacement** inside stories or play functions.
-- When a callback spy is genuinely necessary (asserting a prop callback was invoked), use `fn()` from `storybook/test`. This is the **only** acceptable mock primitive.
+- **Module mocking must go through `sb.mock`** — never call `vi.mock` / `jest.mock` directly. Register the mock in `preview.ts` via `sb.mock(import('...'), { spy: true })` (spy mode preserves the original implementation while recording calls) or `sb.mock(import('...'))` (full auto-mock). Access the mock in stories via `mocked(...)` from `storybook/test` for type-safe overrides. Direct `vi.mock` / `jest.mock` bypass Storybook's typing and lifecycle and are forbidden.
+- When asserting that a **prop callback** was invoked, use `fn()` from `storybook/test` (typically passed via `args`). This is the only acceptable primitive for callback spies, and is a separate concern from `sb.mock` which handles module-level mocking.
 - Provide Theme / Router / QueryClient / i18n / Auth via decorators that wrap real providers.
 - For non-deterministic dependencies that MSW cannot cover (localStorage, dates, randomness), inject deterministic values via a decorator rather than mocking the module.
 
@@ -161,7 +161,7 @@ Do not throw away snapshots that have visual regression value. Stabilize them ac
 - Indiscriminate Chromatic snapshots on every story.
 - Oversized `play` functions that bundle multiple scenarios.
 - Story-only branching inside the component source.
-- `vi.mock` / `jest.mock` / module replacement for dependencies that MSW + real-provider decorators could cover.
+- Direct `vi.mock` / `jest.mock` calls. Use `sb.mock` (registered in `preview.ts`) with `mocked()` from `storybook/test` instead.
 - Hand-written `fetch` / `axios` / SDK stubs (except SDK clients invoked only from server-side modules in RSC apps — see "RSC / Server Action exception").
 - Introducing MSW solely to intercept HTTP calls that, in production, only run server-side (RSC / Server Action). Mock the SDK client at the module boundary instead.
 - Gratuitous `storyName` usage.
@@ -177,5 +177,5 @@ Do not throw away snapshots that have visual regression value. Stabilize them ac
 - [ ] `autodocs` tag present
 - [ ] Dependencies (theme, router, query client, i18n) injected via decorators
 - [ ] Main component states covered (Default / Loading / Error / Empty / etc.)
-- [ ] CSF4 format (`config.define()` + `meta.story()`), not CSF3 annotations
-- [ ] No `vi.mock` / `jest.mock` / module replacement; APIs stubbed via MSW (or, for server-only SDK clients in RSC apps, mocked at the SDK module boundary per the RSC / Server Action exception)
+- [ ] CSF Next factory format (`preview.meta()` + `meta.story()`), not CSF3 annotations
+- [ ] No direct `vi.mock` / `jest.mock` calls; module mocking goes through `sb.mock` + `mocked()`. APIs stubbed via MSW (or, for server-only SDK clients in RSC apps, mocked at the SDK module boundary per the RSC / Server Action exception)
