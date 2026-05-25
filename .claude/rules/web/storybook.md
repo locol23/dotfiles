@@ -17,11 +17,12 @@ Scope: any file matching `**/*.stories.{ts,tsx,mdx}`.
 - Pure utilities and custom hooks are out of scope and may still use `*.test.ts`.
 - CI is expected to execute play functions via Storybook Test Runner (`test-storybook`).
 
-## Story Shape (CSF4 / Storybook 9.x)
+## Story Shape (latest CSF / Storybook 10.x)
 
-Use the latest CSF — **CSF4 with `config.define()` + `meta.story()` factory**:
+Use the latest CSF — the **CSF Next factory format**: `definePreview()` in `preview.ts`, and `preview.meta()` + `meta.story()` in story files.
 
-- Define typed meta via `config.define()` (typically `preview.ts`) and build individual stories via `meta.story({ ... })`.
+- In `preview.ts`, configure globals via `definePreview({ ... })` (or the framework-specific re-export).
+- In story files, import the preview default export, define meta via `preview.meta({ ... })`, and build individual stories via `meta.story({ ... })`. Component prop types are inferred automatically — do not hand-annotate `Meta<typeof Component>` / `StoryObj<typeof meta>`.
 - Do **not** use the legacy `Meta` / `StoryObj` annotation style (`export const Foo: Story = { ... }`) in new files. Existing CSF3 files may keep that style during maintenance only.
 - Add `tags: ['autodocs']` by default.
 - Implement `play` whenever the story requires interaction.
@@ -32,7 +33,7 @@ Use the latest CSF — **CSF4 with `config.define()` + `meta.story()` factory**:
 
 - **Co-locate** the story file with the component (`Button.tsx` next to `Button.stories.tsx`).
 - One component per story file.
-- Do **not** set `title` manually — let CSF4 derive it from the file path. Writing it by hand creates a double source of truth with the path.
+- Do **not** set `title` manually — let CSF Next derive it from the file path. Writing it by hand creates a double source of truth with the path.
 
 ## Args / ArgTypes / Controls
 
@@ -64,11 +65,22 @@ Cover the meaningful states as separate stories where applicable:
 
 **Avoid mocks as much as possible.** Follow the project-wide "Sociable over Solitary" principle (see [common/local.md](../common/local.md)): use real implementations or dependency injection via decorators wherever possible.
 
-- **API calls must be stubbed via MSW** (`msw-storybook-addon`) by declaring `parameters.msw.handlers`. Do not hand-write `fetch` / `axios` / SDK stubs.
-- **Do not use `vi.mock` / `jest.mock` or any form of module replacement** inside stories or play functions.
-- When a callback spy is genuinely necessary (asserting a prop callback was invoked), use `fn()` from `storybook/test`. This is the **only** acceptable mock primitive.
+- **API calls must be stubbed via MSW** (`msw-storybook-addon`) by declaring `parameters.msw.handlers`. Do not hand-write `fetch` / `axios` / SDK stubs. **Exception:** see "RSC / Server Action exception" below.
+- **Module mocking must go through `sb.mock`** — never call `vi.mock` / `jest.mock` directly. Register the mock in `preview.ts` via `sb.mock(import('...'), { spy: true })` (spy mode preserves the original implementation while recording calls) or `sb.mock(import('...'))` (full auto-mock). Access the mock in stories via `mocked(...)` from `storybook/test` for type-safe overrides. Direct `vi.mock` / `jest.mock` bypass Storybook's typing and lifecycle and are forbidden.
+- When asserting that a **prop callback** was invoked, use `fn()` from `storybook/test` (typically passed via `args`). This is the only acceptable primitive for callback spies, and is a separate concern from `sb.mock` which handles module-level mocking.
 - Provide Theme / Router / QueryClient / i18n / Auth via decorators that wrap real providers.
 - For non-deterministic dependencies that MSW cannot cover (localStorage, dates, randomness), inject deterministic values via a decorator rather than mocking the module.
+
+### RSC / Server Action exception
+
+In React Server Components or Server Action architectures, API clients (e.g. an `openapi-fetch` instance) are invoked only from server-side modules (`'use server'`, `'server-only'`). The production browser never issues those HTTP requests directly; only the Next.js server process does. In this setting:
+
+- **Prefer mocking the SDK client at the module boundary** via `sb.mock(import('.../fetchClient.ts'), { spy: true })` plus per-story `mocked(fetchClient.POST).mockResolvedValue({ data, error, response })`.
+- **Do not introduce `msw-storybook-addon`** for the sole purpose of intercepting these server-only HTTP calls in Storybook.
+
+Rationale: MSW would exist purely as a Storybook-environment artifact, not as a reflection of production behavior. Mocking at the SDK boundary mirrors production's Server Action boundary, removes an extra dependency, and avoids hand-maintained handler/resolver scaffolding.
+
+For browser-originating API calls (in non-RSC components, or client-side libraries that fetch directly from the browser), the standard MSW rule above still applies.
 
 ## Play Function
 
@@ -149,8 +161,9 @@ Do not throw away snapshots that have visual regression value. Stabilize them ac
 - Indiscriminate Chromatic snapshots on every story.
 - Oversized `play` functions that bundle multiple scenarios.
 - Story-only branching inside the component source.
-- `vi.mock` / `jest.mock` / module replacement for dependencies that MSW + real-provider decorators could cover.
-- Hand-written `fetch` / `axios` / SDK stubs.
+- Direct `vi.mock` / `jest.mock` calls. Use `sb.mock` (registered in `preview.ts`) with `mocked()` from `storybook/test` instead.
+- Hand-written `fetch` / `axios` / SDK stubs (except SDK clients invoked only from server-side modules in RSC apps — see "RSC / Server Action exception").
+- Introducing MSW solely to intercept HTTP calls that, in production, only run server-side (RSC / Server Action). Mock the SDK client at the module boundary instead.
 - Gratuitous `storyName` usage.
 - Mixing legacy CSF3 annotation style into new files.
 - Stopping a Spinner / infinite animation to "stabilize" Chromatic — use `delay` instead.
@@ -164,5 +177,5 @@ Do not throw away snapshots that have visual regression value. Stabilize them ac
 - [ ] `autodocs` tag present
 - [ ] Dependencies (theme, router, query client, i18n) injected via decorators
 - [ ] Main component states covered (Default / Loading / Error / Empty / etc.)
-- [ ] CSF4 format (`config.define()` + `meta.story()`), not CSF3 annotations
-- [ ] No `vi.mock` / `jest.mock` / module replacement; APIs stubbed via MSW
+- [ ] CSF Next factory format (`preview.meta()` + `meta.story()`), not CSF3 annotations
+- [ ] No direct `vi.mock` / `jest.mock` calls; module mocking goes through `sb.mock` + `mocked()`. APIs stubbed via MSW (or, for server-only SDK clients in RSC apps, mocked at the SDK module boundary per the RSC / Server Action exception)
