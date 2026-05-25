@@ -3,7 +3,7 @@ _has() {
 }
 
 function kcsw {
-  kc config use-context $(kc config get-contexts -o name | peco)
+  kc config use-context $(kc config get-contexts -o name | fzf)
 }
 
 # git
@@ -21,7 +21,7 @@ function gp {
 }
 
 function gsw {
-  g sw $(g b -a --sort=-authordate | cut -b 3- | peco | sed -e "s%remotes/origin/%%")
+  g sw $(g b -a --sort=-authordate | cut -b 3- | fzf | sed -e "s%remotes/origin/%%")
 }
 
 # tmux

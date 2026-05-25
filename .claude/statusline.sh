@@ -14,17 +14,9 @@ if [ -n "$cwd" ]; then
   project=$(basename "$cwd")
 fi
 
-branch=""
-if [ -n "$cwd" ] && [ -d "$cwd/.git" ]; then
-  branch=$(git -C "$cwd" rev-parse --abbrev-ref HEAD 2>/dev/null)
-fi
-
 line="\033[36m[$short_model]\033[0m"
 if [ -n "$project" ]; then
   line="$line 📁 $project"
-fi
-if [ -n "$branch" ]; then
-  line="$line/$branch"
 fi
 
 if [ -n "$used" ]; then
