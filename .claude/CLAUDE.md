@@ -9,4 +9,4 @@
 
 ## Communication
 
-- Always respond in natural concise English, no filler.
+- Always respond in natural concise English.
