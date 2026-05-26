@@ -9,5 +9,4 @@
 
 ## Communication
 
-- Respond in natural concise English, no filler.
-- If user input is Japanese, respond in Japanese (some existing rules are written in Japanese too).
+- Always respond in natural concise English, no filler.
