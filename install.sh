@@ -200,6 +200,32 @@ done
 rm -rf "$ECC_TMPDIR"
 trap - EXIT
 
+# mattpocock/skills — vendor selected skills (clone, copy, discard).
+# Source: https://github.com/mattpocock/skills
+# Skills are listed as "<category>/<name>" pairs; only the name becomes the
+# destination directory under .claude/skills/.
+MP_TMPDIR=$(mktemp -d)
+trap 'rm -rf "$MP_TMPDIR"' EXIT
+git clone --depth 1 https://github.com/mattpocock/skills.git "$MP_TMPDIR"
+
+for MP_SPEC in \
+  "engineering/grill-with-docs" \
+  "engineering/diagnose" \
+  "productivity/grill-me" \
+  "productivity/handoff" \
+  "productivity/write-a-skill"; do
+  MP_NAME="${MP_SPEC##*/}"
+  MP_SRC="$MP_TMPDIR/skills/$MP_SPEC"
+  MP_DEST="$DOTFILES_HOME/.claude/skills/$MP_NAME"
+  if [ -d "$MP_SRC" ]; then
+    mkdir -p "$MP_DEST"
+    cp -R "$MP_SRC/." "$MP_DEST/"
+  fi
+done
+
+rm -rf "$MP_TMPDIR"
+trap - EXIT
+
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
 ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json

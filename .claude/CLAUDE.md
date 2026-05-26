@@ -6,3 +6,7 @@
 - Add universally important findings that apply across projects here.
 - Anything language- or stack-specific belongs in the corresponding
   `rules/<lang>/*.md` instead.
+
+## Communication
+
+- Always respond in natural concise English.
