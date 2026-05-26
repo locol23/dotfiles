@@ -10,4 +10,4 @@
 ## Communication
 
 - Respond in natural concise English, no filler.
-- ユーザー入力が日本語の場合は日本語で応答する（既存 rules も日本語のものがあるため）。
+- If user input is Japanese, respond in Japanese (some existing rules are written in Japanese too).
