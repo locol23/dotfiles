@@ -124,6 +124,7 @@ ln -sfn $DOTFILES_HOME/.zsh/ ~/
 ln -sf $DOTFILES_HOME/.zshenv ~/
 ln -sf $DOTFILES_HOME/.zshrc ~/
 ln -sf $DOTFILES_HOME/.zprofile ~/
+ln -sf $DOTFILES_HOME/.p10k.zsh ~/
 [ ! -f ~/.zshrc.local ] && cp $DOTFILES_HOME/.zshrc.local ~/
 
 # Neovim
@@ -229,6 +230,13 @@ trap - EXIT
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
 ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
+
+# Display layout — auto-apply favorite arrangement on display connect
+mkdir -p ~/Library/LaunchAgents ~/Library/Logs
+sed "s|__HOME__|$HOME|g" "$DOTFILES_HOME/launchd/com.locol23.display-organizer.plist" \
+  > ~/Library/LaunchAgents/com.locol23.display-organizer.plist
+launchctl unload ~/Library/LaunchAgents/com.locol23.display-organizer.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.locol23.display-organizer.plist
 
 # SSH
 mkdir -p ~/.ssh
