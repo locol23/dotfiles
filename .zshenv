@@ -32,5 +32,7 @@ export PATH="$PNPM_HOME:$PATH"
 # pipx
 export PATH="$HOME/.local/bin:$PATH"
 
-# GitHub
-export GITHUB_PERSONAL_ACCESS_TOKEN=$(gh auth token)
+# GitHub: resolve a token once per process tree (child shells inherit the export)
+if [[ -z $GITHUB_PERSONAL_ACCESS_TOKEN ]] && (( $+commands[gh] )); then
+  export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null)"
+fi

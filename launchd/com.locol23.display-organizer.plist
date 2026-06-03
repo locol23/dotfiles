@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.locol23.display-organizer</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>__HOME__/.dotfiles/scripts/organize-external-display.sh</string>
+    </array>
+    <key>WatchPaths</key>
+    <array>
+        <string>/Library/Preferences/com.apple.windowserver.displays.plist</string>
+    </array>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>StandardOutPath</key>
+    <string>__HOME__/Library/Logs/organize-external-display.log</string>
+    <key>StandardErrorPath</key>
+    <string>__HOME__/Library/Logs/organize-external-display.log</string>
+    <key>ThrottleInterval</key>
+    <integer>5</integer>
+</dict>
+</plist>
