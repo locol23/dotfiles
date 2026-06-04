@@ -90,7 +90,7 @@ if not_installed brew; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 brew bundle --file $DOTFILES_HOME/Brewfile --verbose
-brew services start ollama
+open -a Ollama
 
 # Ghostty
 echo
