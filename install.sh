@@ -89,7 +89,11 @@ if not_installed brew; then
   export PATH=$PATH:/opt/homebrew/bin
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-brew bundle --file $DOTFILES_HOME/Brewfile --verbose
+if ! brew bundle --file "$DOTFILES_HOME/Brewfile" --verbose; then
+  echo "⚠️  brew bundle reported failures (often a transient download or an"
+  echo "    upstream cask checksum change). Continuing with the rest of setup."
+  echo "    Re-run 'brew update && brew bundle --file \"$DOTFILES_HOME/Brewfile\"' later to retry."
+fi
 open -a Ollama
 
 # Ghostty

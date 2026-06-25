@@ -49,6 +49,11 @@ eval "$(direnv hook zsh)"
 # enable mise
 eval "$(/opt/homebrew/bin/mise activate zsh)"
 
+# ngrok completion (after compinit so compdef exists)
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
 # mysql
 export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 
