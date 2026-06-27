@@ -144,7 +144,7 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 # AtCoder
 if not_installed oj; then
-  pipx install online-judge-tools --force
+  uvx install online-judge-tools --force
 fi
 
 # Golang
@@ -171,6 +171,7 @@ ln -sf $DOTFILES_HOME/.tigrc ~/
 
 # Tmux
 ln -sf $DOTFILES_HOME/.tmux.conf ~/
+tmux source-file ~/.tmux.conf 2>/dev/null || true
 
 # BTT
 ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
@@ -184,6 +185,10 @@ ln -sfn $DOTFILES_HOME/.claude/commands ~/.claude/commands
 ln -sfn $DOTFILES_HOME/.claude/skills ~/.claude/skills
 ln -sfn $DOTFILES_HOME/.claude/rules ~/.claude/rules
 ln -sf $DOTFILES_HOME/.claude/statusline.sh ~/.claude/statusline.sh
+
+# Serena
+mkdir -p ~/.serena
+ln -sf $DOTFILES_HOME/serena/serena_config.yml ~/.serena/serena_config.yml
 
 # Everything Claude Code rules — sync canonical subdir layout from ECC main.
 # IMPORTANT: copy entire subdirectories, never flatten — ECC's common/ and
@@ -233,12 +238,12 @@ trap - EXIT
 
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
-ln -sf $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
+cp -f $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
 
 # Display layout — auto-apply favorite arrangement on display connect
 mkdir -p ~/Library/LaunchAgents ~/Library/Logs
 sed "s|__HOME__|$HOME|g" "$DOTFILES_HOME/launchd/com.locol23.display-organizer.plist" \
-  > ~/Library/LaunchAgents/com.locol23.display-organizer.plist
+  >~/Library/LaunchAgents/com.locol23.display-organizer.plist
 launchctl unload ~/Library/LaunchAgents/com.locol23.display-organizer.plist 2>/dev/null || true
 launchctl load ~/Library/LaunchAgents/com.locol23.display-organizer.plist
 
