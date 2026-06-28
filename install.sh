@@ -96,6 +96,30 @@ if ! brew bundle --file "$DOTFILES_HOME/Brewfile" --verbose; then
 fi
 open -a Ollama
 
+# Japanese input (Google IME)
+# Replace Apple Kotoeri with Google Japanese Input as the enabled/selected IME.
+# These prefs are read by HIToolbox at LOGIN — the live session won't switch the
+# active source mid-run (macOS rejects it), so a logout/login is required to apply.
+# Launch the app first so it registers with the input system.
+if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
+  open "/Library/Input Methods/GoogleJapaneseInput.app"
+  sleep 2
+  defaults write com.apple.HIToolbox AppleEnabledInputSources '(
+    { InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 252; "KeyboardLayout Name" = ABC; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.google.inputmethod.Japanese.base"; InputSourceKind = "Input Mode"; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; InputSourceKind = "Keyboard Input Method"; },
+    { "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; },
+    { "Bundle ID" = "com.apple.50onPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; },
+    { "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; }
+  )'
+  defaults write com.apple.HIToolbox AppleSelectedInputSources '(
+    { "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.google.inputmethod.Japanese.base"; InputSourceKind = "Input Mode"; }
+  )'
+  killall cfprefsd 2>/dev/null || true
+  echo "Google IME seeded as Japanese input — LOG OUT/IN (or restart) to apply."
+fi
+
 # Ghostty
 echo
 echo "Install Ghostty"
@@ -144,7 +168,7 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 # AtCoder
 if not_installed oj; then
-  uvx install online-judge-tools --force
+  uv tool install online-judge-tools --force
 fi
 
 # Golang
