@@ -296,6 +296,24 @@ trap - EXIT
 mkdir -p ~/.config/karabiner
 cp -f $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
 
+# Built-in display — set the MacBook screen to "More Space" (the rightmost
+# notch of the Displays "Larger Text ←→ More Space" slider). That is the
+# largest HiDPI (scaling:on) mode; on this hardware it is 1710x1112. Persistent
+# screen IDs rotate between reboots (see organize-external-display.sh), so
+# resolve the built-in ID at runtime by Type instead of hardcoding it.
+if command -v displayplacer >/dev/null; then
+  BUILTIN_ID=$(displayplacer list | awk '
+    /^Persistent screen id:/ { id=$NF; next }
+    /^Type:/ && /MacBook built in screen/ { print id; exit }
+  ')
+  if [ -n "$BUILTIN_ID" ]; then
+    displayplacer "id:${BUILTIN_ID} res:1710x1112 hz:60 color_depth:8 scaling:on" ||
+      warn "could not set built-in display to More Space"
+  else
+    warn "built-in display not found; skipping More Space resolution"
+  fi
+fi
+
 # Display layout — auto-apply favorite arrangement on display connect
 mkdir -p ~/Library/LaunchAgents ~/Library/Logs
 sed "s|__HOME__|$HOME|g" "$DOTFILES_HOME/launchd/com.locol23.display-organizer.plist" \
