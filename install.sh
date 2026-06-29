@@ -25,16 +25,14 @@ fi
 
 export DOTFILES_HOME=~/.dotfiles
 
-# State markers for genuinely once-only operations. Kept OUT of the repo (there
-# is no repo .gitignore) under the machine's existing convention ~/.local/state.
+# State markers for genuinely once-only operations, kept out of the repo.
 DOTFILES_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
 mkdir -p "$DOTFILES_STATE"
 
 is_done() { [ -f "$DOTFILES_STATE/$1.done" ]; }
 mark_done() { : >"$DOTFILES_STATE/$1.done"; }
 
-# (a) Clone the repo only when absent (naturally idempotent). A failed clone is
-# fatal — nothing downstream can run without the repo.
+# (a) Clone the repo only when absent. A failed clone is fatal.
 if [ ! -d "$DOTFILES_HOME" ]; then
   git clone https://github.com/locol23/dotfiles.git "$DOTFILES_HOME" ||
     {
@@ -44,14 +42,12 @@ if [ ! -d "$DOTFILES_HOME" ]; then
   (cd "$DOTFILES_HOME" && git remote set-url origin git@github.com:locol23/dotfiles.git)
 fi
 
-# (b) dotfiles command — created every run (idempotent `ln -sf`), so a partial
-# first run that aborted before this point still gets it on the next run.
+# (b) dotfiles command — (re)created every run so a partial first run recovers.
 sudo mkdir -p /usr/local/bin
 sudo ln -sf "$DOTFILES_HOME/install.sh" /usr/local/bin/dotfiles || warn "could not link dotfiles command"
 
-# (c) Dock reset is destructive (empties the Dock) — run exactly once, gated by a
-# dedicated marker decoupled from the clone guard. Survives a partial first run
-# and never re-fires on an established machine.
+# (c) Dock reset is destructive (empties the Dock) — gate it behind a dedicated
+# marker so it runs exactly once and never re-fires on an established machine.
 if ! is_done dock-reset; then
   defaults write com.apple.dock persistent-apps -array
   mark_done dock-reset
@@ -119,20 +115,16 @@ if ! brew bundle --file "$DOTFILES_HOME/Brewfile" --verbose; then
   echo "    upstream cask checksum change). Continuing with the rest of setup."
   echo "    Re-run 'brew update && brew bundle --file \"$DOTFILES_HOME/Brewfile\"' later to retry."
 fi
-# brew bundle can upgrade the Ghostty cask while you're running this script
-# inside Ghostty. Replacing the running .app bundle leaves the window visible
-# but unresponsive to clicks/input until Ghostty is fully relaunched.
+# brew bundle may upgrade the running Ghostty cask, leaving it unresponsive until
+# relaunched (see CLAUDE.md).
 if [ "$TERM_PROGRAM" = "ghostty" ]; then
   echo "ℹ️  If Ghostty stops responding to clicks after this run, it was likely"
   echo "    updated by brew. Fully quit (Cmd-Q) and reopen Ghostty to restore input."
 fi
 open -a Ollama
 
-# Japanese input (Google IME)
-# Replace Apple Kotoeri with Google Japanese Input as the enabled/selected IME.
-# These prefs are read by HIToolbox at LOGIN — the live session won't switch the
-# active source mid-run (macOS rejects it), so a logout/login is required to apply.
-# Launch the app first so it registers with the input system.
+# Japanese input (Google IME) — seed Google Japanese Input over Apple Kotoeri.
+# HIToolbox reads these prefs at login, so a logout/login is required to apply.
 if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
   open "/Library/Input Methods/GoogleJapaneseInput.app"
   sleep 2
@@ -296,11 +288,8 @@ trap - EXIT
 mkdir -p ~/.config/karabiner
 cp -f $DOTFILES_HOME/karabiner.json ~/.config/karabiner/karabiner.json
 
-# Built-in display — set the MacBook screen to "More Space" (the rightmost
-# notch of the Displays "Larger Text ←→ More Space" slider). That is the
-# largest HiDPI (scaling:on) mode; on this hardware it is 1710x1112. Persistent
-# screen IDs rotate between reboots (see organize-external-display.sh), so
-# resolve the built-in ID at runtime by Type instead of hardcoding it.
+# Built-in display — set the MacBook screen to "More Space" (largest HiDPI mode,
+# 1710x1112 here). Screen IDs rotate between reboots, so resolve it by Type.
 if command -v displayplacer >/dev/null; then
   BUILTIN_ID=$(displayplacer list | awk '
     /^Persistent screen id:/ { id=$NF; next }
@@ -333,8 +322,7 @@ espanso service register 2>/dev/null
 echo
 echo "espanso: Grant Accessibility permissions in System Settings, then run 'espanso service start'."
 
-# Verify config delivery — warn (don't fail) if any key symlink is missing so a
-# partial run is visible at a glance. Re-running `dotfiles` re-applies them.
+# Verify config delivery — warn (don't fail) on any missing key symlink.
 echo
 missing=0
 for target in \
@@ -352,11 +340,8 @@ for target in \
 done
 [ "$missing" -eq 0 ] && echo "✅ key config symlinks delivered."
 
-# killall Dock / killall SystemUIServer above can drop Ghostty (the terminal
-# this script runs in) from the WindowServer's "active app" state, leaving it
-# unable to receive clicks until refocused. Re-activate it so the session ends
-# in a clickable state. `open -a` refocuses the running instance without an
-# Apple Events permission prompt.
+# The killall Dock/SystemUIServer calls above can drop Ghostty from the active-app
+# state; re-activate it so the session ends clickable.
 if [ "$TERM_PROGRAM" = "ghostty" ]; then
   open -a Ghostty 2>/dev/null || true
 fi
