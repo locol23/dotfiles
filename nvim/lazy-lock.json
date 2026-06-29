@@ -47,5 +47,5 @@
   "telescope-git-file-history.nvim": { "branch": "master", "commit": "4442114f9257e682e60a8cb6de14cf988e26055c" },
   "telescope-windows.nvim": { "branch": "main", "commit": "bc9e7fcd8f82bc5501c721bf3148b05ca7822e66" },
   "telescope.nvim": { "branch": "master", "commit": "427b576c16792edad01a92b89721d923c19ad60f" },
-  "vim-matchup": { "branch": "master", "commit": "a2d618496223386844acb5a6763cfc3cc1357af1" }
+  "vim-matchup": { "branch": "master", "commit": "055881643e1b37038a572c883de7b1969716db77" }
 }

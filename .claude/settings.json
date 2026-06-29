@@ -66,8 +66,9 @@
       }
     }
   },
-  "theme": "dark",
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
-  "skipAutoPermissionPrompt": true
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true,
+  "model": "opus"
 }
