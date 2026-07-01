@@ -219,7 +219,9 @@ ln -sf $DOTFILES_HOME/.tigrc ~/
 
 # Tmux
 ln -sf $DOTFILES_HOME/.tmux.conf ~/
-tmux source-file ~/.tmux.conf 2>/dev/null || true
+if tmux info >/dev/null 2>&1; then
+  tmux source-file ~/.tmux.conf || warn "tmux source-file reported an error (check ~/.tmux.conf)"
+fi
 
 # BTT
 ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
