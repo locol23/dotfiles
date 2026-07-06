@@ -24,10 +24,12 @@ function gsw {
   g sw $(g b -a --sort=-authordate | cut -b 3- | fzf | sed -e "s%remotes/origin/%%")
 }
 
-# tmux
+# herdr: IDE layout — editor pane on top, two shells across the bottom ~25%.
+# (Old tmux: `splitw -p 25` then `splitw -h`.) Run inside a herdr pane.
+# If the split lands inverted, flip the --ratio (0.75 <-> 0.25).
 function ide {
-  tmux splitw -p 25
-  tmux splitw -h
+  herdr pane split --current --direction down --ratio 0.75 --focus
+  herdr pane split --current --direction right
 }
 
 # fzf

@@ -1,0 +1,63 @@
+# herdr configuration — migrated from tmux (~/.tmux.conf)
+# Symlinked to ~/.config/herdr/config.toml by install.sh.
+# Schema reference: `herdr --default-config` (herdr 0.7.1).
+# Only values that differ from herdr defaults are set here.
+
+[theme]
+# Solarized dark — matches the previous inline tmux "Solarized dark" theme.
+name = "solarized"
+
+[theme.custom]
+# Let Ghostty's background-opacity (0.85) + blur show through instead of
+# painting an opaque panel background. Delete this block for a solid theme bg.
+panel_bg = "reset"
+
+[keys]
+# Prefix stays herdr's default ctrl+b (chosen over the old tmux C-t, which
+# frees the nvim <C-t> / nvim-tree collision). Set explicitly for clarity.
+prefix = "ctrl+b"
+# Left at herdr defaults because they already match the old tmux binds:
+#   focus panes  prefix+h/j/k/l   (was tmux `prefix h/j/k/l`)
+#   new tab      prefix+c         (was tmux `prefix c`)
+#   next/prev    prefix+n / +p    (was tmux `prefix n` / `p`)
+#   side-by-side prefix+v         (was tmux `prefix v`)
+# Deltas to relearn:
+#   stacked split  prefix+-   (herdr default; was tmux `prefix s`, and
+#                              herdr reserves prefix+s for Settings)
+#   scrollback     prefix+e   (edit_scrollback; herdr has no tmux copy-mode)
+#   mouse-drag selection copies to the system clipboard (replaces the old
+#     vi `v`/`y` -> pbcopy bindings)
+
+[ui]
+# Matches the old `set -g mouse on`. (Kept explicit — same lesson as the
+# tmux mouse-toggle fix: don't rely on implicit/toggle behavior.)
+mouse_capture = true
+# Order the agent sidebar as an attention queue (most-urgent agent first).
+# Use "spaces" to instead group by workspace.
+agent_panel_sort = "priority"
+
+[ui.toast]
+# Surface agent state changes (blocked / done) as macOS notifications so a
+# waiting agent reaches you even when you're in another app.
+# "herdr" = in-app toasts only; "off" = disable.
+delivery = "system"
+
+[ui.sound]
+# No audio pings by default (office-friendly). Set true to also play a sound
+# on agent state changes; per-agent overrides live under [ui.sound.agents].
+enabled = false
+
+[session]
+# Resume Claude Code / Codex panes into their native sessions after a herdr
+# server restart. Net-new capability vs the old ephemeral tmux sessions.
+resume_agents_on_restore = true
+
+[experimental]
+# CJK / IME quality-of-life (macOS) for a Japanese + Claude Code workflow.
+# While prefix mode is active, temporarily switch to an ASCII keyboard layout
+# so prefix commands register even when the Japanese IME is on.
+switch_ascii_input_source_in_prefix = true
+# Keep the IME candidate window tracking inside agent TUIs. Scoped to agent
+# panes via cjk_ime_agents below, so nvim normal mode is left untouched.
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude", "codex", "pi"]

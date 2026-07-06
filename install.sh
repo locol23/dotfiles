@@ -223,6 +223,20 @@ if tmux info >/dev/null 2>&1; then
   tmux source-file ~/.tmux.conf || warn "tmux source-file reported an error (check ~/.tmux.conf)"
 fi
 
+# herdr (agent-aware multiplexer; migrating from tmux — see docs/adr/0001)
+mkdir -p ~/.config/herdr
+ln -sf $DOTFILES_HOME/herdr/config.toml ~/.config/herdr/config.toml
+# Claude Code integration hook (reports Claude's session to herdr for agent
+# state + conversation resume). Tracked and symlinked here instead of running
+# `herdr integration install claude`, which rewrites ~/.claude/settings.json
+# through its own schema and can drop keys it doesn't recognize. The matching
+# SessionStart hook entry lives in .claude/settings.json.
+mkdir -p ~/.claude/hooks
+ln -sf $DOTFILES_HOME/.claude/hooks/herdr-agent-state.sh ~/.claude/hooks/herdr-agent-state.sh
+if herdr status 2>/dev/null | grep -q "status: running"; then
+  herdr server reload-config >/dev/null 2>&1 || warn "herdr server reload-config reported an error (check herdr/config.toml)"
+fi
+
 # BTT
 ln -sf $DOTFILES_HOME/bttconfig.json ~/bttconfig.json
 

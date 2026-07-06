@@ -37,9 +37,12 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^e" edit-command-line
 
-# start tmux
-if [[ -z "$TMUX" ]]; then
-  tmux new-session
+# start herdr (migrated from tmux — see docs/adr/0001)
+# Skip if already inside herdr or tmux, or if herdr isn't installed (so a
+# fresh machine never gets a broken terminal). Run `tmux` manually to fall
+# back to the old multiplexer during the trial.
+if [[ -z "$HERDR_ENV" && -z "$TMUX" ]] && command -v herdr >/dev/null 2>&1; then
+  herdr
   exit
 fi
 
