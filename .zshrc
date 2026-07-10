@@ -42,8 +42,7 @@ bindkey "^e" edit-command-line
 # fresh machine never gets a broken terminal). Run `tmux` manually to fall
 # back to the old multiplexer during the trial.
 if [[ -z "$HERDR_ENV" && -z "$TMUX" ]] && command -v herdr >/dev/null 2>&1; then
-  herdr
-  exit
+  herdr && exit
 fi
 
 # enable direnv
