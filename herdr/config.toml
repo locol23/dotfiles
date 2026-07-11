@@ -16,6 +16,7 @@ panel_bg = "reset"
 # Prefix stays herdr's default ctrl+b (chosen over the old tmux C-t, which
 # frees the nvim <C-t> / nvim-tree collision). Set explicitly for clarity.
 prefix = "ctrl+b"
+rename_tab = "prefix+comma"
 # Left at herdr defaults because they already match the old tmux binds:
 #   focus panes  prefix+h/j/k/l   (was tmux `prefix h/j/k/l`)
 #   new tab      prefix+c         (was tmux `prefix c`)
