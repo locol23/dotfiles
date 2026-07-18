@@ -26,10 +26,19 @@ function gsw {
 
 # herdr: IDE layout — editor pane on top, two shells across the bottom ~25%.
 # (Old tmux: `splitw -p 25` then `splitw -h`.) Run inside a herdr pane.
-# If the split lands inverted, flip the --ratio (0.75 <-> 0.25).
+# `--current` resolves via HERDR_PANE_ID (this shell's pane), so the second
+# split must target the new bottom pane's id from the first split's output.
 function ide {
-  herdr pane split --current --direction down --ratio 0.75 --focus
-  herdr pane split --current --direction right
+  local bottom_pane
+  bottom_pane=$(herdr pane split --current --direction down --ratio 0.75 --focus \
+    | jq -r '.result.pane.pane_id')
+
+  if [ -z "$bottom_pane" ] || [ "$bottom_pane" = "null" ]; then
+    echo "ide: failed to split pane" >&2
+    return 1
+  fi
+
+  herdr pane split --pane "$bottom_pane" --direction right --focus
 }
 
 # fzf
