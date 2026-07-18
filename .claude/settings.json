@@ -22,6 +22,7 @@
     "ask": [],
     "defaultMode": "plan"
   },
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -31,6 +32,29 @@
             "type": "command",
             "command": "bash ~/.claude/hooks/herdr-agent-state.sh session",
             "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.session_id // empty' | { read -r sid; [ -n \"$sid\" ] && touch \"${TMPDIR:-/tmp}/claude-crit-pending-$sid\"; } 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/crit-on-stop.sh",
+            "timeout": 345600,
+            "statusMessage": "crit でレビュー待ち — ブラウザで Finish Review を押してください"
           }
         ]
       }

@@ -1,3 +1,4 @@
+onboarding = false
 # herdr configuration — migrated from tmux (~/.tmux.conf)
 # Symlinked to ~/.config/herdr/config.toml by install.sh.
 # Schema reference: `herdr --default-config` (herdr 0.7.1).
@@ -28,6 +29,29 @@ rename_tab = "prefix+comma"
 #   scrollback     prefix+e   (edit_scrollback; herdr has no tmux copy-mode)
 #   mouse-drag selection copies to the system clipboard (replaces the old
 #     vi `v`/`y` -> pbcopy bindings)
+
+# One-shot pane resize: prefix+ctrl+hjkl resizes directly in one chord,
+# instead of the built-in prefix+r -> hjkl resize_mode (still available for
+# holding a direction key through multiple repeated steps).
+[[keys.command]]
+key = "prefix+ctrl+h"
+type = "shell"
+command = "herdr pane resize --direction left --current"
+
+[[keys.command]]
+key = "prefix+ctrl+j"
+type = "shell"
+command = "herdr pane resize --direction down --current"
+
+[[keys.command]]
+key = "prefix+ctrl+k"
+type = "shell"
+command = "herdr pane resize --direction up --current"
+
+[[keys.command]]
+key = "prefix+ctrl+l"
+type = "shell"
+command = "herdr pane resize --direction right --current"
 
 [ui]
 # Matches the old `set -g mouse on`. (Kept explicit — same lesson as the

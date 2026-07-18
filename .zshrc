@@ -1,3 +1,15 @@
+# start herdr (migrated from tmux — see docs/adr/0001)
+# MUST stay above the p10k instant-prompt block: instant prompt redirects
+# stdin to /dev/null and stdout to a capture file during .zshrc init, which
+# leaves the herdr client attached but blind and deaf (unlike tmux, herdr
+# does terminal I/O via stdin/stdout, not /dev/tty).
+# Skip if already inside herdr or tmux, or if herdr isn't installed (so a
+# fresh machine never gets a broken terminal). Run `tmux` manually to fall
+# back to the old multiplexer during the trial.
+if [[ -z "$HERDR_ENV" && -z "$TMUX" ]] && command -v herdr >/dev/null 2>&1; then
+  herdr && exit
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -36,14 +48,6 @@ bindkey '^A' beginning-of-line
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^e" edit-command-line
-
-# start herdr (migrated from tmux — see docs/adr/0001)
-# Skip if already inside herdr or tmux, or if herdr isn't installed (so a
-# fresh machine never gets a broken terminal). Run `tmux` manually to fall
-# back to the old multiplexer during the trial.
-if [[ -z "$HERDR_ENV" && -z "$TMUX" ]] && command -v herdr >/dev/null 2>&1; then
-  herdr && exit
-fi
 
 # enable direnv
 eval "$(direnv hook zsh)"
