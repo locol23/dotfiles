@@ -70,7 +70,6 @@
     "code-review@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
-    "crit@crit": true,
     "everything-claude-code@everything-claude-code": true,
     "feature-dev@claude-plugins-official": true,
     "figma@claude-plugins-official": true,
@@ -88,19 +87,20 @@
     "slack@claude-plugins-official": true,
     "supabase@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "crit@crit": true
   },
   "extraKnownMarketplaces": {
-    "crit": {
-      "source": {
-        "source": "github",
-        "repo": "tomasz-tomczyk/crit"
-      }
-    },
     "everything-claude-code": {
       "source": {
         "source": "git",
         "url": "https://github.com/affaan-m/everything-claude-code.git"
+      }
+    },
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit"
       }
     }
   },
