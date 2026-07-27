@@ -37,3 +37,20 @@ Kent C. Dodds' Testing Trophy: "write tests, not too many, mostly integration."
 - Prefer real collaborators (in-memory DB, real HTTP via testcontainers, etc.) over mocks
 - Mocking implementation details makes tests brittle to refactor
 - Tests should resemble how users (or upstream code) interact with the unit under test
+
+## Subagent Delegation Policy
+
+The main session acts as an ORCHESTRATOR. Delegate work to subagents with the
+model suited to the task instead of doing it inline:
+
+| Task | Agent | Model |
+|------|-------|-------|
+| Investigation, code reading, "where/how" questions | explorer (or built-in Explore) | haiku |
+| Implementation, bug fixes, refactoring, tests | implementer / tdd-guide | sonnet |
+| Planning, architecture, complex reasoning | planner / architect | opus |
+| Review after code changes | code-reviewer / security-reviewer | sonnet |
+
+- Run independent investigations/implementations as PARALLEL agents in one message.
+- Direct edits in the main session are acceptable only for trivial single-file
+  changes (typos, one-liners, config tweaks).
+- Do NOT set CLAUDE_CODE_SUBAGENT_MODEL — it would force one model for all agents.
