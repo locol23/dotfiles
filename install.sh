@@ -272,6 +272,12 @@ ln -sfn $DOTFILES_HOME/.claude/skills ~/.claude/skills
 ln -sfn $DOTFILES_HOME/.claude/rules ~/.claude/rules
 ln -sf $DOTFILES_HOME/.claude/statusline.sh ~/.claude/statusline.sh
 
+# Cursor Agent reads ~/.claude/skills and ~/.claude/agents directly (documented
+# at cursor.com/docs/skills), so the symlinks above already cover it. Do NOT add
+# ~/.cursor/{skills,agents} pointing at the same tree: skills are not deduped by
+# realpath, so every extra root re-lists all of them in the agent's context.
+# .cursor/ is only needed for Cursor-only config (rules/*.mdc, mcp.json).
+
 # Serena
 mkdir -p ~/.serena
 ln -sf $DOTFILES_HOME/serena/serena_config.yml ~/.serena/serena_config.yml

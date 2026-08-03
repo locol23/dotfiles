@@ -79,3 +79,5 @@ export PATH="$HOME/go/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.config/mfpp/fn.sh ] && source ~/.config/mfpp/fn.sh
