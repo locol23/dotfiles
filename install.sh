@@ -23,6 +23,21 @@ if ! xcode-select -p &>/dev/null; then
   exit 1
 fi
 
+# Ask for the admin password once and keep sudo's timestamp fresh for the
+# duration of this run. The password itself is never stored — this only
+# refreshes sudo's built-in credential cache (same pattern as Homebrew's
+# installer). The ticket is explicitly dropped before the final exec.
+if sudo -v; then
+  while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" || exit
+  done 2>/dev/null &
+  SUDO_KEEPALIVE_PID=$!
+else
+  warn "sudo authentication failed; sudo steps below may prompt or fail"
+fi
+
 export DOTFILES_HOME=~/.dotfiles
 
 # State markers for genuinely once-only operations, kept out of the repo.
@@ -125,12 +140,18 @@ open -a Ollama
 
 # Japanese input (Google IME) — seed Google Japanese Input over Apple Kotoeri.
 # HIToolbox reads these prefs at login, so a logout/login is required to apply.
+# Both the Roman (英数) and Hiragana modes must be enabled: the 英数 key only
+# toggles a mode the OS remembers if that mode is an enabled input source.
+# Otherwise every app switch reinitializes the context back to Hiragana.
+# HIToolbox stores "Input Mode" using the com.apple.inputmethod.Japanese* keys
+# from the IME's tsInputModeListKey, not the com.google.* TISInputSourceIDs.
 if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
   open "/Library/Input Methods/GoogleJapaneseInput.app"
   sleep 2
   defaults write com.apple.HIToolbox AppleEnabledInputSources '(
     { InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 252; "KeyboardLayout Name" = ABC; },
-    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.google.inputmethod.Japanese.base"; InputSourceKind = "Input Mode"; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese.Roman"; InputSourceKind = "Input Mode"; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese"; InputSourceKind = "Input Mode"; },
     { "Bundle ID" = "com.google.inputmethod.Japanese"; InputSourceKind = "Keyboard Input Method"; },
     { "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; },
     { "Bundle ID" = "com.apple.50onPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; },
@@ -138,7 +159,7 @@ if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
   )'
   defaults write com.apple.HIToolbox AppleSelectedInputSources '(
     { "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; },
-    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.google.inputmethod.Japanese.base"; InputSourceKind = "Input Mode"; }
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese.Roman"; InputSourceKind = "Input Mode"; }
   )'
   killall cfprefsd 2>/dev/null || true
   echo "Google IME seeded as Japanese input — LOG OUT/IN (or restart) to apply."
@@ -362,5 +383,11 @@ done
 if [ "$TERM_PROGRAM" = "ghostty" ]; then
   open -a Ghostty 2>/dev/null || true
 fi
+
+# exec keeps this PID and skips EXIT traps, so the keep-alive loop must be
+# killed explicitly or it would hold passwordless sudo open indefinitely
+# under the new login shell. sudo -k revokes the cached ticket immediately.
+[ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
+sudo -k
 
 exec /opt/homebrew/bin/zsh -l
