@@ -26,14 +26,29 @@ fi
 # Ask for the admin password once and keep sudo's timestamp fresh for the
 # duration of this run. The password itself is never stored — this only
 # refreshes sudo's built-in credential cache (same pattern as Homebrew's
-# installer). The ticket is explicitly dropped before the final exec.
+# installer). The ticket is dropped on every exit path: sudo_cleanup is
+# trapped for fatal exits and Ctrl-C, and called manually before the final
+# exec (which bypasses EXIT traps).
+sudo_cleanup() {
+  [ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
+  sudo -k
+}
 if sudo -v; then
   while true; do
-    sudo -n true
+    sudo -n true 2>/dev/null ||
+      {
+        warn "sudo keep-alive lost its ticket; later sudo steps may prompt again"
+        exit
+      }
     sleep 60
-    kill -0 "$$" || exit
-  done 2>/dev/null &
+    kill -0 "$$" 2>/dev/null || exit
+  done &
   SUDO_KEEPALIVE_PID=$!
+  trap sudo_cleanup EXIT
+  # Untrapped fatal signals skip the EXIT trap; convert them to exits so
+  # cleanup still runs (128+signum keeps the conventional exit codes).
+  trap 'exit 130' INT
+  trap 'exit 143' TERM
 else
   warn "sudo authentication failed; sudo steps below may prompt or fail"
 fi
@@ -283,7 +298,9 @@ ln -sf $DOTFILES_HOME/serena/serena_config.yml ~/.serena/serena_config.yml
 # therefore survive the sync; do NOT add custom edits to ECC-managed files
 # (e.g. golang/coding-style.md), as they will be overwritten on next run.
 ECC_TMPDIR=$(mktemp -d)
-trap 'rm -rf "$ECC_TMPDIR"' EXIT
+# trap replaces (not stacks) the EXIT slot, so keep sudo_cleanup in it here
+# and when releasing the tmpdir trap below.
+trap 'rm -rf "$ECC_TMPDIR"; sudo_cleanup' EXIT
 git clone --depth 1 https://github.com/affaan-m/everything-claude-code.git "$ECC_TMPDIR" || warn "ECC clone failed; rules not synced this run"
 
 for ECC_DIR in common golang typescript web; do
@@ -294,14 +311,14 @@ for ECC_DIR in common golang typescript web; do
 done
 
 rm -rf "$ECC_TMPDIR"
-trap - EXIT
+trap sudo_cleanup EXIT
 
 # mattpocock/skills — vendor selected skills (clone, copy, discard).
 # Source: https://github.com/mattpocock/skills
 # Skills are listed as "<category>/<name>" pairs; only the name becomes the
 # destination directory under .claude/skills/.
 MP_TMPDIR=$(mktemp -d)
-trap 'rm -rf "$MP_TMPDIR"' EXIT
+trap 'rm -rf "$MP_TMPDIR"; sudo_cleanup' EXIT
 git clone --depth 1 https://github.com/mattpocock/skills.git "$MP_TMPDIR" || warn "mattpocock/skills clone failed; skills not synced this run"
 
 for MP_SPEC in \
@@ -320,7 +337,7 @@ for MP_SPEC in \
 done
 
 rm -rf "$MP_TMPDIR"
-trap - EXIT
+trap sudo_cleanup EXIT
 
 # Karabiner-Elements
 mkdir -p ~/.config/karabiner
@@ -385,9 +402,8 @@ if [ "$TERM_PROGRAM" = "ghostty" ]; then
 fi
 
 # exec keeps this PID and skips EXIT traps, so the keep-alive loop must be
-# killed explicitly or it would hold passwordless sudo open indefinitely
-# under the new login shell. sudo -k revokes the cached ticket immediately.
-[ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
-sudo -k
+# stopped explicitly or it would hold passwordless sudo open indefinitely
+# under the new login shell.
+sudo_cleanup
 
 exec /opt/homebrew/bin/zsh -l
