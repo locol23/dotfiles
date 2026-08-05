@@ -21,6 +21,7 @@
     "deny": [],
     "ask": []
   },
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -30,29 +31,6 @@
             "type": "command",
             "command": "bash ~/.claude/hooks/herdr-agent-state.sh session",
             "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write|NotebookEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.session_id // empty' | { read -r sid; [ -n \"$sid\" ] && touch \"${TMPDIR:-/tmp}/claude-crit-pending-$sid\"; } 2>/dev/null || true"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/crit-on-stop.sh",
-            "timeout": 345600,
-            "statusMessage": "crit でレビュー待ち — ブラウザで Finish Review を押してください"
           }
         ]
       }
@@ -86,7 +64,6 @@
     "supabase@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "crit@crit": true,
     "discord@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
@@ -95,18 +72,12 @@
         "source": "git",
         "url": "https://github.com/affaan-m/everything-claude-code.git"
       }
-    },
-    "crit": {
-      "source": {
-        "source": "github",
-        "repo": "tomasz-tomczyk/crit"
-      }
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
+  "effortLevel": "ultracode",
   "theme": "dark",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "model": "claude-fable-5[1m]"
+  "skipWorkflowUsageWarning": true
 }

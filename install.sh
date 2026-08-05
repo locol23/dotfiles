@@ -254,7 +254,6 @@ ln -sf $DOTFILES_HOME/herdr/config.toml ~/.config/herdr/config.toml
 # SessionStart hook entry lives in .claude/settings.json.
 mkdir -p ~/.claude/hooks
 ln -sf $DOTFILES_HOME/.claude/hooks/herdr-agent-state.sh ~/.claude/hooks/herdr-agent-state.sh
-ln -sf $DOTFILES_HOME/.claude/hooks/crit-on-stop.sh ~/.claude/hooks/crit-on-stop.sh
 if herdr status 2>/dev/null | grep -q "status: running"; then
   herdr server reload-config >/dev/null 2>&1 || warn "herdr server reload-config reported an error (check herdr/config.toml)"
 fi
