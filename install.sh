@@ -23,20 +23,28 @@ if ! xcode-select -p &>/dev/null; then
   exit 1
 fi
 
-# Ask for the admin password once and keep sudo's timestamp fresh for the
-# duration of this run. The password itself is never stored — this only
-# refreshes sudo's built-in credential cache (same pattern as Homebrew's
-# installer). The ticket is explicitly dropped before the final exec.
-if sudo -v; then
-  while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
-  done 2>/dev/null &
-  SUDO_KEEPALIVE_PID=$!
-else
-  warn "sudo authentication failed; sudo steps below may prompt or fail"
-fi
+sudo_keepalive_stop() {
+  [ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
+  SUDO_KEEPALIVE_PID=
+}
+
+sudo_keepalive_start() {
+  sudo_keepalive_stop
+  if sudo -v; then
+    while true; do
+      sudo -n true
+      sleep 60
+      kill -0 "$$" || exit
+    done 2>/dev/null &
+    SUDO_KEEPALIVE_PID=$!
+  else
+    warn "sudo authentication failed; sudo steps below may prompt or fail"
+  fi
+}
+
+trap 'sudo_keepalive_stop; sudo -k 2>/dev/null' INT TERM
+
+sudo_keepalive_start
 
 export DOTFILES_HOME=~/.dotfiles
 
@@ -190,6 +198,7 @@ if ! grep -q '/opt/homebrew/bin/zsh' /etc/shells 2>/dev/null; then
   echo
   echo "Install Zsh"
   echo
+  sudo_keepalive_start
   sudo sh -c "echo '/opt/homebrew/bin/zsh' >> /etc/shells" || warn "could not add zsh to /etc/shells"
   sudo chsh -s '/opt/homebrew/bin/zsh' "$USER" || warn "could not change login shell to zsh"
 fi
@@ -389,10 +398,7 @@ if [ "$TERM_PROGRAM" = "ghostty" ]; then
   open -a Ghostty 2>/dev/null || true
 fi
 
-# exec keeps this PID and skips EXIT traps, so the keep-alive loop must be
-# killed explicitly or it would hold passwordless sudo open indefinitely
-# under the new login shell. sudo -k revokes the cached ticket immediately.
-[ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
+sudo_keepalive_stop
 sudo -k
 
 exec /opt/homebrew/bin/zsh -l
