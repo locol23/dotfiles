@@ -147,18 +147,22 @@ fi
 open -a Ollama
 
 # Japanese input (Google IME) — seed Google Japanese Input over Apple Kotoeri.
-# HIToolbox reads these prefs at login, so a logout/login is required to apply.
 # Both the Roman (英数) and Hiragana modes must be enabled: the 英数 key only
 # toggles a mode the OS remembers if that mode is an enabled input source.
 # Otherwise every app switch reinitializes the context back to Hiragana.
-# HIToolbox stores "Input Mode" using the com.apple.inputmethod.Japanese* keys
-# from the IME's tsInputModeListKey, not the com.google.* TISInputSourceIDs.
+# "Input Mode" takes the mode key, not the com.google.* TISInputSourceID. The 英数
+# mode key is "com.apple.inputmethod.Roman" — it is NOT under the Japanese.*
+# namespace, and HIToolbox silently drops entries with an unknown mode key.
+# Authoritative list: ComponentInputModeDict.tsInputModeListKey in
+# /Library/Input Methods/GoogleJapaneseInput.app/Contents/Info.plist.
+# Google's Roman mode (smRoman) is the ASCII source, so no ABC layout is needed.
+# defaults write = login-time seed (HIToolbox rereads prefs at login);
+# TISEnableInputSource below = immediate effect via the supported API.
 if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
   open "/Library/Input Methods/GoogleJapaneseInput.app"
   sleep 2
   defaults write com.apple.HIToolbox AppleEnabledInputSources '(
-    { InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 252; "KeyboardLayout Name" = ABC; },
-    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese.Roman"; InputSourceKind = "Input Mode"; },
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Roman"; InputSourceKind = "Input Mode"; },
     { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese"; InputSourceKind = "Input Mode"; },
     { "Bundle ID" = "com.google.inputmethod.Japanese"; InputSourceKind = "Keyboard Input Method"; },
     { "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; },
@@ -167,10 +171,105 @@ if [ -d "/Library/Input Methods/GoogleJapaneseInput.app" ]; then
   )'
   defaults write com.apple.HIToolbox AppleSelectedInputSources '(
     { "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; },
-    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Japanese.Roman"; InputSourceKind = "Input Mode"; }
+    { "Bundle ID" = "com.google.inputmethod.Japanese"; "Input Mode" = "com.apple.inputmethod.Roman"; InputSourceKind = "Input Mode"; }
   )'
   killall cfprefsd 2>/dev/null || true
-  echo "Google IME seeded as Japanese input — LOG OUT/IN (or restart) to apply."
+  # Live-enable via TIS so this run takes effect without logout. Exit 2 = IME
+  # not yet registered with TIS (first-ever install); other non-zero = hard fail.
+  if /usr/bin/python3 - <<'PY'
+import ctypes
+import sys
+from ctypes import c_bool, c_char_p, c_int32, c_long, c_void_p
+
+cf = ctypes.CDLL("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation")
+carbon = ctypes.CDLL("/System/Library/Frameworks/Carbon.framework/Carbon")
+
+carbon.TISCreateInputSourceList.restype = c_void_p
+carbon.TISCreateInputSourceList.argtypes = [c_void_p, c_bool]
+carbon.TISGetInputSourceProperty.restype = c_void_p
+carbon.TISGetInputSourceProperty.argtypes = [c_void_p, c_void_p]
+carbon.TISEnableInputSource.restype = c_int32
+carbon.TISEnableInputSource.argtypes = [c_void_p]
+carbon.TISSelectInputSource.restype = c_int32
+carbon.TISSelectInputSource.argtypes = [c_void_p]
+
+cf.CFArrayGetCount.restype = c_long
+cf.CFArrayGetCount.argtypes = [c_void_p]
+cf.CFArrayGetValueAtIndex.restype = c_void_p
+cf.CFArrayGetValueAtIndex.argtypes = [c_void_p, c_long]
+cf.CFStringGetCString.restype = c_bool
+cf.CFStringGetCString.argtypes = [c_void_p, c_char_p, c_long, c_int32]
+cf.CFRelease.argtypes = [c_void_p]
+
+kID = c_void_p.in_dll(carbon, "kTISPropertyInputSourceID")
+ROMAN = "com.google.inputmethod.Japanese.Roman"
+BASE = "com.google.inputmethod.Japanese.base"
+
+
+def cfstr(ptr):
+    if not ptr:
+        return None
+    buf = ctypes.create_string_buffer(512)
+    if not cf.CFStringGetCString(ptr, buf, 512, 0x08000100):
+        return None
+    return buf.value.decode("utf-8")
+
+
+def source_id(src):
+    return cfstr(carbon.TISGetInputSourceProperty(src, kID))
+
+
+def find_sources(include_all, wanted):
+    lst = carbon.TISCreateInputSourceList(None, include_all)
+    found = {}
+    for i in range(cf.CFArrayGetCount(lst)):
+        src = c_void_p(cf.CFArrayGetValueAtIndex(lst, i))
+        sid = source_id(src)
+        if sid in wanted and sid not in found:
+            found[sid] = src
+    return lst, found
+
+
+lst, found = find_sources(True, {ROMAN, BASE})
+missing = [s for s in (ROMAN, BASE) if s not in found]
+if missing:
+    cf.CFRelease(lst)
+    print("TIS sources not registered yet: " + ", ".join(missing), file=sys.stderr)
+    sys.exit(2)
+
+for sid in (ROMAN, BASE):
+    st = carbon.TISEnableInputSource(found[sid])
+    if st != 0:
+        cf.CFRelease(lst)
+        print("TISEnableInputSource(%s) -> OSStatus %d" % (sid, st), file=sys.stderr)
+        sys.exit(1)
+cf.CFRelease(lst)
+
+# Select from the selectable list — the includeAllInstalled handle can return
+# paramErr (-50) immediately after enable.
+lst2, found2 = find_sources(False, {ROMAN})
+if ROMAN not in found2:
+    cf.CFRelease(lst2)
+    print("TISSelectInputSource: %s not in selectable list" % ROMAN, file=sys.stderr)
+    sys.exit(1)
+st = carbon.TISSelectInputSource(found2[ROMAN])
+cf.CFRelease(lst2)
+if st != 0:
+    print("TISSelectInputSource(%s) -> OSStatus %d" % (ROMAN, st), file=sys.stderr)
+    sys.exit(1)
+print("Google IME Roman + Hiragana enabled via TIS")
+PY
+  then
+    echo "Google IME active now (Roman + Hiragana) — no logout needed."
+  else
+    _tis_status=$?
+    if [ "$_tis_status" -eq 2 ]; then
+      warn "Google IME live TIS apply skipped (IME not registered yet); seeded prefs apply at next login."
+    else
+      warn "Google IME live TIS apply failed (exit $_tis_status); seeded prefs apply at next login."
+    fi
+    echo "Google IME seeded as Japanese input — LOG OUT/IN (or restart) to apply."
+  fi
 fi
 
 # Ghostty
