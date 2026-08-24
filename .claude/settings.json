@@ -75,9 +75,8 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "ultracode",
+  "skipWorkflowUsageWarning": true,
   "theme": "dark",
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "skipWorkflowUsageWarning": true
+  "skipAutoPermissionPrompt": true
 }
