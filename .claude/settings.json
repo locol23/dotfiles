@@ -20,7 +20,6 @@
     "deny": [],
     "ask": []
   },
-  "model": "claude-fable-5[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -63,7 +62,8 @@
     "supabase@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "discord@claude-plugins-official": true
+    "discord@claude-plugins-official": true,
+    "datadog@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "everything-claude-code": {
@@ -73,7 +73,13 @@
       }
     }
   },
+  "sandbox": {
+    "enabled": false
+  },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "ultracode": true,
+  "advisorModel": "fable",
   "skipWorkflowUsageWarning": true,
   "theme": "dark",
   "agentPushNotifEnabled": true,
