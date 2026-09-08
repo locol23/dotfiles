@@ -62,7 +62,8 @@
     "supabase@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "discord@claude-plugins-official": true
+    "discord@claude-plugins-official": true,
+    "datadog@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "everything-claude-code": {
@@ -71,6 +72,9 @@
         "url": "https://github.com/affaan-m/everything-claude-code.git"
       }
     }
+  },
+  "sandbox": {
+    "enabled": false
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
