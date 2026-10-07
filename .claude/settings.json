@@ -6,19 +6,6 @@
     "ENABLE_TOOL_SEARCH": "true"
   },
   "permissions": {
-    "allow": [
-      "Read(/**)",
-      "Edit(/**)",
-      "WebFetch(domain:*)",
-      "WebSearch",
-      "mcp__context7",
-      "mcp__gopls",
-      "mcp__playwright",
-      "mcp__serena",
-      "mcp__sequential-thinking__sequentialthinking"
-    ],
-    "deny": [],
-    "ask": [],
     "defaultMode": "auto"
   },
   "hooks": {
