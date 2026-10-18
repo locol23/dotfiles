@@ -419,8 +419,10 @@ git clone --depth 1 https://github.com/mattpocock/skills.git "$MP_TMPDIR" || war
 
 for MP_SPEC in \
   "engineering/grill-with-docs" \
+  "engineering/domain-modeling" \
   "engineering/diagnose" \
   "productivity/grill-me" \
+  "productivity/grilling" \
   "productivity/handoff" \
   "productivity/write-a-skill"; do
   MP_NAME="${MP_SPEC##*/}"
