@@ -10,3 +10,10 @@
 ## Communication
 
 - Always respond in natural concise English.
+
+## Claude Code Settings
+
+- Effort `max` persists only via `env.CLAUDE_CODE_EFFORT_LEVEL` in
+  `settings.json`; the `effortLevel` and `modelSettings` keys reject `max`.
+  The env var overrides `/effort` and `--effort`, so remove it to pick effort
+  per session.
